@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
-// const bcrypt = require("bcryptjs");
-// const Source = require("./source");
 const LogUrl = require("./log");
 const axios = require("axios");
 const parser = require("fast-xml-parser");
 const he = require("he");
-// const ParseUrl = require("../modules/parse_url");
+const ParseUrl = require("../modules/parse_url");
 
 // mongoose
 mongoose.Promise = global.Promise;
@@ -247,7 +245,7 @@ const parseResponse = (source, response) => {
       text = post.content_html;
     } else if (post.content) {
       text = post.content;
-    }  else {
+    } else {
       text = "";
       test = 1;
     }
@@ -305,20 +303,18 @@ const processSource = source => {
     });
 };
 
-const downloadPosts = query => {
-  console.log(`~ Inside downloadPosts`);
-  Array.from(query).map(source => {
-    processSource(source);
-  });
-  console.log("~ update finished");
-};
-
 module.exports.refreshPosts = (query, callback) => {
   console.log(`~ Post.refreshPosts`);
-  downloadPosts(query);
+  console.log(query);
+  const responses = [];
+  query.map(source => {
+    processSource(source);
+  });
+
   setInterval(() => {
     console.log(`~ update posts...`);
-    downloadPosts(query);
+    query.map(source => {
+      processSource(source);
+    });
   }, 600000);
-  callback(null, "1");
 };
