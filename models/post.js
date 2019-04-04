@@ -244,6 +244,9 @@ const parseResponse = (source, response) => {
       text = post.content_html;
     } else if (post.content) {
       text = post.content;
+    } else if (post.description) {
+      text = post.description;
+      test = 1;
     } else {
       text = "";
       test = 1;
