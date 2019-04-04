@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const Source = require("./source");
 const LogUrl = require("./log");
 const axios = require("axios");
 const parser = require("fast-xml-parser");
 const he = require("he");
+const ParseUrl = require("../modules/parse_url");
 
 // mongoose
 mongoose.Promise = global.Promise;
@@ -235,6 +234,7 @@ const parseResponse = (source, response) => {
       published = post.published;
     }
     // text
+    let test = 0;
     if (post["content:encoded"]) {
       if (post["content:encoded"].__cdata) {
         text = post["content:encoded"].__cdata;
@@ -243,30 +243,35 @@ const parseResponse = (source, response) => {
       }
     } else if (post.content_html) {
       text = post.content_html;
-    } else {
+    } else if (post.content) {
       text = post.content;
+    } else {
+      text = "";
+      test = 1;
     }
     // create and push object
-    text = text
-      .replace(/(<head>.*<\/head>)/gm, "")
-      .replace(/(<style>.*<\/style>)/gm, "")
-      .replace(/(<script>.*<\/script>)/gm, "")
-      .replace(/(<figure>.*<\/figure>)/gm, "")
-      .replace(/(<iframe .*>.*<\/iframe>)/gm, "")
-      .replace(/(<button .*>.*<\/button>)/gm, "")
-      .replace(/(<address>.*<\/address>)/gm, "")
-      .replace(/(<title>.*<\/title>)/gm, "")
-      .replace(/(<header>.*<\/header>)/gm, "")
-      .replace(/(<footer>.*<\/footer>)/gm, "")
-      .replace(/(<figcaption>.*<\/figcaption>)/gm, "")
-      .replace(/(<video .*>.*<\/video>)/gm, "")
-      .replace(/(<img .*>.*<\/img>)/gm, "")
-      .replace(/(<time>.*<\/time>)/gm, "")
-      .replace(/(<hr>)/gm, "")
-      .replace(/(<meta .*>)/gm, "")
-      .replace(/(<link .*>)/gm, "");
+    if (test === 0) {
+      text = text
+        .replace(/(<head>.*<\/head>)/gm, "")
+        .replace(/(<style>.*<\/style>)/gm, "")
+        .replace(/(<script>.*<\/script>)/gm, "")
+        .replace(/(<figure>.*<\/figure>)/gm, "")
+        .replace(/(<iframe .*>.*<\/iframe>)/gm, "")
+        .replace(/(<button .*>.*<\/button>)/gm, "")
+        .replace(/(<address>.*<\/address>)/gm, "")
+        .replace(/(<title>.*<\/title>)/gm, "")
+        .replace(/(<header>.*<\/header>)/gm, "")
+        .replace(/(<footer>.*<\/footer>)/gm, "")
+        .replace(/(<figcaption>.*<\/figcaption>)/gm, "")
+        .replace(/(<video .*>.*<\/video>)/gm, "")
+        .replace(/(<img .*>.*<\/img>)/gm, "")
+        .replace(/(<time>.*<\/time>)/gm, "")
+        .replace(/(<hr>)/gm, "")
+        .replace(/(<meta .*>)/gm, "")
+        .replace(/(<link .*>)/gm, "");
+    }
 
-    const textLength = text.length;
+    const textLength = test === 0 ? text.length : 0;
 
     const newPost = {
       title: title,
@@ -298,20 +303,18 @@ const processSource = source => {
     });
 };
 
-const downloadPosts = query => {
-  console.log(`~ Inside downloadPosts`);
-  Array.from(query).map(source => {
-    processSource(source);
-  });
-  console.log("~ update finished");
-};
-
 module.exports.refreshPosts = (query, callback) => {
   console.log(`~ Post.refreshPosts`);
-  downloadPosts(query);
+  console.log(query);
+  const responses = [];
+  query.map(source => {
+    processSource(source);
+  });
+
   setInterval(() => {
     console.log(`~ update posts...`);
-    downloadPosts(query);
+    query.map(source => {
+      processSource(source);
+    });
   }, 600000);
-  callback(null, "1");
 };
