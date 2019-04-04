@@ -1,21 +1,20 @@
 .sourceFormat {
   font-weight: 300;
-  font-style: italic;
-  letter-spacing: 0.05rem;
+  font-size: 0.9rem;
+  font-family: 'Open Sans';
+  letter-spacing: 0.03rem;
 }
 
 .source {
   @extend .sourceFormat;
-  margin-top: 0.9rem;
-  font-size: 80%;
+  margin-top: 0.7rem;
+  font-size: 0.8rem;
 }
 
 .sourceShow {
   @extend .sourceFormat;
-
-  font-size: 1rem;
-  margin-left: 0.3rem;
   align-self: center;
-  font-size: 100%;
-  letter-spacing: 0.05rem;
+  font-family: 'Open Sans';
+  font-weight: 300;
+  margin-left: 0.3rem;
 }

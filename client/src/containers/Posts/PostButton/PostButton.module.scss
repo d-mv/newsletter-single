@@ -26,6 +26,7 @@
 
 .read {
   @extend .on;
+  color: var(--darkMediumGrey);
 }
 
 .unRead {

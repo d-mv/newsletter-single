@@ -27,7 +27,11 @@ import * as serviceWorker from './serviceWorker';
 // loading fonts
 WebFont.load({
   google: {
-    families: ['Aleo:300,300i,400,400i,700', 'IBM Plex Mono:300,400']
+    families: [
+      'Alegreya:400,400i,500,500i,700,700i:cyrillic,cyrillic-ext,latin-ext',
+      'Open+Sans:300,300i,400',
+      'Roboto+Mono:300'
+    ]
   }
 });
 
