@@ -3,7 +3,6 @@ const LogUrl = require("./log");
 const axios = require("axios");
 const parser = require("fast-xml-parser");
 const he = require("he");
-const ParseUrl = require("../modules/parse_url");
 
 // mongoose
 mongoose.Promise = global.Promise;
