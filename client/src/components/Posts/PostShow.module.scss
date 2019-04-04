@@ -1,5 +1,6 @@
 .body {
-  font-family: Aleo;
+  // font-family: Merriweather;
+  font-family: Alegreya;
   background-color: var(--lightGrey);
   margin: 0 auto;
   line-height: 1.2rem;
@@ -28,12 +29,11 @@
     display: none;
   }
 
-  font-size: 1rem;
-  font-weight: 300;
-  font-style: italic;
   align-self: center;
-  font-size: 100%;
-  letter-spacing: 0.02rem;
+  font-family: 'Open Sans';
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 0.03rem;
 }
 
 .buttonsWrapper {
@@ -125,6 +125,9 @@
   }
 
   pre {
+    font-weight: 300;
+    font-family: 'Roboto Mono';
+    font-size: 1rem;
     width: 80%;
     margin: 1rem auto;
     background-color: var(--silverSand);
@@ -135,7 +138,8 @@
   }
 
   code {
-    font-family: 'IBM Plex Mono';
+    font-weight: 300;
+    font-family: 'Roboto Mono';
     font-size: 1rem;
     background-color: var(--silverSand);
     color: var(--arsenic);
@@ -147,6 +151,7 @@
   display: flex;
   justify-content: space-between;
   font-weight: 300;
+  font-family: 'Open Sans';
   padding: 5px 0;
   font-size: 80%;
 
