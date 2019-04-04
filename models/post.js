@@ -245,7 +245,13 @@ const parseResponse = (source, response) => {
     } else if (post.content) {
       text = post.content;
     } else if (post.description) {
-      text = post.description;
+      if (post.description.__cdata) {
+        text = post.description.__cdata;
+
+      } else {
+        text = post.description;
+      }
+
       test = 1;
     } else {
       text = "";
