@@ -1,0 +1,23 @@
+.divider {
+  border-bottom: 1px solid var(--darkMediumGrey);
+  height: 2px;
+  width: 90%;
+  align-self: end;
+
+  margin: {
+    top: 1rem;
+    bottom: 10px;
+    left: auto;
+    right: auto;
+  }
+}
+
+.dividerCard {
+  @extend .divider;
+  width: 75%;
+
+  margin: {
+    top: 1rem;
+    bottom: 1rem;
+  }
+}

@@ -1,0 +1,21 @@
+.errorWrapper {
+  width: 90%;
+  margin: 20px auto;
+
+  .errorTitle {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--dimGrey);
+    font-size: 18px;
+    border-bottom: 4px solid var(--dimGrey);
+    width: 70px;
+  }
+
+  .error {
+    margin: 0;
+    border-left: 4px solid var(--dimGrey);
+    padding-left: 7px;
+    padding-top: 5px;
+  }
+}

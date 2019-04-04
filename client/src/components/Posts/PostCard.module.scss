@@ -1,0 +1,47 @@
+.body {
+  @media (min-width: 481px) {
+    max-height: 40rem;
+
+    .text {
+      max-height: 30rem;
+    }
+  }
+
+  .secondLine {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .text {
+    padding: 0.3rem 0;
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 80%;
+    font-weight: 300;
+    padding: 0 0.3rem;
+  }
+}
+
+.bodyRead {
+  @extend .body;
+  color: var(--dimGrey);
+}
+
+.statsLine {
+  align-self: end;
+  display: flex;
+  justify-content: space-between;
+  font-size: 80%;
+  font-weight: 300;
+
+  padding: {
+    top: 0.3rem;
+  }
+}

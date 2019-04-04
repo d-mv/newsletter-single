@@ -1,0 +1,51 @@
+.button {
+  padding: 0.7rem 0.7rem;
+  color: var(--arsenic);
+
+  &:hover {
+    transform: scale(1.4);
+  }
+}
+
+.buttonDims {
+  @media (max-width: 599px) {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
+  }
+
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.addSource {
+  @extend .buttonDims;
+  font-family: 'Aleo';
+
+  margin: {
+    top: 0;
+    bottom: 0.5rem;
+    left: auto;
+    right: auto;
+  }
+
+  text-align: center;
+  cursor: pointer;
+  transition: 0s;
+
+  &:hover {
+    background-color: var(--silverSand);
+    margin-bottom: 0.4rem;
+    border-bottom: 0.1rem solid var(--arsenic);
+  }
+
+  &:active {
+    color: white;
+    background-color: var(--silverSand);
+  }
+}
+
+.refreshSource {
+  @extend .addSource;
+  margin-right: 0.2rem;
+}

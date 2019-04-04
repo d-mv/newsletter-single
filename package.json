@@ -1,0 +1,38 @@
+{
+  "name": "newsletter-node",
+  "description": "The Newsletter app",
+  "author": "Dmitry Melnikov",
+  "version": "1.1.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/start.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^7.0.0",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
+    "fast-xml-parser": "^3.12.16",
+    "from-xml": "^0.1.6",
+    "he": "^1.2.0",
+    "http-errors": "~1.6.2",
+    "mongodb": "^3.2.2",
+    "mongoose": "^5.4.20",
+    "morgan": "~1.9.0",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0"
+  }
+}

@@ -1,0 +1,57 @@
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.section {
+  width: 80%;
+  margin: 0.2rem auto;
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  background-color: var(--silverSand);
+  transition: 0.3s;
+}
+
+.nameWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.name {
+  @media (max-width: 599px) {
+    margin-top: 0.7rem;
+    font-size: 1rem;
+  }
+
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.2rem;
+  font-style: italic;
+  letter-spacing: 0.05rem;
+}
+
+.url {
+  @media (max-width: 599px) {
+    display: none;
+  }
+
+  margin: 0;
+  letter-spacing: 0.05rem;
+  font-family: 'IBM Plex Mono', monospace;
+  white-space: pre-wrap;
+  font-weight: 300;
+  font-size: 0.7rem;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

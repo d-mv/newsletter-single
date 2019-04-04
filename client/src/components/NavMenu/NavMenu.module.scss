@@ -1,0 +1,22 @@
+.menu {
+  position: fixed;
+  bottom: 5%;
+  right: -405px;
+  display: flex;
+  justify-content: space-between;
+  width: 450px;
+  background-color: var(--arsenicTrans);
+  border-radius: 2px 0 0 2px;
+  transition: 0.7s;
+
+  @media (max-width: 480px) {
+    right: -20rem;
+    width: 21rem;
+    padding-right: 1rem;
+  }
+}
+
+.menuOpen {
+  @extend .menu;
+  right: 0;
+}

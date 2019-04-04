@@ -1,0 +1,20 @@
+.title {
+  cursor: pointer;
+}
+
+.postTitle {
+  @extend .title;
+
+  font-size: 120%;
+}
+
+.postTitleShow {
+  @extend .title;
+
+  @media (max-width: 599px) {
+    font-size: 150%;
+  }
+
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+}

@@ -1,0 +1,65 @@
+:root {
+  --light: white;
+  --lightGrey: #d3d3d3;
+  --silverSand: #c4c4c4;
+  --dimGrey: #6b6b6b;
+  --arsenic: #444444;
+  --darkMediumGrey: #aaaaaa;
+  --accent: #6d6bc4;
+  --accentAlt: #914992;
+  --arsenicTrans: rgba(50, 50, 50, 0.8);
+}
+
+body {
+  font-family: 'Aleo';
+  background-color: var(--lightGrey) !important;
+  color: var(--arsenic);
+  text-justify: newspaper;
+  // hyphens
+  -webkit-hyphens: auto;
+  -webkit-hyphenate-limit-before: 3;
+  -webkit-hyphenate-limit-after: 3;
+  -webkit-hyphenate-limit-chars: 6 3 3;
+  -webkit-hyphenate-limit-lines: 2;
+  -webkit-hyphenate-limit-last: always;
+  -webkit-hyphenate-limit-zone: 8%;
+
+  -moz-hyphens: auto;
+  -moz-hyphenate-limit-chars: 6 3 3;
+  -moz-hyphenate-limit-lines: 2;
+  -moz-hyphenate-limit-last: always;
+  -moz-hyphenate-limit-zone: 8%;
+
+  -ms-hyphens: auto;
+  -ms-hyphenate-limit-chars: 6 3 3;
+  -ms-hyphenate-limit-lines: 2;
+  -ms-hyphenate-limit-last: always;
+  -ms-hyphenate-limit-zone: 8%;
+
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+  hyphenate-limit-lines: 2;
+  hyphenate-limit-last: always;
+  hyphenate-limit-zone: 8%;
+
+  code {
+    -ms-hyphens: none;
+    -webkit-hyphens: none;
+    hyphens: none;
+  }
+}
+
+button {
+  outline: none;
+  background: none;
+  box-shadow: none;
+  border: none;
+  padding: 0.5rem;
+  transition: 0.7s;
+  margin-left: 5px;
+  font-size: 1rem;
+
+  &:hover {
+    color: black;
+  }
+}

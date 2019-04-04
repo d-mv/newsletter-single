@@ -1,0 +1,105 @@
+@keyframes openForm {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.createForm {
+  @media (max-width: 599px) {
+    padding: {
+      top: 20px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+    }
+
+    background-color: none;
+  }
+
+  width: 80%;
+  margin: 0 auto;
+  background-color: var(--darkMediumGrey);
+  animation: openForm 0.2s linear;
+
+  padding: {
+    left: 0.7rem;
+    right: 0.7rem;
+    bottom: 10px;
+  }
+
+  label {
+    @media (max-width: 599px) {
+      font-size: 80%;
+    }
+
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas: 'title' 'field';
+    height: 20px;
+    transition-delay: 2s;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
+    margin: 15px auto;
+
+    .labelTitle {
+      @media (max-width: 599px) {
+        padding-top: 2px;
+      }
+
+      grid-area: 'title';
+      padding-top: 3px;
+      text-align: right;
+    }
+
+    input {
+      @media (max-width: 599px) {
+        font-size: 100%;
+      }
+
+      grid-area: 'field';
+      background: none;
+      margin: 0 10px;
+      font-weight: 300;
+      color: var(--arsenic);
+      font-size: 18px;
+      font-family: Aleo;
+      letter-spacing: 0.01rem;
+
+      border: {
+        top: none;
+        left: none;
+        right: none;
+        bottom: 1px solid var(--dimGrey);
+      }
+
+      &:focus {
+        border-bottom: 1px solid var(--accent);
+      }
+    }
+  }
+
+  button {
+    margin: 0.2rem auto;
+    // animation: createFields 2s linear;
+    padding: 10px;
+    background-color: var(--arsenic);
+    color: var(--light);
+    font-size: 16px;
+    font-family: Aleo;
+    letter-spacing: 1px;
+
+    &:hover {
+      transform: scale(1.05);
+      color: var(--light);
+    }
+  }
+}
+
+.center {
+  text-align: center;
+}

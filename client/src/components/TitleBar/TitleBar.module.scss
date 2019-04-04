@@ -1,0 +1,36 @@
+.newsletterHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0 20px 20px 20px;
+  border-bottom: 1px solid var(--darkMediumGrey);
+  cursor: default;
+}
+
+.title {
+  @media (max-width: 302px) {
+    font-size: 24pt;
+  }
+
+  @media (min-width: 303px) and (max-width: 340px) {
+    font-size: 26pt;
+  }
+
+  @media (min-width: 341px) {
+    font-size: 30pt;
+  }
+
+  font-weight: 700;
+  margin: 0;
+  height: 47px;
+}
+
+.timeStamp {
+  font-weight: 100;
+  font-style: italic;
+  font-size: 12pt;
+  padding-bottom: 5px;
+  color: var(--dimGrey);
+}
