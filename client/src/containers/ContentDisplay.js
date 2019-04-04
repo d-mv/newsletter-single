@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { updatePost } from '../actions';
 
 import NavMenu from '../components/NavMenu/NavMenu';
+import GoHome from '../components/GoHome/GoHome';
 import PostCardList from './Posts/PostCardList';
 import SourcesList from './Sources/SourcesList';
 import PostShow from '../components/Posts/PostShow';
@@ -71,6 +72,9 @@ class ContentDisplay extends React.Component {
     }
     return (
       <div>
+        {this.state.module === 'show' ? (
+          <GoHome goHome={this.showModule} />
+        ) : null}
         {module}
         <NavMenu options={options} />
       </div>
