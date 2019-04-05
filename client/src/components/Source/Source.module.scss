@@ -1,13 +1,12 @@
 .sourceFormat {
   font-weight: 300;
-  font-size: 0.9rem;
   font-family: 'Open Sans';
   letter-spacing: 0.03rem;
 }
 
 .source {
   @extend .sourceFormat;
-  margin-top: 0.7rem;
+  margin-top: 0.5rem;
   font-size: 0.8rem;
 }
 
@@ -16,5 +15,6 @@
   align-self: center;
   font-family: 'Open Sans';
   font-weight: 300;
+  font-size: 0.9rem;
   margin-left: 0.3rem;
 }

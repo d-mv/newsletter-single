@@ -64,6 +64,9 @@ module.exports.getPostById = (id, callback) => {
 module.exports.deletePost = (id, callback) => {
   Post.deleteOne({ _id: id }, callback);
 };
+module.exports.deleteReadPosts = (id, callback) => {
+  Post.deleteMany({ read: true }, callback);
+};
 module.exports.getAllPosts = (req, callback) => {
   Post.aggregate([
     {
@@ -247,7 +250,6 @@ const parseResponse = (source, response) => {
     } else if (post.description) {
       if (post.description.__cdata) {
         text = post.description.__cdata;
-
       } else {
         text = post.description;
       }
@@ -280,6 +282,10 @@ const parseResponse = (source, response) => {
     }
 
     const textLength = test === 0 ? text.length : 0;
+    const readTime =
+      Math.round(textLength / 1500) === 0 ? 1 : Math.round(textLength / 1500);
+    const pages =
+      Math.round(textLength / 3000) === 0 ? 1 : Math.round(textLength / 3000);
 
     const newPost = {
       title: title,
@@ -287,8 +293,8 @@ const parseResponse = (source, response) => {
       author: author,
       published: published,
       text: text,
-      readTime: Math.round(textLength / 1500),
-      pages: Math.round(textLength / 3000)
+      readTime: readTime,
+      pages: pages
     };
     processPost(source, newPost);
   });
@@ -313,16 +319,14 @@ const processSource = source => {
 
 module.exports.refreshPosts = (query, callback) => {
   console.log(`~ Post.refreshPosts`);
-  console.log(query);
-  const responses = [];
   query.map(source => {
     processSource(source);
   });
-
   setInterval(() => {
     console.log(`~ update posts...`);
     query.map(source => {
       processSource(source);
     });
   }, 600000);
+  Post.deleteMany({ read: true }, callback);
 };

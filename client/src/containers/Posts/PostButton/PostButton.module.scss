@@ -1,18 +1,20 @@
 .button {
   cursor: pointer;
-  font-family: 'Aleo';
-  font-size: 1.2rem;
   color: var(--darkMediumGrey);
 
   &:hover {
     transform: scale(1.5);
     color: var(--arsenic);
   }
+
+  @media (max-width: 599px) {
+    // font-size: 1.2rem;
+  }
 }
 
 .delete {
   @extend .button;
-  font-size: 1.2rem;
+  // font-size: 1.2rem;
 }
 
 .on {
