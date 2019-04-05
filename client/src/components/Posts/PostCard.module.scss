@@ -1,9 +1,9 @@
 .body {
   @media (min-width: 481px) {
-    max-height: 40rem;
+    // max-height: 50rem;
 
     .text {
-      max-height: 30rem;
+      max-height: 50rem;
     }
   }
 
@@ -12,9 +12,11 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    height: 1.6rem;
   }
 
   .text {
+    font-size: 1.1rem;
     padding: 0.3rem 0;
     cursor: pointer;
     margin-bottom: 5px;

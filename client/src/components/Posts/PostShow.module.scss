@@ -1,12 +1,10 @@
 .body {
-  // font-family: Merriweather;
   font-family: Alegreya;
   background-color: var(--lightGrey);
-  margin: 0 auto;
+  margin: 0 10px;
   line-height: 1.2rem;
   color: var(--arsenic);
   padding: 10px;
-  width: 90%;
   max-width: 1000px;
 }
 
@@ -16,7 +14,6 @@
   flex-wrap: nowrap;
   justify-content: space-between;
   align-content: center;
-  margin-bottom: -0.6rem;
 }
 
 .sourceAuthorWrapper {
@@ -42,8 +39,7 @@
 }
 
 .text {
-  font-size: 110%;
-  font-size: 110%;
+  font-size: 1.2rem;
   line-height: 25px;
   margin: 0 auto;
   width: 100%;

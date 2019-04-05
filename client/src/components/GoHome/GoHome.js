@@ -9,7 +9,7 @@ class GoHome extends React.Component {
   render() {
     return (
       <div className={style.back} onClick={this.handleClick}>
-        ⇱
+        ⇤
       </div>
     );
   }
