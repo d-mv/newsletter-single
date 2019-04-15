@@ -4,6 +4,7 @@ const Source = require("../../models/source");
 const Post = require("../../models/post");
 
 /* GET home page. */
+
 router.post("/", function(req, res, next) {
   console.log(req.body);
   const area = req.body.query.action[0];
@@ -158,5 +159,7 @@ router.get("/post/*", (req, res, next) => {
     }
   });
 });
+
+router.get("*", function(req, res, next) {});
 
 module.exports = router;
