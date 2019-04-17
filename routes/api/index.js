@@ -126,6 +126,7 @@ router.post("/", function(req, res, next) {
 
 router.get("/list", (req, res, next) => {
   const query = "";
+  
   Post.getAllPosts(query, (err, response) => {
     if (err) {
       res.send(err);
