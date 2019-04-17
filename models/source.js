@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const Post = require("../models/post");
 
+
 mongoose.connect(`${process.env.MONGO_URL}newsletter?retryWrites=true`);
 
 const db = mongoose.connection;
