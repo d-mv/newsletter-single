@@ -1,16 +1,39 @@
 import React from 'react';
 
-import PostTitle from '../PostTitle/PostTitle';
-import Source from '../Source/Source';
-import PostButton from '../../containers/Posts/PostButton/PostButton';
-import DateTime from '../DateTime';
-import ApproxVolume from '../ApproxVolume';
-import Divider from '../Divider/Divider';
+import PostTitle from '../../components/PostTitle/PostTitle';
+import Source from '../../components/Source/Source';
+import PostButton from '../../components/Posts/PostButton/PostButton';
+import DateTime from '../../components/DateTime';
+import ApproxVolume from '../../components/ApproxVolume';
+import Divider from '../../components/Divider/Divider';
+
 import style from './PostShow.module.scss';
 
 class PostShow extends React.Component {
+  state = {
+    star: this.props.post.star
+  };
+
   handleClick = () => {
     window.open(this.props.post.url, '_blank');
+  };
+
+  handleAction = props => {
+    if (props === 'star') {
+      this.setState({ star: !this.state.star });
+    }
+    const request = {
+      action: 'update',
+      field: props,
+      value: !this.props.post[`${props}`],
+      postId: this.props.post._id,
+      module: 'show'
+    };
+
+    if (props === 'delete') {
+      request.action = 'delete';
+    }
+    this.props.updatePost(request);
   };
 
   componentDidMount = () => {
@@ -39,13 +62,14 @@ class PostShow extends React.Component {
           <div className={style.buttonsWrapper}>
             <PostButton
               type="star"
-              value={this.props.post.star}
+              value={this.state.star}
               postId={this.props.post._id}
+              action={this.handleAction}
             />
             <PostButton
               type="delete"
               postId={this.props.post._id}
-              toggle={this.props.toggle}
+              action={this.handleAction}
             />
           </div>
         </div>

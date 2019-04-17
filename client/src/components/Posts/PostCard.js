@@ -1,33 +1,38 @@
 import React from 'react';
 
 import PostTitle from '../PostTitle/PostTitle';
-import PostButton from '../../containers/Posts/PostButton/PostButton';
+import PostButton from './PostButton/PostButton';
 import Source from '../Source/Source';
 import DateTime from '../DateTime';
 import ApproxVolume from '../ApproxVolume';
 import style from './PostCard.module.scss';
 
 class PostCard extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-  handleClick = () => {
-    this.props.selector(this.props.post._id);
+  handleClick = func => {
+    func(this.props.post._id);
   };
 
+  handleAction = props => {
+    this.props.selector[1]({
+      action: 'update',
+      field: props,
+      value: !this.props.post[`${props}`],
+      postId: this.props.post._id
+    });
+  };
   render() {
     const text = `${this.props.post.text.replace(/<(?:.|\n)*?>/gm, ' ')}...`;
     let bodyClass = style.body;
+
     if (this.props.post.read) {
       bodyClass = style.bodyRead;
     }
+
     return (
       <section className={bodyClass} key={this.props.post._id}>
         <PostTitle
           mode="card"
-          titleClick={this.handleClick}
+          titleClick={this.handleClick.bind(this, this.props.selector[0])}
           postTitle={this.props.post.title}
         />
         <section className={style.secondLine}>
@@ -36,12 +41,12 @@ class PostCard extends React.Component {
             <PostButton
               type="star"
               value={this.props.post.star}
-              postId={this.props.post._id}
+              action={this.handleAction}
             />
             <PostButton
               type="read"
               value={this.props.post.read}
-              postId={this.props.post._id}
+              action={this.handleAction}
             />
           </div>
         </section>
