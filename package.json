@@ -2,7 +2,7 @@
   "name": "newsletter-node",
   "description": "The Newsletter app",
   "author": "Dmitry Melnikov",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
