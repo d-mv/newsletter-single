@@ -2,9 +2,8 @@
   "name": "newsletter-node",
   "description": "The Newsletter app",
   "author": "Dmitry Melnikov",
-  "version": "1.4.0",
-  "license": "UNLICENSED",
-  "private": true,
+  "version": "1.5.0",
+  "license": "MIT",
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node ./bin/www",
