@@ -10,7 +10,8 @@
     "start": "node ./bin/www",
     "client": "npm start --prefix client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
-    "dev": "nodemon ./bin/start.js"
+    "dev": "nodemon ./bin/start.js",
+    "jtest": "jest --watchAll"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -28,6 +29,7 @@
     "from-xml": "^0.1.6",
     "he": "^1.2.0",
     "http-errors": "~1.6.2",
+    "jest": "^24.7.1",
     "mongodb": "^3.2.2",
     "mongoose": "^5.4.20",
     "morgan": "~1.9.0",

@@ -1,0 +1,113 @@
+{ Error: Request failed with status code 404
+        at createError (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/axios/lib/core/createError.js:16:15)
+        at settle (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/axios/lib/core/settle.js:18:12)
+        at XMLHttpRequest.handleLoad (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/axios/lib/adapters/xhr.js:77:7)
+        at XMLHttpRequest.el.addEventListener.event (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/jsdom/lib/jsdom/living/helpers/create-event-accessor.js:33:32)
+        at invokeEventListeners (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:193:27)
+        at XMLHttpRequestEventTargetImpl._dispatch (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:119:9)
+        at XMLHttpRequestEventTargetImpl.dispatchEvent (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:82:17)
+        at XMLHttpRequest.dispatchEvent (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/jsdom/lib/jsdom/living/generated/EventTarget.js:157:21)
+        at readyStateChange (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/jsdom/lib/jsdom/living/xmlhttprequest.js:811:9)
+        at Request.properties.client.on (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/jsdom/lib/jsdom/living/xmlhttprequest.js:939:7)
+        at Request.emit (events.js:198:15)
+        at IncomingMessage.<anonymous> (/Users/dmitry/Desktop/Projects/newsletter/single/node_modules/request/request.js:1083:12)
+        at Object.onceWrapper (events.js:281:20)
+        at IncomingMessage.emit (events.js:198:15)
+        at endReadableNT (_stream_readable.js:1142:12)
+        at processTicksAndRejections (internal/process/task_queues.js:81:17)
+      config:
+       { adapter: [Function: xhrAdapter],
+         transformRequest: { '0': [Function: transformRequest] },
+         transformResponse: { '0': [Function: transformResponse] },
+         timeout: 0,
+         xsrfCookieName: 'XSRF-TOKEN',
+         xsrfHeaderName: 'X-XSRF-TOKEN',
+         maxContentLength: -1,
+         validateStatus: [Function: validateStatus],
+         headers: { Accept: 'application/json, text/plain, */*' },
+         method: 'get',
+         url: 'http://localhost:8080/api/0.8886377496353668',
+         data: undefined },
+      request:
+       XMLHttpRequest {
+         upload: XMLHttpRequestUpload { _ownerDocument: [Document] },
+         _registeredHandlers: Set { 'readystatechange' },
+         _eventHandlers:
+          [Object: null prototype] { readystatechange: [Function: handleLoad] },
+         [Symbol(flag)]:
+          { synchronous: false,
+            withCredentials: false,
+            mimeType: null,
+            auth: null,
+            method: 'GET',
+            responseType: '',
+            requestHeaders: [Object],
+            referrer: 'http://localhost/',
+            uri: 'http://localhost:8080/api/0.8886377496353668',
+            timeout: 0,
+            body: undefined,
+            formData: false,
+            preflight: false,
+            requestManager: [RequestManager],
+            pool: undefined,
+            agentOptions: undefined,
+            strictSSL: undefined,
+            proxy: undefined,
+            cookieJar: [CookieJar],
+            encoding: 'UTF-8',
+            origin: 'http://localhost',
+            userAgent:
+             'Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/11.12.0' },
+         [Symbol(properties)]:
+          { beforeSend: false,
+            send: true,
+            timeoutStart: 0,
+            timeoutId: 0,
+            timeoutFn: null,
+            client: null,
+            responseHeaders: [Object],
+            filteredResponseHeaders: [Array],
+            responseBuffer:
+             <Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... 1048526 more bytes>,
+            responseCache: null,
+            responseTextCache: '',
+            responseXMLCache: null,
+            responseURL: 'http://localhost:8080/api/0.8886377496353668',
+            readyState: 4,
+            status: 404,
+            statusText: 'Not Found',
+            error: '',
+            uploadComplete: true,
+            uploadListener: false,
+            abortError: false,
+            cookieJar: [CookieJar],
+            bufferStepSize: 1048576,
+            totalReceivedChunkSize: 0,
+            requestBuffer: null,
+            requestCache: null,
+            origin: 'http://localhost' } },
+      response:
+       { data: '',
+         status: 404,
+         statusText: 'Not Found',
+         headers: {},
+         config:
+          { adapter: [Function: xhrAdapter],
+            transformRequest: [Object],
+            transformResponse: [Object],
+            timeout: 0,
+            xsrfCookieName: 'XSRF-TOKEN',
+            xsrfHeaderName: 'X-XSRF-TOKEN',
+            maxContentLength: -1,
+            validateStatus: [Function: validateStatus],
+            headers: [Object],
+            method: 'get',
+            url: 'http://localhost:8080/api/0.8886377496353668',
+            data: undefined },
+         request:
+          XMLHttpRequest {
+            upload: [XMLHttpRequestUpload],
+            _registeredHandlers: [Set],
+            _eventHandlers: [Object],
+            [Symbol(flag)]: [Object],
+            [Symbol(properties)]: [Object] } } }

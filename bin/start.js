@@ -1,4 +1,4 @@
-require('babel-register')({
-  presets: ['env']
-})
-module.exports = require('./www')
+require("babel-register")({
+  presets: ["env"]
+});
+module.exports = require("./www");

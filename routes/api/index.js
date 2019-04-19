@@ -3,8 +3,6 @@ var router = express.Router();
 const Source = require("../../models/source");
 const Post = require("../../models/post");
 
-/* GET home page. */
-
 router.post("/", function(req, res, next) {
   console.log(req.body);
   const area = req.body.query.action[0];
@@ -126,7 +124,7 @@ router.post("/", function(req, res, next) {
 
 router.get("/list", (req, res, next) => {
   const query = "";
-  
+
   Post.getAllPosts(query, (err, response) => {
     if (err) {
       res.send(err);
@@ -161,6 +159,9 @@ router.get("/post/*", (req, res, next) => {
   });
 });
 
-router.get("*", function(req, res, next) {});
+router.get("*", function(req, res, next) {
+    res.status(404);
+    res.send();
+});
 
 module.exports = router;
