@@ -1,10 +1,9 @@
 .body {
-  @media (min-width: 481px) {
-    // max-height: 50rem;
-
+  @media (min-width: 499px) {
     .text {
       max-height: 50rem;
     }
+    display: grid;
   }
 
   .secondLine {

@@ -1,9 +1,10 @@
 .button {
   cursor: pointer;
   color: var(--darkMediumGrey);
+  outline: none;
 
   &:hover {
-    transform: scale(1.5);
+    // transform: scale(1.5);
     color: var(--arsenic);
   }
 

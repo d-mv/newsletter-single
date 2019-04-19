@@ -10,11 +10,16 @@
   --arsenicTrans: rgba(50, 50, 50, 0.8);
 }
 
+html {
+  width: 100vw;
+}
+
 body {
   font-family: Alegreya;
   background-color: var(--lightGrey) !important;
   color: var(--arsenic);
   // hyphens
+  // white-space: normal;
   -webkit-hyphens: auto;
   -webkit-hyphenate-limit-before: 3;
   -webkit-hyphenate-limit-after: 3;

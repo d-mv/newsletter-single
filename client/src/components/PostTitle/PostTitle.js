@@ -3,7 +3,7 @@ import React from 'react';
 import style from './PostTitle.module.scss';
 class PostTitle extends React.Component {
   handleClick = () => {
-    this.props.titleClick();
+    this.props.selector();
   };
   render() {
     let postTitleStyle = style.postTitle;
