@@ -9,6 +9,7 @@ class PostCardList extends React.Component {
     this.props.selectPost(props);
   };
   updatePostAction = props => {
+    console.log('hi');
     this.props.updatePost(props);
   };
 
@@ -26,7 +27,8 @@ class PostCardList extends React.Component {
       return (
         <PostCard
           key={post._id}
-          selector={[this.selectPostToShow, this.updatePostAction]}
+          selector={this.selectPostToShow}
+          update={this.updatePostAction}
           post={post}
         />
       );

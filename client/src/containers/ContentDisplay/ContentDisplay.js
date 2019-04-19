@@ -3,15 +3,18 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // Actions
-import { updatePost } from '../actions';
-import { setPosts } from '../actions';
-import { selectPost } from '../actions';
+import { updatePost } from '../../actions';
+import { setPosts } from '../../actions';
+import { selectPost } from '../../actions';
+import { refreshPosts } from '../../actions';
 
-import NavMenu from '../components/NavMenu/NavMenu';
-import GoHome from '../components/GoHome/GoHome';
-import PostCardList from './Posts/PostCardList';
-import SourcesList from './Sources/SourcesList';
-import PostShow from './Posts/PostShow';
+import NavMenu from '../../components/NavMenu/NavMenu';
+import SmartMenu from '../../components/SmartMenu/SmartMenu';
+import PostCardList from '../Posts/PostCardList';
+import SourcesList from '../Sources/SourcesList';
+import PostShow from '../Posts/PostShow';
+
+import style from './ContentDisplay.module.scss';
 
 class ContentDisplay extends React.Component {
   state = {
@@ -21,7 +24,9 @@ class ContentDisplay extends React.Component {
     menuOpen: false,
     showRead: false
   };
-
+  handleRefreshClick = () => {
+    this.props.refreshPosts();
+  };
   componentWillMount() {
     this.fetchPosts();
   }
@@ -139,11 +144,16 @@ class ContentDisplay extends React.Component {
       default:
         break;
     }
+
     return (
-      <div>
-        {this.state.module === 'show' ? (
-          <GoHome goHome={this.showModule} />
-        ) : null}
+      <div className={style.contentDisplay}>
+        <SmartMenu
+          read={this.state.showRead}
+          readToggle={this.showRead}
+          refresh={this.handleRefreshClick}
+          moduleToggle={this.showModule}
+          mode={this.state.module}
+        />
         {module}
         <NavMenu options={options} />
       </div>
@@ -152,7 +162,10 @@ class ContentDisplay extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ setPosts, selectPost, updatePost }, dispatch);
+  return bindActionCreators(
+    { setPosts, selectPost, updatePost, refreshPosts },
+    dispatch
+  );
 };
 
 const mapStateToProps = state => {

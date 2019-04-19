@@ -51,7 +51,7 @@ class PostShow extends React.Component {
       <article className={style.body}>
         <PostTitle
           mode="show"
-          titleClick={this.handleClick}
+          selector={this.handleClick}
           postTitle={this.props.post.title}
         />
         <div className={style.secondLine}>

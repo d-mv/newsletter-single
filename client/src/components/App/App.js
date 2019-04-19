@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TitleBar from '../TitleBar/TitleBar';
-import ContentDisplay from '../../containers/ContentDisplay';
+import ContentDisplay from '../../containers/ContentDisplay/ContentDisplay';
 
 class App extends React.Component {
   render() {

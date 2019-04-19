@@ -15,7 +15,15 @@ class PostCard extends React.Component {
   };
 
   handleAction = props => {
-    this.props.selector[1]({
+    console.log(props);
+
+    console.log({
+      action: 'update',
+      field: props,
+      value: !this.props.post[`${props}`],
+      postId: this.props.post._id
+    });
+    this.props.update({
       action: 'update',
       field: props,
       value: !this.props.post[`${props}`],
@@ -23,6 +31,7 @@ class PostCard extends React.Component {
     });
   };
   render() {
+    // const text = this.props.post.text
     const text = `${this.props.post.text.replace(/<(?:.|\n)*?>/gm, ' ')}...`;
     let bodyClass = style.body;
 

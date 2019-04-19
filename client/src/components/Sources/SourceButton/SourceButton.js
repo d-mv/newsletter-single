@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { FaEdit, FaTrash } from 'react-icons/fa';
+
 import style from './SourceButton.module.scss';
 
 class SourceButton extends React.Component {
@@ -15,7 +17,7 @@ class SourceButton extends React.Component {
     let buttonStyle = style.button;
     switch (this.props.type) {
       case 'edit':
-        button = '✎';
+        button = <FaEdit />;
         break;
       case 'refresh':
         button = 'Refresh';
@@ -25,7 +27,7 @@ class SourceButton extends React.Component {
         buttonStyle = style.addSource;
         break;
       default:
-        button = '⌦';
+        button = <FaTrash />;
     }
     return (
       <button className={buttonStyle} onClick={this.handleClick}>

@@ -131,13 +131,6 @@ class SourcesList extends React.Component {
     return (
       <section className={style.section}>
         <div className={style.buttonsWrapper}>
-          {this.props.sources.length > 0 ? (
-            <SourceButton
-              type="refresh"
-              refresh={this.handleRefreshPosts}
-              name="Refresh"
-            />
-          ) : null}
           <SourceButton
             type="add"
             show={this.toggleAddSource}
