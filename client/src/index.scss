@@ -10,6 +10,10 @@
   --arsenicTrans: rgba(50, 50, 50, 0.8);
 }
 
+html {
+  width: 100vw;
+}
+
 body {
   font-family: Alegreya;
   background-color: var(--lightGrey) !important;

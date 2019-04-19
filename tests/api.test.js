@@ -1,6 +1,6 @@
 const axios = require("axios");
-// const apiUrl = "https://the-newsletter-app.herokuapp.com";
-const apiUrl = "http://localhost:8080";
+const apiUrl = "https://the-newsletter-app.herokuapp.com";
+// const apiUrl = "http://localhost:8080";
 let post = { id: 0 };
 
 //  fetch the data from api

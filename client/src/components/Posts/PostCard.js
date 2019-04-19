@@ -5,15 +5,25 @@ import PostButton from './PostButton/PostButton';
 import Source from '../Source/Source';
 import DateTime from '../DateTime';
 import ApproxVolume from '../ApproxVolume';
+import Divider from '../Divider/Divider';
+
 import style from './PostCard.module.scss';
 
 class PostCard extends React.Component {
-  handleClick = func => {
-    func(this.props.post._id);
+  handleClick = () => {
+    this.props.selector(this.props.post._id);
   };
 
   handleAction = props => {
-    this.props.selector[1]({
+    console.log(props);
+
+    console.log({
+      action: 'update',
+      field: props,
+      value: !this.props.post[`${props}`],
+      postId: this.props.post._id
+    });
+    this.props.update({
       action: 'update',
       field: props,
       value: !this.props.post[`${props}`],
@@ -21,18 +31,18 @@ class PostCard extends React.Component {
     });
   };
   render() {
+    // const text = this.props.post.text
     const text = `${this.props.post.text.replace(/<(?:.|\n)*?>/gm, ' ')}...`;
     let bodyClass = style.body;
 
     if (this.props.post.read) {
       bodyClass = style.bodyRead;
     }
-
     return (
-      <section className={bodyClass} key={this.props.post._id}>
+      <section className={bodyClass} id={this.props.post._id}>
         <PostTitle
           mode="card"
-          titleClick={this.handleClick.bind(this, this.props.selector[0])}
+          selector={this.handleClick}
           postTitle={this.props.post.title}
         />
         <section className={style.secondLine}>
@@ -63,6 +73,7 @@ class PostCard extends React.Component {
             mode="card"
           />
         </footer>
+        <Divider />
       </section>
     );
   }

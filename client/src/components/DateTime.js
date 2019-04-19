@@ -26,19 +26,33 @@ const daysOfWeek = {
 
 class DateTime extends React.Component {
   render() {
-    let dateFromDb = new Date();
+    let dateToChange = new Date();
     if (this.props.timestamp) {
-      dateFromDb = new Date(this.props.timestamp);
+      dateToChange = new Date(this.props.timestamp);
     }
-    let timeToDisplay = `${dateFromDb.getHours()}:${dateFromDb.getMinutes()} am`;
-    if (dateFromDb.getHours() > 12) {
-      timeToDisplay = `${dateFromDb.getHours() -
-        12}:${dateFromDb.getMinutes()} pm`;
+
+    const minutes =
+      dateToChange.getMinutes() < 10
+        ? `0${dateToChange.getMinutes()}`
+        : dateToChange.getMinutes();
+
+    const hours =
+      dateToChange.getHours() > 12
+        ? dateToChange.getHours() - 12
+        : dateToChange.getHours();
+
+    let timeToDisplay = `${hours}:${minutes}`;
+
+    if (dateToChange.getHours() > 11) {
+      timeToDisplay = `${timeToDisplay} pm`;
+    } else {
+      timeToDisplay = `${timeToDisplay} am`;
     }
+
     let dateTimeString = `${
-      daysOfWeek[dateFromDb.getDay() + 1]
-    } ${dateFromDb.getDate()} ${
-      months[dateFromDb.getMonth() + 1]
+      daysOfWeek[dateToChange.getDay() + 1]
+    } ${dateToChange.getDate()} ${
+      months[dateToChange.getMonth() + 1]
     } at ${timeToDisplay}`;
     if (this.props.pre) {
       dateTimeString = `${this.props.pre} ${dateTimeString}`;
