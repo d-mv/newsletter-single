@@ -44,6 +44,10 @@
   margin: 0 auto;
   width: 100%;
 
+  @media (max-width: 499px) {
+    font-size: 1.3rem;
+  }
+
   h1,
   h2,
   h3,
