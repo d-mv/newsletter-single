@@ -3,6 +3,7 @@
     .text {
       max-height: 50rem;
     }
+
     display: grid;
   }
 
@@ -19,6 +20,10 @@
     padding: 0.3rem 0;
     cursor: pointer;
     margin-bottom: 5px;
+
+    @media (max-width: 499px) {
+      font-size: 1.3rem;
+    }
   }
 
   footer {
