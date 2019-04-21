@@ -3,8 +3,26 @@
     .text {
       max-height: 50rem;
     }
+  }
 
-    display: grid;
+  @media (max-width: 699px) {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 700px) and (max-width: 949px) {
+    width: 45%;
+  }
+
+  @media (min-width: 950px) and (max-width: 1199px) {
+    width: 30%;
+  }
+
+  @media (min-width: 1200px) and (max-width: 1599px) {
+    width: 23%;
+  }
+  @media (min-width: 1599px) and (max-width: 4000px) {
+    width: 18%;
   }
 
   .secondLine {

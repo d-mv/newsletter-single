@@ -11,7 +11,8 @@ import style from './PostShow.module.scss';
 
 class PostShow extends React.Component {
   state = {
-    star: this.props.post.star
+    star: this.props.post.star,
+    height: 0
   };
 
   handleClick = () => {
@@ -74,24 +75,29 @@ class PostShow extends React.Component {
           </div>
         </div>
         <section
+          ref={divElement => (this.divElement = divElement)}
           className={style.text}
           dangerouslySetInnerHTML={{
             __html: this.props.post.text
           }}
         />
-        <Divider />
-        <footer className={style.statusLine}>
-          <DateTime
-            pre="published:"
-            timestamp={new Date(this.props.post.published)}
-            mode="show"
-          />
-          <DateTime
-            pre="parsed:"
-            timestamp={new Date(this.props.post.parsed)}
-            mode="show"
-          />
-          <ApproxVolume volume={this.props.post.pages} units="pages" />
+        <footer>
+          <Divider />
+          <div className={style.statusLine}>
+            <DateTime
+              pre="published:"
+              timestamp={new Date(this.props.post.published)}
+              mode="show"
+            />
+            <DateTime
+              pre="parsed:"
+              timestamp={new Date(this.props.post.parsed)}
+              mode="show"
+            />
+            <div>
+              <ApproxVolume volume={this.props.post.pages} units="pages" />
+            </div>
+          </div>
         </footer>
       </article>
     );

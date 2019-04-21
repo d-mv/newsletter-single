@@ -1,8 +1,10 @@
-const postUrl =
-  process.env.REACT_APP_API_URL !== '' ? process.env.REACT_APP_API_URL : '/api';
+const apiUrl =
+  process.env.REACT_APP_SERVER !== ''
+    ? `${process.env.REACT_APP_SERVER}/api`
+    : '/api';
 
 export function setPosts() {
-  const promise = fetch(`${postUrl}/list`)
+  const promise = fetch(`${apiUrl}/list`)
     .then(r => r.json())
     .catch(e => {
       return e;
@@ -14,7 +16,7 @@ export function setPosts() {
   };
 }
 export function updatePost(query) {
-  const promise = fetch(postUrl, {
+  const promise = fetch(apiUrl, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -33,7 +35,7 @@ export function updatePost(query) {
   };
 }
 export function updateSource(query) {
-  const promise = fetch(postUrl, {
+  const promise = fetch(apiUrl, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -52,7 +54,7 @@ export function updateSource(query) {
   };
 }
 export function refreshPosts() {
-  const promise = fetch(postUrl, {
+  const promise = fetch(apiUrl, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -75,7 +77,7 @@ export function refreshPosts() {
   };
 }
 export function addSource(query) {
-  const promise = fetch(postUrl, {
+  const promise = fetch(apiUrl, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -95,7 +97,7 @@ export function addSource(query) {
 }
 export function deleteSource(query) {
   if (query.action && query.id) {
-    const promise = fetch(postUrl, {
+    const promise = fetch(apiUrl, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -119,7 +121,7 @@ export function deleteSource(query) {
 }
 
 export function setSources() {
-  const promise = fetch(`${postUrl}/sources`).then(r => r.json());
+  const promise = fetch(`${apiUrl}/sources`).then(r => r.json());
   return {
     type: 'SET_SOURCES',
     payload: promise
@@ -127,7 +129,7 @@ export function setSources() {
 }
 
 export function selectPost(postId) {
-  const promise = fetch(`${postUrl}/post/${postId}`).then(r => r.json());
+  const promise = fetch(`${apiUrl}/post/${postId}`).then(r => r.json());
   return {
     type: 'SELECT_POST',
     payload: promise

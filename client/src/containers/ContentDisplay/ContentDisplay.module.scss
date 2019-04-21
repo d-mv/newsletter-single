@@ -1,3 +1,26 @@
 .contentDisplay {
   padding-top: 1rem;
 }
+
+.actionMessage {
+  @keyframes appear {
+    0% {
+      opacity: 0;
+      // display: 0;
+      // color: var(--lightGrey)
+    }
+
+    100% {
+      opacity: 100;
+      // display: block;
+      // color: var(--arsenic)
+    }
+  }
+
+  position: fixed;
+  top: 13px;
+  left: 35vw;
+  text-align: center;
+  width: 30vw;
+  animation: appear 0.7s linear;
+}

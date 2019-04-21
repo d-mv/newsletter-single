@@ -1,12 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-// Actions
-import { setSources } from '../../actions';
-import { addSource } from '../../actions';
-import { deleteSource } from '../../actions';
-import { refreshPosts } from '../../actions';
-import { updateSource } from '../../actions';
 
 import SourceCard from '../../components/Sources/SourceCard';
 import SourceButton from '../../components/Sources/SourceButton/SourceButton';
@@ -34,9 +26,6 @@ class SourcesList extends React.Component {
   };
 
   toggleEditSource = id => {
-    console.log(id);
-    console.log(this.state.showEditSource);
-    console.log(this.state.showEditSourceId);
     // if Add Source component open - close it
     if (this.state.showAddSource) this.setState({ showAddSource: false });
     // if Show Edit is true and ...
@@ -72,22 +61,6 @@ class SourcesList extends React.Component {
   changeMessage = message => {
     this.setState({ message: message });
     setTimeout(this.clearMessage, 3000);
-  };
-
-  componentWillMount() {
-    this.fetchSources();
-  }
-
-  componentDidMount() {
-    this.refresher = setInterval(this.fetchSources, 5000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.refresher);
-  }
-
-  fetchSources = () => {
-    this.props.setSources();
   };
 
   clearMessage = () => {
@@ -128,60 +101,45 @@ class SourcesList extends React.Component {
   };
 
   render() {
-    return (
-      <section className={style.section}>
-        <div className={style.buttonsWrapper}>
-          <SourceButton
-            type="add"
-            show={this.toggleAddSource}
-            name="Add Source"
-          />
-        </div>
-        {this.state.showAddSource ? (
-          <SourceCreate
-            mode="Create"
-            create={this.createSource}
-            toggle={this.toggleAddSource}
-          />
-        ) : null}
-        {this.state.message === '' ? null : (
-          <div className={style.message}>{this.state.message}</div>
-        )}
-        {this.props.sources.map(source => {
-          return (
-            <SourceCard
-              source={source}
-              key={source._id}
-              sourceDelete={this.sourceDelete}
-              showEdit={this.state.showEditSource}
-              showEditSourceId={this.state.showEditSourceId}
-              toggleEditSource={this.toggleEditSource}
-              updateSource={this.updateSource}
+    if (this.props.sources.length > 0) {
+      return (
+        <section className={style.section}>
+          <div className={style.buttonsWrapper}>
+            <SourceButton
+              type="add"
+              show={this.toggleAddSource}
+              name="Add Source"
             />
-          );
-        })}
-      </section>
-    );
+          </div>
+          {this.state.showAddSource ? (
+            <SourceCreate
+              mode="Create"
+              create={this.createSource}
+              toggle={this.toggleAddSource}
+            />
+          ) : null}
+          {this.state.message === '' ? null : (
+            <div className={style.message}>{this.state.message}</div>
+          )}
+          {this.props.sources.map(source => {
+            return (
+              <SourceCard
+                source={source}
+                key={source._id}
+                sourceDelete={this.sourceDelete}
+                showEdit={this.state.showEditSource}
+                showEditSourceId={this.state.showEditSourceId}
+                toggleEditSource={this.toggleEditSource}
+                updateSource={this.updateSource}
+              />
+            );
+          })}
+        </section>
+      );
+    } else {
+      return null;
+    }
   }
 }
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    { setSources, addSource, deleteSource, refreshPosts, updateSource },
-    dispatch
-  );
-};
 
-const mapStateToProps = state => {
-  return {
-    sources: state.sources,
-    addSource: state.addSource,
-    deleteSource: state.deleteSource,
-    refreshPosts: refreshPosts,
-    updateSource: updateSource
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SourcesList);
+export default SourcesList;

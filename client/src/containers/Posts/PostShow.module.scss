@@ -1,181 +1,211 @@
 .body {
   font-family: Alegreya;
   background-color: var(--lightGrey);
-  margin: 0 10px;
+  margin: 0 auto;
   line-height: 1.2rem;
   color: var(--arsenic);
   padding: 0 10px 10px 10px;
   max-width: 1000px;
-}
-
-.secondLine {
+  height: 100vh;
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-content: center;
-}
+  flex-direction: column;
 
-.sourceAuthorWrapper {
-  display: flex;
-  flex-direction: row;
-}
+  footer {
+    // position: fixed;
+    // bottom: 0;
+    // background-color: var(--lightGrey);
+    // width: 100%;
+    // &:before {
+    //   content: "";
+    //   position: fixed;
+    //   bottom: 0px;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 57px;
 
-.author {
-  @media (max-width: 480px) {
-    display: none;
+    //   -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+    //   -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+    //   box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+
+    //   z-index: 100;
+    // }
   }
 
-  align-self: center;
-  font-family: 'Open Sans';
-  font-size: 0.9rem;
-  font-weight: 300;
-  letter-spacing: 0.03rem;
-}
+  .statusLine {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 300;
+    font-family: 'Open Sans';
+    padding: 5px 0;
+    font-size: 80%;
 
-.buttonsWrapper {
-  display: flex;
-  flex-direction: row;
-}
-
-.text {
-  font-size: 1.2rem;
-  line-height: 25px;
-  margin: 0 auto;
-  width: 100%;
-
-  @media (max-width: 499px) {
-    font-size: 1.3rem;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-weight: 700;
-  }
-
-  h1 {
-    font-size: 1.6rem;
-  }
-
-  h2 {
-    font-size: 1.4rem;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-  }
-
-  p {
-    margin: 10px 0;
-  }
-
-  button,
-  address,
-  time,
-  figure,
-  hr,
-  img,
-  video,
-  iframe,
-  figcaption,
-  .signature,
-  .book-cta,
-  .border-bottom {
-    display: none;
-  }
-
-  article {
-    header {
+    @media (max-width: 379px) {
       display: none;
+    }
+
+    @media (min-width: 380px) and (max-width: 414px) {
+      font-size: 60%;
+    }
+
+    @media (min-width: 415px) and (max-width: 465px) {
+      font-size: 65%;
+    }
+
+    @media (min-width: 466px) and (max-width: 499px) {
+      font-size: 70%;
+    }
+
+    @media (min-width: 500px) and (max-width: 549px) {
+      font-size: 75%;
+    }
+
+    @media (min-width: 550px) {
+      font-size: 80%;
     }
   }
 
-  br {
-    margin: 5px;
+  .secondLine {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
   }
 
-  em {
+  .sourceAuthorWrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .author {
+    @media (max-width: 480px) {
+      display: none;
+    }
+
+    align-self: center;
+    font-family: 'Open Sans';
+    font-size: 0.9rem;
     font-weight: 300;
-    font-style: italic;
+    letter-spacing: 0.03rem;
   }
 
-  strong {
-    font-weight: 700;
+  .buttonsWrapper {
+    display: flex;
+    flex-direction: row;
   }
 
-  li {
-    margin: 5px 0;
-  }
+  .text {
+    font-size: 1.2rem;
+    line-height: 25px;
+    margin: 0 auto;
+    width: 100%;
 
-  a {
-    text-decoration: none;
-    border-bottom: 0.03rem solid var(--dimGrey);
-    color: var(--dimGrey);
-    line-height: 0.85;
-    text-shadow: 1px -1px var(--lightGrey), -1px 1px var(--lightGrey),
-      -1px -1px var(--lightGrey), 1px 0px var(--lightGrey),
-      1px 1px var(--lightGrey), -2px 1px var(--lightGrey);
-  }
+    @media (max-width: 499px) {
+      font-size: 1.3rem;
+    }
 
-  blockquote {
-    font-weight: 300;
-    font-style: italic;
-  }
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-weight: 700;
+    }
 
-  pre {
-    font-weight: 300;
-    font-family: 'Roboto Mono';
-    font-size: 1rem;
-    width: 80%;
-    margin: 1rem auto;
-    background-color: var(--silverSand);
-    white-space: pre-wrap;
-    padding: 1rem;
-    line-height: 1.5rem;
-    text-align: left;
-  }
+    h1 {
+      font-size: 1.6rem;
+    }
 
-  code {
-    font-weight: 300;
-    font-family: 'Roboto Mono';
-    font-size: 1rem;
-    background-color: var(--silverSand);
-    color: var(--arsenic);
-    padding: 0.2rem;
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    h4 {
+      margin: 0.1rem 0;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    button,
+    address,
+    time,
+    figure,
+    hr,
+    img,
+    video,
+    iframe,
+    figcaption,
+    .signature,
+    .book-cta,
+    .border-bottom {
+      display: none;
+    }
+
+    article {
+      header {
+        display: none;
+      }
+    }
+
+    br {
+      margin: 5px;
+    }
+
+    em {
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+
+    li {
+      margin: 5px 0;
+      padding-left: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      border-bottom: 0.03rem solid var(--dimGrey);
+      color: var(--dimGrey);
+      line-height: 0.85;
+      text-shadow: 1px -1px var(--lightGrey), -1px 1px var(--lightGrey),
+        -1px -1px var(--lightGrey), 1px 0px var(--lightGrey),
+        1px 1px var(--lightGrey), -2px 1px var(--lightGrey);
+    }
+
+    blockquote {
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    pre {
+      font-weight: 300;
+      font-family: 'Open Sans';
+      letter-spacing: 1px;
+      font-size: 1rem;
+      width: 80%;
+      margin: 1rem auto;
+      background-color: var(--silverSand);
+      white-space: pre-wrap;
+      padding: 0.5rem 1rem;
+      line-height: 1.5rem;
+      text-align: left;
+    }
   }
 }
 
-.statusLine {
-  display: flex;
-  justify-content: space-between;
+code {
   font-weight: 300;
-  font-family: 'Open Sans';
-  padding: 5px 0;
-  font-size: 80%;
-
-  @media (max-width: 379px) {
-    display: none;
-  }
-
-  @media (min-width: 380px) and (max-width: 414px) {
-    font-size: 60%;
-  }
-
-  @media (min-width: 415px) and (max-width: 465px) {
-    font-size: 65%;
-  }
-
-  @media (min-width: 466px) and (max-width: 499px) {
-    font-size: 70%;
-  }
-
-  @media (min-width: 500px) and (max-width: 549px) {
-    font-size: 75%;
-  }
-
-  @media (min-width: 550px) {
-    font-size: 80%;
-  }
+  font-family: 'Roboto Mono';
+  font-size: 1rem;
+  background-color: var(--silverSand);
+  color: var(--arsenic);
+  padding: 0.2rem;
 }
