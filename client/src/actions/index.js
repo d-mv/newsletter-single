@@ -1,7 +1,4 @@
-const apiUrl =
-  process.env.REACT_APP_SERVER !== ''
-    ? `${process.env.REACT_APP_SERVER}/api`
-    : '/api';
+const apiUrl = `${process.env.REACT_APP_SERVER}/api`;
 
 export function setPosts() {
   const promise = fetch(`${apiUrl}/list`)
