@@ -6,10 +6,10 @@ import ContentDisplay from '../../containers/ContentDisplay/ContentDisplay';
 class App extends React.Component {
   render() {
     return (
-      <main>
+      <div>
         <TitleBar />
         <ContentDisplay />
-      </main>
+      </div>
     );
   }
 }

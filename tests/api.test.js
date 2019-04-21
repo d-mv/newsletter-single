@@ -1,6 +1,7 @@
 const axios = require("axios");
-const apiUrl = "https://the-newsletter-app.herokuapp.com";
-// const apiUrl = "http://localhost:8080";
+const dotenv = require('dotenv').config()
+
+const apiUrl = process.env.SERVER;
 let post = { id: 0 };
 
 //  fetch the data from api

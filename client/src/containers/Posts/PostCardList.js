@@ -2,14 +2,12 @@ import React from 'react';
 
 import PostCard from '../../components/Posts/PostCard';
 import style from './PostCardList.module.scss';
-import Error from '../../components/Error/Error';
 
 class PostCardList extends React.Component {
   selectPostToShow = props => {
     this.props.selectPost(props);
   };
   updatePostAction = props => {
-    console.log('hi');
     this.props.updatePost(props);
   };
 
@@ -37,11 +35,9 @@ class PostCardList extends React.Component {
     }
   };
   render() {
-    if (this.props.message) {
-      return <Error message={this.props.message} />;
-    } else if (this.props.posts.length > 0) {
+    if (this.props.posts.length > 0) {
       return (
-        <section className={style.content}>
+        <section className={style.flex}>
           {this.props.posts.map(post => {
             return this.checkPost(post);
           })}
