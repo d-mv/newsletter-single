@@ -159,9 +159,9 @@ router.get("/post/*", (req, res, next) => {
   });
 });
 
-router.get("*", function(req, res, next) {
-    res.status(404);
-    res.send();
-});
+// router.get("*", function(req, res, next) {
+//     res.status(404);
+//     res.send();
+// });
 
 module.exports = router;
