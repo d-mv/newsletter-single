@@ -48,12 +48,13 @@ app.get("/index.html", (req, res) => {
 
 // * end of React
 
-app.get("*", (err, req, res, next) => {
-  console.log('unknown request')
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+// app.get("*", (err, req, res, next) => {
+//   console.log('unknown request')
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  res.status(err.status || 500);
-  res.send();
-});
+//   res.status(err.status || 500);
+//   res.send();
+// });
+
 module.exports = app;

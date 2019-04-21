@@ -9,7 +9,7 @@ class SmartMenu extends React.Component {
     this.props.moduleToggle(event.target.innerText);
   };
   render = () => {
-    let homeBack = 'Home';
+    let homeBack = 'HOME';
     let showHide = (
       <button>
         {this.props.read ? (
@@ -23,7 +23,7 @@ class SmartMenu extends React.Component {
     if (this.props.mode === 'show') {
       showHide = null;
       homeBack = 'BACK';
-    } else if (this.props.mode === 'Sources') {
+    } else if (this.props.mode === 'SOURCES') {
       showHide = null;
     }
 
@@ -40,7 +40,7 @@ class SmartMenu extends React.Component {
         </button>
         {showHide}
         <button className={style.text} onClick={this.toggleModule}>
-          Sources
+          SOURCES
         </button>
       </section>
     );

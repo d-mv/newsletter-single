@@ -9,8 +9,11 @@
     "start": "node ./bin/www",
     "client": "npm start --prefix client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
-    "dev": "nodemon ./bin/start.js",
+    "dev": "nodemon ./bin/www",
     "jtest": "jest --watchAll"
+  },
+  "engines": {
+    "node": "11.14.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
