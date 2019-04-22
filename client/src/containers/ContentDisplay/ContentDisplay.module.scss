@@ -17,10 +17,14 @@
     }
   }
 
+  background: var(--arsenicLightTrans);
+  color: var(--lightGrey);
+  padding: 3px 5px;
   position: fixed;
   top: 13px;
-  left: 35vw;
+  left: 30vw;
   text-align: center;
-  width: 30vw;
+  width: 40vw;
   animation: appear 0.7s linear;
+  z-index: 100;
 }

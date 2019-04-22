@@ -172,10 +172,12 @@ class ContentDisplay extends React.Component {
       default:
         break;
     }
-
+    const message = this.state.actionMessage ? (
+      <div className={style.actionMessage}>{this.state.actionMessage}</div>
+    ) : null;
     return (
       <div className={style.contentDisplay}>
-        <div className={style.actionMessage}>{this.state.actionMessage}</div>
+        {message}
         <SmartMenu
           read={this.state.showRead}
           readToggle={this.showRead}
