@@ -62,7 +62,7 @@ module.exports.getPostById = (id, callback) => {
 };
 
 module.exports.deletePost = (id, callback) => {
-  Post.deleteOne({ _id: id }, callback);
+  Post.deleteOne(id, callback);
 };
 module.exports.deleteReadPosts = (id, callback) => {
   Post.deleteMany({ read: true }, callback);

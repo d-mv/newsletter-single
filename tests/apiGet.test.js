@@ -1,11 +1,11 @@
 const axios = require("axios");
 const dotenv = require('dotenv').config()
 
-const apiUrl = process.env.SERVER;
+const apiUrl = `${process.env.REACT_APP_SERVER}`;
 let post = { id: 0 };
 
 //  fetch the data from api
-async function fetchData(store, urlMod) {
+async function fetchData(urlMod) {
   const url = urlMod ? `${apiUrl}/${urlMod}` : `${apiUrl}`;
   let data = "";
   try {
@@ -13,25 +13,11 @@ async function fetchData(store, urlMod) {
   } catch (e) {
     data = e.response;
   }
-  if (store === "store") {
+  if (data[0]) {
     post.id = data[0]._id;
   }
   return data;
 }
-//  push the data to api
-// async function pushData(mode, urlMod) {
-//   const url = `${apiUrl}/${urlMod}`;
-//   let data = "";
-//   if (mode === "json") {
-//     data = await axios(url);
-//   } else if (mode === "html") {
-//     data = await axios(url).then(response => response.data);
-//   } else {
-//     console.log("mode is missing");
-//   }
-//   return data;
-// }
-
 // get html page on home
 test("Server returns web-site", async () => {
   const data = await fetchData("");
@@ -44,14 +30,14 @@ test("Server returns web-site", async () => {
 
 // get list of posts
 test("API return list of posts", async () => {
-  const data = await fetchData("store", "api/list");
+  const data = await fetchData("api/posts");
   expect(Array.isArray(data)).toBe(true);
 });
 
 // get full post
 test("API return full post", async () => {
   const postToFetch = `api/post/${post.id}`;
-  const data = await fetchData("", postToFetch);
+  const data = await fetchData(postToFetch);
   expect(typeof data).toBe("object");
   expect(data._id).toMatch(post.id);
   if (data.message) {
@@ -61,7 +47,7 @@ test("API return full post", async () => {
 
 // get list of sources
 test("API return list of sources", async () => {
-  const data = await fetchData("", "api/sources");
+  const data = await fetchData("api/sources");
   expect(typeof data).toBe("object");
 });
 
@@ -69,6 +55,6 @@ test("API return list of sources", async () => {
 test("API return error 404 on unknown page", async () => {
   const randomExt = Math.random();
   const urlExtension = `${randomExt}`;
-  const data = await fetchData("", urlExtension);
+  const data = await fetchData(urlExtension);
   expect(data.status).toBe(404);
 });

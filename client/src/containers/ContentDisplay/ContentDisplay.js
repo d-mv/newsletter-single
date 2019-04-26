@@ -138,6 +138,19 @@ class ContentDisplay extends React.Component {
     setInterval(() => this.setState({ actionMessage: '' }), 6000);
   };
 
+  deleteSource = request => {
+    let newSources = [];
+    this.state.sources.map(source => {
+      if (source._id !== request.id) {
+        newSources.push(source);
+      } else {
+        return null;
+      }
+    });
+    this.setState({ sources: newSources });
+    this.props.deleteSource(request);
+  };
+
   render() {
     const options = {
       show: this.showModule,
@@ -164,7 +177,7 @@ class ContentDisplay extends React.Component {
           <SourcesList
             sources={this.state.sources}
             addSource={this.props.addSource}
-            deleteSource={this.props.deleteSource}
+            deleteSource={this.deleteSource}
             updateSource={this.props.updateSource}
           />
         );

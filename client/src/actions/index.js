@@ -1,7 +1,7 @@
 const apiUrl = `${process.env.REACT_APP_SERVER}/api`;
 
 export function setPosts() {
-  const promise = fetch(`${apiUrl}/list`)
+  const promise = fetch(`${apiUrl}/posts`)
     .then(r => r.json())
     .catch(e => {
       return e;
