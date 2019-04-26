@@ -5,11 +5,11 @@ const PostControler = require("../../controllers/post");
 const SourceControler = require("../../controllers/source");
 
 router.post("/", function(req, res, next) {
+  console.log(req.body);
   const area = req.body.query.action[0];
   const action = req.body.query.action[1];
   const id = req.body.query.id;
   const fields = req.body.query.fields;
-  let query = "";
 
   if (area === "source") {
     switch (action) {

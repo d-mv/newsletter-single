@@ -32,7 +32,7 @@ module.exports.createSource = (fields, callback) => {
     if (err) callback(err);
     if (res) {
       console.log("\x1b[34m", "~ source exists");
-      return null;
+      callback(res);
     } else {
       console.log(
         "\x1b[32m",
