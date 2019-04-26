@@ -1,7 +1,7 @@
 const axios = require("axios");
 const dotenv = require('dotenv').config()
 
-const apiUrl = process.env.SERVER;
+const apiUrl = process.env.REACT_APP_SERVER;
 let post = { id: 0 };
 
 //  fetch the data from api
@@ -44,7 +44,7 @@ test("Server returns web-site", async () => {
 
 // get list of posts
 test("API return list of posts", async () => {
-  const data = await fetchData("store", "api/list");
+  const data = await fetchData("store", "api/posts");
   expect(Array.isArray(data)).toBe(true);
 });
 
