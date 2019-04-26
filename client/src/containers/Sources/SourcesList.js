@@ -93,11 +93,6 @@ class SourcesList extends React.Component {
   sourceDelete = id => {
     const request = { action: ['source', 'delete'], id: id };
     this.props.deleteSource(request);
-    this.fetchSources();
-  };
-
-  handleRefreshPosts = () => {
-    this.props.refreshPosts();
   };
 
   render() {
