@@ -14,6 +14,7 @@ class SmartMenu extends React.Component {
   };
   render = () => {
     let homeBack = 'HOME';
+
     let filter = this.props.showFilter ? (
       <Filter
         list={this.props.sources}
@@ -21,17 +22,12 @@ class SmartMenu extends React.Component {
         toggleFilter={() => this.toggleFilter()}
       />
     ) : null;
-
+    let filterStyle = this.props.filter ? style.on : style.off;
     let filterButton = (
       <button>
-        <FaFilter onClick={() => this.toggleFilter()} />
+        <FaFilter className={filterStyle} onClick={() => this.toggleFilter()} />
       </button>
     );
-
-    // showFilter={this.state.showFilter}
-    // toggleFilter={this.toggleFilter}
-    // filterClick={this.handleFilterClick}
-
     let showHide = (
       <button>
         {this.props.read ? (

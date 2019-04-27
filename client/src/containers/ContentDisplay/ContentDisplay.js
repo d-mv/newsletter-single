@@ -12,9 +12,7 @@ import { addSource } from '../../actions';
 import { deleteSource } from '../../actions';
 import { updateSource } from '../../actions';
 
-import NavMenu from '../../components/NavMenu/NavMenu';
 import SmartMenu from '../../components/SmartMenu/SmartMenu';
-// import Filter from '../../components/Filter/Filter'
 import PostCardList from '../Posts/PostCardList';
 import SourcesList from '../Sources/SourcesList';
 import PostShow from '../Posts/PostShow';
@@ -166,12 +164,6 @@ class ContentDisplay extends React.Component {
   };
 
   render() {
-    const options = {
-      show: this.showModule,
-      menuOpen: this.menuOpen,
-      menuStatus: this.state.menuOpen,
-      showRead: this.showRead
-    };
     let module = (
       <PostCardList
         showRead={this.state.showRead}
@@ -216,9 +208,9 @@ class ContentDisplay extends React.Component {
           showFilter={this.state.showFilter}
           toggleFilter={this.toggleFilter}
           filterClick={this.handleFilterClick}
+          filter={this.state.filter}
         />
         {module}
-        <NavMenu options={options} />
       </div>
     );
   }

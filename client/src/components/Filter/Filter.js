@@ -24,7 +24,7 @@ const Filter = props => {
         {props.list.map(element => {
           return (
             <button
-              key={element}
+              key={element.name}
               onClick={() => handleClick(props.filterClick, element._id)}
               data-test="component-filter-item"
             >

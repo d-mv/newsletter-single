@@ -6,7 +6,9 @@ import '../../../test/setupTest';
 
 import Filter from './Filter';
 
-const testData = { list: ['source 1', 'source 2', 'source 3'] };
+const testData = {
+  list: [{ name: 'source 1' }, { name: 'source 2' }, { name: 'source 3' }]
+};
 
 const setup = props => {
   return shallow(<Filter {...props} />);
