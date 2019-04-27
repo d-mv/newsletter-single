@@ -8,6 +8,9 @@ class SourceCard extends React.Component {
   sourceDelete = () => {
     this.props.sourceDelete(this.props.source._id);
   };
+  handleClick = id => {
+    this.props.toggleEditSource(id);
+  };
   render() {
     let showEdit = false;
     if (
@@ -17,7 +20,10 @@ class SourceCard extends React.Component {
       showEdit = true;
     return (
       <section className={style.sectionWrapper}>
-        <div className={style.section}>
+        <div
+          className={style.section}
+          onClick={() => this.handleClick(this.props.source._id)}
+        >
           <section className={style.nameWrapper}>
             <p onClick={this.goHome} className={style.name}>
               {this.props.source.name}

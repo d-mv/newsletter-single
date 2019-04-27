@@ -12,7 +12,6 @@ import { addSource } from '../../actions';
 import { deleteSource } from '../../actions';
 import { updateSource } from '../../actions';
 
-import NavMenu from '../../components/NavMenu/NavMenu';
 import SmartMenu from '../../components/SmartMenu/SmartMenu';
 import PostCardList from '../Posts/PostCardList';
 import SourcesList from '../Sources/SourcesList';
@@ -29,8 +28,26 @@ class ContentDisplay extends React.Component {
     module: 'HOME',
     menuOpen: false,
     showRead: false,
+    showFilter: false,
+    filter: '',
     actionMessage: ''
   };
+
+  handleFilterClick = element => {
+    if (element === 'clear') {
+      this.setState({ filter: '', showFilter: false });
+    } else {
+      this.setState({
+        filter: element,
+        showFilter: false
+      });
+    }
+  };
+
+  toggleFilter = () => {
+    this.setState({ showFilter: !this.state.showFilter });
+  };
+
   handleRefreshClick = () => {
     this.props.refreshPosts().then(() => {
       this.updateMessage('Posts refreshed.');
@@ -139,31 +156,21 @@ class ContentDisplay extends React.Component {
   };
 
   deleteSource = request => {
-    let newSources = [];
-    this.state.sources.map(source => {
-      if (source._id !== request.id) {
-        newSources.push(source);
-      } else {
-        return null;
-      }
-    });
+    const newSources = this.state.sources.filter(
+      source => source._id !== request.id
+    );
     this.setState({ sources: newSources });
     this.props.deleteSource(request);
   };
 
   render() {
-    const options = {
-      show: this.showModule,
-      menuOpen: this.menuOpen,
-      menuStatus: this.state.menuOpen,
-      showRead: this.showRead
-    };
     let module = (
       <PostCardList
         showRead={this.state.showRead}
         posts={this.state.posts}
         selectPost={this.selectPostToShow}
         updatePost={this.updatePostAction}
+        filter={this.state.filter}
       />
     );
     switch (this.state.module) {
@@ -198,9 +205,12 @@ class ContentDisplay extends React.Component {
           moduleToggle={this.showModule}
           mode={this.state.module}
           sources={this.state.sources}
+          showFilter={this.state.showFilter}
+          toggleFilter={this.toggleFilter}
+          filterClick={this.handleFilterClick}
+          filter={this.state.filter}
         />
         {module}
-        <NavMenu options={options} />
       </div>
     );
   }

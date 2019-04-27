@@ -5,13 +5,16 @@
     }
   }
 
+  margin: 0 auto;
+
   @media (max-width: 699px) {
     width: 90%;
-    margin: 0 auto;
+    // margin: 0 auto;
   }
 
   @media (min-width: 700px) and (max-width: 949px) {
     width: 45%;
+    // margin: 0 auto;
   }
 
   @media (min-width: 950px) and (max-width: 1199px) {
@@ -21,6 +24,7 @@
   @media (min-width: 1200px) and (max-width: 1599px) {
     width: 23%;
   }
+
   @media (min-width: 1599px) and (max-width: 4000px) {
     width: 18%;
   }
@@ -39,6 +43,7 @@
     cursor: pointer;
     margin-bottom: 5px;
     line-height: 1.4rem;
+
     @media (max-width: 499px) {
       font-size: 1.3rem;
     }

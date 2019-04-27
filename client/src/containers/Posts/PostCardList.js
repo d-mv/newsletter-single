@@ -12,33 +12,37 @@ class PostCardList extends React.Component {
   };
 
   checkPost = post => {
+    const postCard = (
+      <PostCard
+        key={post._id}
+        selector={this.selectPostToShow}
+        update={this.updatePostAction}
+        post={post}
+      />
+    );
     if (!this.props.showRead && !post.read) {
-      return (
-        <PostCard
-          key={post._id}
-          selector={this.selectPostToShow}
-          update={this.updatePostAction}
-          post={post}
-        />
-      );
+      return postCard;
     } else if (this.props.showRead) {
-      return (
-        <PostCard
-          key={post._id}
-          selector={this.selectPostToShow}
-          update={this.updatePostAction}
-          post={post}
-        />
-      );
+      return postCard;
     } else {
       return null;
     }
   };
-  render() {
+  postsToShow = (posts, filter) => {
+    let postsArray = posts;
+    if (filter) {
+      postsArray = posts.filter(post => post.sourceId === filter);
+    }
+    return postsArray;
+  };
+
+  dataToRender = () => {
     if (this.props.posts.length > 0) {
+      const filter = this.props.filter.length > 0 ? this.props.filter : false;
+      const posts = this.postsToShow(this.props.posts, filter);
       return (
         <section className={style.flex}>
-          {this.props.posts.map(post => {
+          {posts.map(post => {
             return this.checkPost(post);
           })}
         </section>
@@ -46,6 +50,10 @@ class PostCardList extends React.Component {
     } else {
       return null;
     }
+  };
+
+  render() {
+    return this.dataToRender();
   }
 }
 

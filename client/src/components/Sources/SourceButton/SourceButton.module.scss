@@ -24,19 +24,19 @@
 
   margin: {
     top: 0;
-    bottom: 0.5rem;
     left: auto;
     right: auto;
   }
 
+  border-radius: 1px;
   text-align: center;
   cursor: pointer;
-  transition: 0s;
+  transition: 0.3s;
+  border-bottom: 3px solid var(--lightGrey);
 
   &:hover {
     background-color: var(--silverSand);
-    margin-bottom: 0.4rem;
-    border-bottom: 0.1rem solid var(--arsenic);
+    border-bottom: 3px solid var(--arsenic);
   }
 
   &:active {
