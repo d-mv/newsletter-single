@@ -14,6 +14,7 @@ import { updateSource } from '../../actions';
 
 import NavMenu from '../../components/NavMenu/NavMenu';
 import SmartMenu from '../../components/SmartMenu/SmartMenu';
+// import Filter from '../../components/Filter/Filter'
 import PostCardList from '../Posts/PostCardList';
 import SourcesList from '../Sources/SourcesList';
 import PostShow from '../Posts/PostShow';
@@ -29,8 +30,20 @@ class ContentDisplay extends React.Component {
     module: 'HOME',
     menuOpen: false,
     showRead: false,
+    showFilter: false,
+    filter: '',
     actionMessage: ''
   };
+
+  handleFilterClick = element => {
+    console.log(element);
+    this.setState({ filter: element, showFilter: false });
+  };
+
+  toggleFilter = () => {
+    this.setState({ showFilter: !this.state.showFilter });
+  };
+
   handleRefreshClick = () => {
     this.props.refreshPosts().then(() => {
       this.updateMessage('Posts refreshed.');
@@ -139,14 +152,9 @@ class ContentDisplay extends React.Component {
   };
 
   deleteSource = request => {
-    let newSources = [];
-    this.state.sources.map(source => {
-      if (source._id !== request.id) {
-        newSources.push(source);
-      } else {
-        return null;
-      }
-    });
+    const newSources = this.state.sources.filter(
+      source => source._id !== request.id
+    );
     this.setState({ sources: newSources });
     this.props.deleteSource(request);
   };
@@ -198,6 +206,9 @@ class ContentDisplay extends React.Component {
           moduleToggle={this.showModule}
           mode={this.state.module}
           sources={this.state.sources}
+          showFilter={this.state.showFilter}
+          toggleFilter={this.toggleFilter}
+          filterClick={this.handleFilterClick}
         />
         {module}
         <NavMenu options={options} />

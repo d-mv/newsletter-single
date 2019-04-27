@@ -1,6 +1,7 @@
 import React from 'react';
+import { FaSyncAlt, FaEye, FaEyeSlash, FaFilter } from 'react-icons/fa';
 
-import { FaSyncAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
+import Filter from '../../components/Filter/Filter';
 
 import style from './SmartMenu.module.scss';
 
@@ -8,8 +9,29 @@ class SmartMenu extends React.Component {
   toggleModule = event => {
     this.props.moduleToggle(event.target.innerText);
   };
+  toggleFilter = () => {
+    this.props.toggleFilter();
+  };
   render = () => {
     let homeBack = 'HOME';
+    let filter = this.props.showFilter ? (
+      <Filter
+        list={this.props.sources}
+        filterClick={this.props.filterClick}
+        toggleFilter={() => this.toggleFilter()}
+      />
+    ) : null;
+
+    let filterButton = (
+      <button>
+        <FaFilter onClick={() => this.toggleFilter()} />
+      </button>
+    );
+
+    // showFilter={this.state.showFilter}
+    // toggleFilter={this.toggleFilter}
+    // filterClick={this.handleFilterClick}
+
     let showHide = (
       <button>
         {this.props.read ? (
@@ -21,10 +43,12 @@ class SmartMenu extends React.Component {
     );
 
     if (this.props.mode === 'show') {
+      filterButton = null;
       showHide = null;
       homeBack = 'BACK';
     } else if (this.props.mode === 'SOURCES') {
       showHide = null;
+      filterButton = null;
     }
 
     const homeBackButton = (
@@ -39,6 +63,8 @@ class SmartMenu extends React.Component {
           <FaSyncAlt onClick={this.props.refresh} className={style.refresh} />
         </button>
         {showHide}
+        {filterButton}
+        {filter}
         <button className={style.text} onClick={this.toggleModule}>
           SOURCES
         </button>
