@@ -15,10 +15,16 @@ const Filter = props => {
       onClick={() => props.toggleFilter()}
     >
       <div>
+        <button
+          className={style.clear}
+          onClick={() => handleClick(props.filterClick, 'clear')}
+        >
+          Clear Filter
+        </button>
         {props.list.map(element => {
           return (
             <button
-              key={element._id}
+              key={element}
               onClick={() => handleClick(props.filterClick, element._id)}
               data-test="component-filter-item"
             >

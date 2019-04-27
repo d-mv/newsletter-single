@@ -34,11 +34,21 @@ class PostCardList extends React.Component {
       return null;
     }
   };
+  postsToShow = (posts, filter) => {
+    let postsArray = posts;
+    if (filter) {
+      postsArray = posts.filter(post => post.sourceId === filter);
+    }
+    return postsArray;
+  };
+
   render() {
     if (this.props.posts.length > 0) {
+      const filter = this.props.filter.length > 0 ? this.props.filter : false;
+      const posts = this.postsToShow(this.props.posts, filter);
       return (
         <section className={style.flex}>
-          {this.props.posts.map(post => {
+          {posts.map(post => {
             return this.checkPost(post);
           })}
         </section>

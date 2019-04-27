@@ -36,8 +36,14 @@ class ContentDisplay extends React.Component {
   };
 
   handleFilterClick = element => {
-    console.log(element);
-    this.setState({ filter: element, showFilter: false });
+    if (element === 'clear') {
+      this.setState({ filter: '', showFilter: false });
+    } else {
+      this.setState({
+        filter: element,
+        showFilter: false
+      });
+    }
   };
 
   toggleFilter = () => {
@@ -172,6 +178,7 @@ class ContentDisplay extends React.Component {
         posts={this.state.posts}
         selectPost={this.selectPostToShow}
         updatePost={this.updatePostAction}
+        filter={this.state.filter}
       />
     );
     switch (this.state.module) {

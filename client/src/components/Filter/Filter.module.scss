@@ -17,7 +17,17 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    // background: blue;
+
+    .clear {
+      color: var(--lightGrey);
+      background-color: var(--arsenic);
+      border-bottom: 3px solid var(--arsenic);
+
+      &:hover {
+        color: var(--lightGrey);
+        border-bottom: 3px solid var(--lightGrey);
+      }
+    }
 
     button {
       font-family: Alegreya;
@@ -26,8 +36,8 @@
       background-color: var(--lightGrey);
       margin: 3px auto;
       text-align: center;
-      // padding: 5px auto;
       border-bottom: 3px solid var(--lightGrey);
+
       &:hover {
         border-bottom: 3px solid var(--arsenic);
       }
