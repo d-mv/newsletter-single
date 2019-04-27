@@ -6,6 +6,7 @@
 }
 
 .section {
+  border-radius: 1px;
   width: 80%;
   margin: 0.2rem auto;
   padding: 0.7rem;
@@ -15,6 +16,12 @@
   justify-content: space-between;
   background-color: var(--silverSand);
   transition: 0.3s;
+  border-bottom: 3px solid var(--silverSand);
+
+  &:hover {
+    transform: scale(1.02);
+    border-bottom: 3px solid var(--arsenic);
+  }
 }
 
 .nameWrapper {

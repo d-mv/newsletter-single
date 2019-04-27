@@ -75,17 +75,25 @@
   }
 
   button {
+    border-radius: 1px;
     margin: 0.2rem auto;
     padding: 10px;
     background-color: var(--arsenic);
-    color: var(--light);
+    color: var(--lightGrey);
     font-size: 1rem;
     font-family: Alegreya;
     letter-spacing: 1px;
+    border-bottom: 3px solid var(--arsenic);
 
     &:hover {
-      transform: scale(1.05);
-      color: var(--light);
+      // transform: scale(1.02);
+      color: var(--lightGrey);
+      border-bottom: 3px solid var(--lightGrey);
+    }
+
+    .submit {
+      outline: none;
+      border: none;
     }
   }
 }

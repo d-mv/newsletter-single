@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { logger } from 'redux-logger';
+// import { logger } from 'redux-logger';
 import reduxPromise from 'redux-promise';
 
 // reducers
@@ -60,7 +60,8 @@ const reducers = combineReducers({
 });
 // Add logger
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const middlewares = composeEnhancers(applyMiddleware(reduxPromise, logger));
+// const middlewares = composeEnhancers(applyMiddleware(reduxPromise, logger));
+const middlewares = composeEnhancers(applyMiddleware(reduxPromise));
 
 ReactDOM.render(
   <Provider store={createStore(reducers, initialState, middlewares)}>
