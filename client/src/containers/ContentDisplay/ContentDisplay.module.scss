@@ -1,19 +1,20 @@
 .contentDisplay {
-  padding-top: 1rem;
+  padding-top: 1.2rem;
+
+  padding: {
+    left: 10px;
+    right: 10px;
+  }
 }
 
 .actionMessage {
   @keyframes appear {
     0% {
       opacity: 0;
-      // display: 0;
-      // color: var(--lightGrey)
     }
 
     100% {
       opacity: 100;
-      // display: block;
-      // color: var(--arsenic)
     }
   }
 

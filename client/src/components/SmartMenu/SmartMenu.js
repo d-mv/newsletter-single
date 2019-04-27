@@ -55,15 +55,16 @@ class SmartMenu extends React.Component {
     return (
       <section className={style.smartMenu}>
         {homeBackButton}
+        <button className={style.text} onClick={this.toggleModule}>
+          SOURCES
+        </button>
+        <button className={style.text}>PROFILE</button>
         <button>
           <FaSyncAlt onClick={this.props.refresh} className={style.refresh} />
         </button>
         {showHide}
         {filterButton}
         {filter}
-        <button className={style.text} onClick={this.toggleModule}>
-          SOURCES
-        </button>
       </section>
     );
   };

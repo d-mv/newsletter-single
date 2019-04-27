@@ -28,7 +28,9 @@ class PostCardList extends React.Component {
       return null;
     }
   };
+
   postsToShow = (posts, filter) => {
+    console.log(filter);
     let postsArray = posts;
     if (filter) {
       postsArray = posts.filter(post => post.sourceId === filter);
