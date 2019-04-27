@@ -11,9 +11,9 @@ class PostTitle extends React.Component {
       postTitleStyle = style.postTitleShow;
     }
     return (
-      <header onClick={this.handleClick} className={postTitleStyle}>
+      <div onClick={this.handleClick} className={postTitleStyle}>
         {this.props.postTitle}
-      </header>
+      </div>
     );
   }
 }

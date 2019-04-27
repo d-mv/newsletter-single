@@ -55,7 +55,7 @@ class PostShow extends React.Component {
           selector={this.handleClick}
           postTitle={this.props.post.title}
         />
-        <div className={style.secondLine}>
+        <section className={style.secondLine}>
           <div className={style.sourceAuthorWrapper}>
             <div className={style.author}>{author}</div>
             <Source mode="show" source={this.props.post.source} />
@@ -73,7 +73,7 @@ class PostShow extends React.Component {
               action={this.handleAction}
             />
           </div>
-        </div>
+        </section>
         <section
           ref={divElement => (this.divElement = divElement)}
           className={style.text}
