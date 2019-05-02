@@ -89,10 +89,11 @@ module.exports.getAllPosts = (req, callback) => {
     }
   ])
     .sort({ published: -1 })
-    .then(data => callback(data));
+    .then(data => callback(data))
+    .catch(err => callback(err));
 };
 module.exports.getPostsBySource = (id, callback) => {
-  console.log(`Post.getPostsBySource: ${id}`);
+  // console.log(`Post.getPostsBySource: ${id}`);
   Post.find({ sourceId: id })
     .sort({ published: -1 })
     .then(data => callback(data));
@@ -112,7 +113,7 @@ module.exports.deletePostsBySource = (id, callback) => {
         callback(err, res);
       })
     )
-    .catch(e => console.log(e));
+    .catch(e => callback(e));
 };
 
 module.exports.getPostsByUrl = (url, callback) => {
@@ -301,7 +302,7 @@ const parseResponse = (source, response) => {
 };
 
 const processSource = source => {
-  console.log(`~ processing: ${source.name}`);
+  // console.log(`~ processing: ${source.name}`);
   const url = source.url;
   let result = "";
   axios
@@ -318,12 +319,12 @@ const processSource = source => {
 };
 
 module.exports.refreshPosts = (query, callback) => {
-  console.log(`~ Post.refreshPosts`);
+  // console.log(`~ Post.refreshPosts`);
   query.map(source => {
     processSource(source);
   });
   setInterval(() => {
-    console.log(`~ update posts...`);
+    // console.log(`~ update posts...`);
     query.map(source => {
       processSource(source);
     });

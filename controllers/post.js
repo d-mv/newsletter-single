@@ -11,6 +11,7 @@ const Source = require("../models/source");
 module.exports.list = (mode, callback) => {
   if (mode === "all") {
     Post.getAllPosts("", (err, response) => {
+      console.log(err)
       err ? callback(err) : callback(response);
     });
   }
