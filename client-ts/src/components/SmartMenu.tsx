@@ -5,7 +5,7 @@ import SmartButton from "./SmartButton";
 import Style from "../styles/SmartMenu";
 // loadPosts: (arg0?: any) => void;
 
-import Filter from "./Filter";
+// import Filter from "./Filter";
 
 // interface IProps {
 //   read: boolean;

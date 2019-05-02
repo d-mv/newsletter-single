@@ -40,6 +40,8 @@ const PostCardList = (props: {
               update: props.update,
               select: props.selectPost
             });
+          } else {
+            return null
           }
         }
       })}

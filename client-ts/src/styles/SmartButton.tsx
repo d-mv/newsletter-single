@@ -12,6 +12,7 @@ const SmartButton = styled.button<IProps>`
   justify-content: center;
   align-items: center;
   outline: none;
+  margin: 0 5px;
   padding: {
     top: 3px;
     left: 10px;
@@ -20,9 +21,10 @@ const SmartButton = styled.button<IProps>`
   font-family: ${baseFont};
   font-size: 0.9rem;
   letter-spacing: 1px;
+  /* transition: 0.3s; */
 
   &:hover {
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
     color: ${arsenic};
   }
 

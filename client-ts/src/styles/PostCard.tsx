@@ -1,18 +1,7 @@
 import styled from "styled-components";
 
 import {
-  // arsenic,
-  // light,
-  // lightGrey,
-  // silverSand,
-  dimGrey,
-  // darkMediumGrey,
-  // accent,
-  // accentAlt,
-  // arsenicTrans,
-  // arsenicLightTrans,
-  // arsenicSemiTrans,
-  // baseFont,
+  darkMediumGrey,
   statusFont
 } from "./_definitions";
 
@@ -27,7 +16,7 @@ const Card = styled.article`
   margin-bottom: 1rem;
   padding-bottom: 1rem;
 
-  border-bottom: 1px solid ${dimGrey};
+  border-bottom: 1px solid ${darkMediumGrey};
   @media (max-width: 699px) {
     width: 90%;
   }
@@ -60,7 +49,7 @@ const Title = styled.h3`
   }
 `;
 
-const Text = styled.section`
+const Text = styled.main`
   font-size: 1.1rem;
   padding: 0.3rem 0;
   cursor: pointer;
@@ -71,7 +60,7 @@ const Text = styled.section`
     font-size: 1.3rem;
   }
 `;
-const Line = styled.div`
+const Line = styled.section`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -83,7 +72,7 @@ const Line = styled.div`
   font-size: 0.8rem;
   padding-top: 0.6rem;
 `;
-const Footer = styled.div`
+const Footer = styled.footer`
   display: flex;
   font-family: ${statusFont};
   justify-content: space-between;

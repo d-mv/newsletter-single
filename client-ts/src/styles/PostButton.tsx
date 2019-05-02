@@ -27,12 +27,16 @@ const Button = styled.button`
   }
 `;
 const Off = styled.span`
+  transition: 0.3s;
+
   color: ${darkMediumGrey};
   &:hover {
     color: ${arsenic};
   }
 `;
 const On = styled.span`
+  transition: 0.3s;
+
   color: ${arsenic};
   &:hover {
     color: ${darkMediumGrey};

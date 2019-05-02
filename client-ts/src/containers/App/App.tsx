@@ -124,8 +124,9 @@ class App extends React.Component<IProps> {
   updateStatePosts = (props: { id: string; field: string }) => {
     const newPosts = this.state.posts;
     let oldPostState;
-    newPosts.map((post: Post) => {
-      if (post._id === props.id) {
+    newPosts
+      .filter((post: Post) => post._id === props.id)
+      .forEach((post: Post) => {
         if (props.field === "read") {
           oldPostState = post.read;
           post.read = !post.read;
@@ -133,8 +134,7 @@ class App extends React.Component<IProps> {
           oldPostState = post.star;
           post.star = !post.star;
         }
-      }
-    });
+      });
     this.setState({ posts: newPosts });
     return oldPostState;
   };
