@@ -5,6 +5,7 @@ import { arsenic, accent, baseFont } from "./_definitions";
 interface IProps {
   accent: boolean;
 }
+
 const SmartButton = styled.button<IProps>`
   color: ${props => (props.accent ? accent : arsenic)};
   transition: 0.7s;
@@ -21,11 +22,9 @@ const SmartButton = styled.button<IProps>`
   font-family: ${baseFont};
   font-size: 0.9rem;
   letter-spacing: 1px;
-  /* transition: 0.3s; */
 
   &:hover {
-    /* transform: scale(1.1); */
-    color: ${arsenic};
+    color: ${accent};
   }
 
   &:active {

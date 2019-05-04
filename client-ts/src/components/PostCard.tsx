@@ -36,6 +36,7 @@ const PostCard = (props: {
         {props.post.title}
       </Title>
       <Line
+      mode='card'
         source={props.post.source}
         author={props.post.author}
         buttons={{ star: starButton, read: readButton }}

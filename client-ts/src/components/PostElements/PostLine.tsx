@@ -4,6 +4,7 @@ import Button from "./PostButton";
 import { Line, Wrapper } from "../../styles/PostCard";
 
 const PostLine = (props: {
+  mode: string;
   author: string;
   source: string;
   buttons: { star: any; read?: any; trash?: any };
@@ -12,11 +13,13 @@ const PostLine = (props: {
   read: boolean;
   star: boolean;
 }) => {
+  const wrapper =
+    props.mode === "show"
+      ? `${props.author} @ ${props.source}`
+      : `@${props.source}`;
   return (
     <Line>
-      <Wrapper>
-        {props.author} @ {props.source}
-      </Wrapper>
+      <Wrapper>{wrapper}</Wrapper>
       <Wrapper>
         <Button
           update={props.update}

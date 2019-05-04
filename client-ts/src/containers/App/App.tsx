@@ -3,19 +3,24 @@ import { connect } from "react-redux";
 import { AppState } from "../../store";
 
 import { SystemState, Post } from "../../store/post/types";
+import { SystemStateSource, Source } from "../../store/source/types";
 import { loadPosts, updatePost, selectPost } from "../../store/post/actions";
+import { loadSources } from "../../store/source/actions";
 
 import Header from "../../components/Header/Header";
 import SmartMenu from "../../components/SmartMenu";
+import Filter from "../../components/Filter";
 import PostCardList from "../../components/PostCardList";
 import PostShow from "../../components/PostShow";
 import Content from "../../styles/Content";
 
 interface IProps {
   posts: SystemState;
+  sources: SystemStateSource;
   loadPosts: (arg0?: any) => any;
   updatePost: (arg0?: any) => any;
   selectPost: (arg0?: any) => any;
+  loadSources: (arg0?: any) => any;
 }
 
 interface App {
@@ -84,6 +89,18 @@ class App extends React.Component<IProps> {
         });
       }
     });
+    this.props.loadSources().then((data: any) => {
+      if (data.payload.data.message) {
+        this.setState({
+          sources: [],
+          message: data.payload.data.message
+        });
+      } else {
+        this.setState({
+          sources: data.payload.data
+        });
+      }
+    });
   };
 
   showModule = (module: string = "posts") => {
@@ -98,9 +115,10 @@ class App extends React.Component<IProps> {
   };
   // update sources & posts
   chooseFilter = (id: string) => {
+    this.toggleShowFilter();
     if (id === "clear") {
       this.setState({
-        filterId: id
+        filterId: ""
       });
     } else {
       this.setState({ filterId: id });
@@ -160,6 +178,7 @@ class App extends React.Component<IProps> {
   };
 
   render() {
+    console.log(this.state.module);
     const smartMenu = (
       <SmartMenu
         read={this.state.showRead}
@@ -167,13 +186,19 @@ class App extends React.Component<IProps> {
         refresh={this.handleRefreshClick}
         moduleToggle={this.showModule}
         mode={this.state.module}
-        sources={this.state.sources}
-        showFilter={this.state.showFilter}
+        showFilter={this.state.filterId != ""}
         toggleFilter={this.toggleShowFilter}
-        chooseFilter={this.chooseFilter}
-        filter={this.state.filterId}
       />
     );
+    const filter =
+      this.state.showFilter && this.state.sources ? (
+        <Filter
+          toggle={this.toggleShowFilter}
+          list={this.state.sources}
+          choose={this.chooseFilter}
+          id={this.state.filterId}
+        />
+      ) : null;
     let postsList;
     if (this.state.message) {
     } else {
@@ -203,6 +228,7 @@ class App extends React.Component<IProps> {
       <Content data-test="app">
         <Header />
         {smartMenu}
+        {filter}
         {this.state.module === "posts" ? postsList : null}
         {this.state.module === "post" ? postShow : null}
         {this.state.module === "sources" ? sourcesList : null}
@@ -211,10 +237,11 @@ class App extends React.Component<IProps> {
   }
 }
 const mapStateToProps = (state: AppState) => ({
-  posts: state.posts
+  posts: state.posts,
+  sources: state.sources
 });
 
 export default connect(
   mapStateToProps,
-  { loadPosts, updatePost, selectPost }
+  { loadPosts, updatePost, selectPost, loadSources }
 )(App);

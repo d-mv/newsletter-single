@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
-import {
-  darkMediumGrey,
-  statusFont
-} from "./_definitions";
+import { darkMediumGrey, statusFont } from "./_definitions";
 
 const Card = styled.article`
   @media (min-width: 499px) {
@@ -51,7 +48,7 @@ const Title = styled.h3`
 
 const Text = styled.main`
   font-size: 1.1rem;
-  padding: 0.3rem 0;
+  padding: 0 0 0.3rem 0;
   cursor: pointer;
   margin-bottom: 5px;
   line-height: 1.4rem;

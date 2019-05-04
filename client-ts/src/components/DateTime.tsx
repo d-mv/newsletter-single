@@ -1,6 +1,6 @@
 import React from "react";
 
-import dateTime from "../bin/dateTime";
+import dateTime from "../modules/dateTime";
 
 import { DateTimeTitle } from "../styles/DateTime";
 

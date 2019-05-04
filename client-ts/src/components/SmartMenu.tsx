@@ -3,47 +3,28 @@ import { FaSyncAlt, FaEye, FaEyeSlash, FaFilter } from "react-icons/fa";
 
 import SmartButton from "./SmartButton";
 import Style from "../styles/SmartMenu";
-// loadPosts: (arg0?: any) => void;
 
-// import Filter from "./Filter";
-
-// interface IProps {
-//   read: boolean;
-//   toggleRead: () => void;
-//   refresh: () => void;
-//   moduleToggle: (arg0?: any) => void;
-//   mode: string;
-//   sources: [{}];
-//   showFilter: boolean;
-//   toggleFilter: () => void;
-//   chooseFilter: (arg0?: any) => void;
-//   filter: string;
-// }
 const buttonElement = (props: {
   element: any;
   accent: boolean;
-  function: () => void;
+  function: (arg0?: string) => void;
 }) => {
   return (
     <SmartButton accent={props.accent} function={props.function}>
       {props.element}
     </SmartButton>
-  );
+  )
 };
 
 const SmartMenu = (props: {
   read: boolean;
   toggleRead: () => void;
   refresh: () => void;
-  moduleToggle: (arg0?: any) => void;
+  moduleToggle: (arg0?: string) => void;
   mode: string;
-  sources: any[];
   showFilter: boolean;
   toggleFilter: () => void;
-  chooseFilter: (arg0?: any) => void;
-  filter: string;
 }) => {
-  console.log(props.read);
   // homeButton
   let homeButton = buttonElement({
     element: props.mode === "post" ? "BACK" : "HOME",
@@ -54,7 +35,7 @@ const SmartMenu = (props: {
   let sourcesButton = buttonElement({
     element: "SOURCES",
     accent: false,
-    function: props.toggleRead
+    function: props.moduleToggle
   });
   // showReadButton;
   let showReadButton = buttonElement({
@@ -70,11 +51,11 @@ const SmartMenu = (props: {
     function: props.toggleRead
   });
   // filterButton;
-  let filterAccent = props.showFilter === undefined ? false : true;
+  // const filterAccent = props.showFilter ? false : true;
   let filterButton = buttonElement({
     element: <FaFilter />,
-    accent: filterAccent,
-    function: props.toggleRead
+    accent: props.showFilter,
+    function: props.toggleFilter
   });
 
   return (

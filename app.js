@@ -30,20 +30,20 @@ app.use("/api", indexRouter);
 // * React
 
 //Static file declaration
-app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "client-ts/build")));
 
 //production mode
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(express.static(path.join(__dirname, "client-ts/build")));
   //
   app.get("/index.html", (req, res) => {
-    res.sendfile(path.join((__dirname = "client/build/index.html")));
+    res.sendfile(path.join((__dirname = "client-ts/build/index.html")));
   });
 }
 
 //build mode
 app.get("/index.html", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/public/index.html"));
+  res.sendFile(path.join(__dirname + "/client-ts/public/index.html"));
 });
 
 // * end of React

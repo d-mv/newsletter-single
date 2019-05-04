@@ -9,12 +9,35 @@ const postCardComponent = (props: {
   update: (arg0: any) => void;
   select: (arg0: any) => void;
 }) => {
-  return (<PostCard
-    key={props.post._id}
-    post={props.post}
-    update={props.update}
-    select={props.select}
-  />);
+  return (
+    <PostCard
+      key={props.post._id}
+      post={props.post}
+      update={props.update}
+      select={props.select}
+    />
+  );
+};
+
+const postCheck = (props: {
+  show: boolean;
+  filter: string;
+  pRead: boolean;
+  pSource: string;
+}) => {
+  if (props.filter) {
+    if (props.show) {
+      return props.pSource === props.filter;
+    } else {
+      return props.pRead === props.show && props.pSource === props.filter;
+    }
+  } else {
+    if (props.show) {
+      return true;
+    } else {
+      return props.pRead === props.show;
+    }
+  }
 };
 
 const PostCardList = (props: {
@@ -27,23 +50,19 @@ const PostCardList = (props: {
   return (
     <PostListStyle>
       {props.posts.map((post: Post) => {
-        if (props.showRead) {
-          return postCardComponent({
-            post: post,
-            update: props.update,
-            select: props.selectPost
-          });
-        } else {
-          if (!post.read) {
-            return postCardComponent({
-              post: post,
-              update: props.update,
-              select: props.selectPost
-            });
-          } else {
-            return null
-          }
-        }
+        const postCall = postCardComponent({
+          post: post,
+          update: props.update,
+          select: props.selectPost
+        });
+        return postCheck({
+          show: props.showRead,
+          filter: props.filter,
+          pRead: post.read,
+          pSource: post.sourceId
+        })
+          ? postCall
+          : null;
       })}
     </PostListStyle>
   );

@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 // import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import axios from 'axios'
+import axios from "axios";
 
 // import { Provider } from "react-redux";
 // import { createStore, combineReducers, applyMiddleware, compose } from "redux";
@@ -9,7 +9,8 @@ import { logger } from "redux-logger";
 import reduxPromise from "redux-promise";
 
 // reducers
-import {loadPosts} from "./post/reducers";
+import { loadPosts } from "./post/reducers";
+import { loadSources } from "./source/reducers";
 // import sourcesReducer from "./reducers/sources_reducer";
 // import addSourceReducer from "./reducers/add_source_reducer";
 // import updatePostReducer from "./reducers/update_post_reducer";
@@ -20,12 +21,11 @@ import {loadPosts} from "./post/reducers";
 
 // setup axios
 axios.defaults.baseURL = `${process.env.REACT_APP_SERVER}/api`;
-axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_TOKEN
-
+axios.defaults.headers.common["Authorization"] = process.env.REACT_APP_TOKEN;
 
 const rootReducer = combineReducers({
-  posts: loadPosts
-  // sources: sourcesReducer,
+  posts: loadPosts,
+  sources: loadSources
   // addSource: addSourceReducer,
   // selectPost: selectPostReducer,
   // updatePost: updatePostReducer,
@@ -37,8 +37,7 @@ const rootReducer = combineReducers({
 export type AppState = ReturnType<typeof rootReducer>;
 
 export default function configureStore() {
-  const middlewares = [reduxPromise,
-    logger];
+  const middlewares = [reduxPromise, logger];
   const middleWareEnhancer = applyMiddleware(...middlewares);
 
   // const initialState = {

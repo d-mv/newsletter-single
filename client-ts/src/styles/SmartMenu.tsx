@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { arsenic, accent, baseFont } from "./_definitions";
+import { baseFont } from "./_definitions";
 
 const SmartMenu = styled.nav`
   position: absolute;
@@ -21,32 +21,6 @@ const SmartMenu = styled.nav`
     top: 4.5rem;
     width: 100vw;
     left: 0;
-  }
-
-  button {
-    color: ${arsenic};
-    transition: 0.7s;
-    outline: none;
-    padding: {
-      top: 3px;
-      left: 10px;
-      right: 10px;
-    }
-    font-family: Alegreya;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-
-    &:hover {
-      transform: scale(1.1);
-      color: ${arsenic};
-    }
-
-    &:active {
-      transform: scale(0.9);
-    }
-  }
-  .on {
-    color: ${accent};
   }
 `;
 

@@ -12,7 +12,6 @@ import style from "../styles/PostTextStyle.module.scss";
 const handleTitleClick = (props: { link: string }) => {};
 
 const PostShow = (props: { post: Post; update: (arg0: any) => void }) => {
-  console.log(props);
   const starButton = props.post.star ? (
     <TiStarFullOutline />
   ) : (
@@ -29,6 +28,7 @@ const PostShow = (props: { post: Post; update: (arg0: any) => void }) => {
         {props.post.title}
       </Title>
       <Line
+        mode="show"
         source={props.post.source}
         author={props.post.author}
         buttons={{ star: starButton, trash: trashButton }}
