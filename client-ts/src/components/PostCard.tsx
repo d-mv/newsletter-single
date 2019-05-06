@@ -8,11 +8,6 @@ import { Post } from "../store/post/types";
 
 import { Card, Title, Text } from "../styles/PostCard";
 
-// const handleClickSelect = (props: {func: (arg:any)=> any, id: string}) => {
-//   console.log(props)
-//   props.func(props.id)
-// }
-
 const PostCard = (props: {
   post: Post;
   update: (arg0: any) => void;

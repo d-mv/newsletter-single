@@ -3,6 +3,7 @@ var router = express.Router();
 
 const PostControler = require("../../controllers/post");
 const SourceControler = require("../../controllers/source");
+const UserController = require("../../controllers/user");
 
 const localToken = process.env.TOKEN;
 
@@ -59,6 +60,14 @@ router.post("/", function(req, res, next) {
           break;
         default:
           res.send(null);
+          break;
+      }
+    } else if (area === "user") {
+      switch (action) {
+        case "check":
+          if (fields) {
+            UserController.check(fields, response => res.send(response));
+          }
           break;
       }
     }

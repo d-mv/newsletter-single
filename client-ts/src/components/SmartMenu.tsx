@@ -13,7 +13,7 @@ const buttonElement = (props: {
     <SmartButton accent={props.accent} function={props.function}>
       {props.element}
     </SmartButton>
-  )
+  );
 };
 
 const SmartMenu = (props: {
@@ -58,10 +58,17 @@ const SmartMenu = (props: {
     function: props.toggleFilter
   });
 
+  const profileButton = buttonElement({
+    element: "PROFILE",
+    accent: false,
+    function: props.moduleToggle
+  });
+
   return (
     <Style>
       {homeButton}
       {sourcesButton}
+      {profileButton}
       {showReadButton}
       {refreshButton}
       {filterButton}

@@ -6,12 +6,16 @@ import { SystemState, Post } from "../../store/post/types";
 import { SystemStateSource, Source } from "../../store/source/types";
 import { loadPosts, updatePost, selectPost } from "../../store/post/actions";
 import { loadSources } from "../../store/source/actions";
+import { checkUser } from "../../store/user/actions";
 
+import Home from "../../components/Home";
 import Header from "../../components/Header/Header";
 import SmartMenu from "../../components/SmartMenu";
 import Filter from "../../components/Filter";
 import PostCardList from "../../components/PostCardList";
 import PostShow from "../../components/PostShow";
+import SourceCardList from "../../components/SourceCardList";
+import Profile from "../../components/Profile";
 import Content from "../../styles/Content";
 
 interface IProps {
@@ -21,6 +25,7 @@ interface IProps {
   updatePost: (arg0?: any) => any;
   selectPost: (arg0?: any) => any;
   loadSources: (arg0?: any) => any;
+  checkUser: (arg0?:any) => any
 }
 
 interface App {
@@ -28,6 +33,8 @@ interface App {
 }
 
 interface IState {
+  auth: boolean;
+  authId: string;
   module: string;
   showRead: boolean;
   showFilter: boolean;
@@ -55,6 +62,8 @@ const emptyPost: Post = {
 
 class App extends React.Component<IProps> {
   state = {
+    auth: false,
+    authId: "",
     module: "posts",
     showRead: false,
     showFilter: false,
@@ -113,6 +122,20 @@ class App extends React.Component<IProps> {
   toggleShowFilter = () => {
     this.setState({ showFilter: !this.state.showFilter });
   };
+  // user management
+  checkUser = () => {
+    // const user = {name: 'Alex', password: 'alexpass', email:"alex@mail.mail"}
+    const query = {
+      action: ["user","check"],
+      id: "",
+      fields: {
+        name: "Alex",
+        password: "alexpass",
+        email: "alex@mail"
+      }
+    };
+    this.props.checkUser(query).then((response:any) => console.log(response))
+  }
   // update sources & posts
   chooseFilter = (id: string) => {
     this.toggleShowFilter();
@@ -176,7 +199,9 @@ class App extends React.Component<IProps> {
         this.setState({ message: response.statusText });
       });
   };
-
+  login = (props: any) => {
+    console.log(props);
+  };
   render() {
     console.log(this.state.module);
     const smartMenu = (
@@ -186,7 +211,7 @@ class App extends React.Component<IProps> {
         refresh={this.handleRefreshClick}
         moduleToggle={this.showModule}
         mode={this.state.module}
-        showFilter={this.state.filterId != ""}
+        showFilter={this.state.filterId !== ""}
         toggleFilter={this.toggleShowFilter}
       />
     );
@@ -215,16 +240,21 @@ class App extends React.Component<IProps> {
     const postShow = (
       <PostShow post={this.state.showPost} update={this.updatePostAction} />
     );
-    const sourcesList = <div />;
-    //  (
-    //   <SourcesList
-    //     sources={this.state.sources}
-    //     addSource={this.props.addSource}
-    //     deleteSource={this.deleteSource}
-    //     updateSource={this.props.updateSource}
-    //   />
-    // );
-    return (
+    const sourcesList = (
+      <SourceCardList
+        sources={this.state.sources}
+        //  addSource={this.props.addSource}
+        //  deleteSource={this.deleteSource}
+        //  updateSource={this.props.updateSource}
+      />
+    );
+    const profile = <Profile />;
+    const home = (
+      <Content data-test="app">
+        <Home login={this.login} check={this.checkUser}/>
+      </Content>
+    );
+    const authContent = (
       <Content data-test="app">
         <Header />
         {smartMenu}
@@ -232,16 +262,20 @@ class App extends React.Component<IProps> {
         {this.state.module === "posts" ? postsList : null}
         {this.state.module === "post" ? postShow : null}
         {this.state.module === "sources" ? sourcesList : null}
+        {this.state.module === "profile" ? profile : null}
       </Content>
     );
+
+    return this.state.auth ? authContent : home;
   }
 }
 const mapStateToProps = (state: AppState) => ({
   posts: state.posts,
-  sources: state.sources
+  sources: state.sources,
+  user: state.user
 });
 
 export default connect(
   mapStateToProps,
-  { loadPosts, updatePost, selectPost, loadSources }
+  { loadPosts, updatePost, selectPost, loadSources, checkUser }
 )(App);

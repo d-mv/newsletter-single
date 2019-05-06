@@ -11,6 +11,7 @@ import reduxPromise from "redux-promise";
 // reducers
 import { loadPosts } from "./post/reducers";
 import { loadSources } from "./source/reducers";
+import { checkUser } from "./user/reducers";
 // import sourcesReducer from "./reducers/sources_reducer";
 // import addSourceReducer from "./reducers/add_source_reducer";
 // import updatePostReducer from "./reducers/update_post_reducer";
@@ -25,7 +26,8 @@ axios.defaults.headers.common["Authorization"] = process.env.REACT_APP_TOKEN;
 
 const rootReducer = combineReducers({
   posts: loadPosts,
-  sources: loadSources
+  sources: loadSources,
+  user: checkUser
   // addSource: addSourceReducer,
   // selectPost: selectPostReducer,
   // updatePost: updatePostReducer,

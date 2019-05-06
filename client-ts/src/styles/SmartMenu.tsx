@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 import { baseFont } from "./_definitions";
+import { slideDown } from "./_animations";
 
 const SmartMenu = styled.nav`
+  animation: 0.7s ease-out 0s 1 ${slideDown};
   position: absolute;
   left: 10vw;
   top: 3.2rem;

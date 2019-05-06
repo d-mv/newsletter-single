@@ -7,9 +7,11 @@ const handleClick = (props: { child: any; func: (arg?: string) => void }) => {
     props.func("posts");
   } else if (props.child === "SOURCES") {
     props.func("sources");
-  } else {
-    props.func();
-  }
+  } else if (props.child === "PROFILE") {
+props.func("profile");
+         } else {
+           props.func();
+         }
 };
 
 const Button = (props: {
