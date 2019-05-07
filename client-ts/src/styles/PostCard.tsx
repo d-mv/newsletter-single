@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
 import { darkMediumGrey, statusFont } from "./_definitions";
-import { scaleUp, slideInFromTop, slideInFromLeft, growLarge } from './_animations'
 
 const Card = styled.article`
-  /* animation: 0.3s ease-out 0s 1 ${scaleUp}; */
 
   @media (min-width: 499px) {
     .text {

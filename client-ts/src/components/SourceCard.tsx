@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 import { Source } from "../store/source/types";
@@ -19,7 +19,6 @@ const SourceCard = (props: {
   opened: string;
   setOpen: (arg0: any) => void;
 }) => {
-  // const [editOpen, toggleEditOpen] = useState(false);
 
   const editToggler = (toggleProps: any) => {
     console.log(toggleProps);

@@ -1,25 +1,31 @@
 import React from "react";
 
-import { LoginForm, Label, Submit, Error } from "../styles/LoginForm";
+import { LoginForm, Title, Label, Submit, Error } from "../styles/LoginForm";
 
-const Login = (props: { login: (arg0: any) => void }) => {
+const Login = (props: { login: (arg0: any) => any; newUser: boolean }) => {
   const [userName, setUserName] = React.useState("");
   const [userEmail, setUserEmail] = React.useState("");
   const [userPassword, setUserPassword] = React.useState("");
-  const [error, setErrors] = React.useState(false);
-  let errors = {
-    name: "",
-    email: "",
-    password: ""
-  };
+  const [nameError, setNameError] = React.useState("");
+  const [emailError, setEmailError] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
 
   const checkName = (name: string) => {
-    console.log("hi");
     const check = name.length > 3 ? true : false;
     if (check) {
-      errors.name = "";
+      setNameError("");
     } else {
-      errors.name = "Name is too short";
+      setNameError("Name is too short");
+    }
+    return check;
+  };
+
+  const checkEmail = (mail: string) => {
+    const check = mail.length > 0 ? true : false;
+    if (check) {
+      setEmailError("");
+    } else {
+      setEmailError("Email is missing");
     }
     return check;
   };
@@ -27,9 +33,9 @@ const Login = (props: { login: (arg0: any) => void }) => {
   const checkPassword = (pass: string) => {
     const check = pass.length > 6 ? true : false;
     if (check) {
-      errors.password = "";
+      setPasswordError("");
     } else {
-      errors.password = "Password too short";
+      setPasswordError("Password too short");
     }
     return check;
   };
@@ -37,14 +43,23 @@ const Login = (props: { login: (arg0: any) => void }) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
-    const check = checkName(userName) && checkPassword(userPassword);
-    setErrors(check);
-
+    let check;
+    if (props.newUser) {
+      check =
+        checkName(userName) &&
+        checkEmail(userEmail) &&
+        checkPassword(userPassword);
+    } else {
+      check = checkEmail(userEmail) && checkPassword(userPassword);
+    }
     if (check) {
       const authObj = {
-        name: userName,
-        email: userEmail,
-        pass: userPassword
+        new: props.newUser,
+        fields: {
+          name: userName,
+          email: userEmail,
+          password: userPassword
+        }
       };
       props.login(authObj);
     }
@@ -63,16 +78,40 @@ const Login = (props: { login: (arg0: any) => void }) => {
         break;
     }
   };
-  const errorsBlock = `${errors.name}\n${errors.password}\n${errors.email}`;
+
+  const nameEnter = props.newUser ? (
+    <label>
+      <Label>Name</Label>
+      <input
+        type="text"
+        name="uName"
+        value={userName}
+        onChange={handleInputChange}
+      />
+    </label>
+  ) : null;
+
+  const title = props.newUser ? "Register new user" : "Login details";
+
+  const inputErrors = (
+    <Error>
+      {nameError ? <li>{nameError}</li> : null}
+      {emailError ? <li>{emailError}</li> : null}
+      {passwordError ? <li>{passwordError}</li> : null}
+    </Error>
+  );
+
   return (
     <LoginForm>
+      <Title>{title}</Title>
       <form onSubmit={handleSubmit}>
+        {nameEnter}
         <label>
-          <Label>Name</Label>
+          <Label>Email</Label>
           <input
-            type="text"
-            name="uName"
-            value={userName}
+            type="email"
+            name="uMail"
+            value={userEmail}
             onChange={handleInputChange}
           />
         </label>
@@ -85,18 +124,13 @@ const Login = (props: { login: (arg0: any) => void }) => {
             onChange={handleInputChange}
           />
         </label>
-        <label>
-          <Label>Email</Label>
-          <input
-            type="email"
-            name="uMail"
-            value={userEmail}
-            onChange={handleInputChange}
-          />
-        </label>
-        <Error>{errorsBlock}</Error>
+        {inputErrors}
         <Submit>
-          <input type="button" value="Submit" id="submit_button" />
+          <input
+            type="button"
+            value={props.newUser ? "Register" : "Login"}
+            id="submit_button"
+          />
         </Submit>
       </form>
     </LoginForm>

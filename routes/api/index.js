@@ -64,9 +64,14 @@ router.post("/", function(req, res, next) {
       }
     } else if (area === "user") {
       switch (action) {
-        case "check":
+        case "login":
           if (fields) {
             UserController.check(fields, response => res.send(response));
+          }
+          break;
+        case "create":
+          if (fields) {
+            UserController.create(fields, response => res.send(response));
           }
           break;
       }

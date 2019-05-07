@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import {
   arsenic,
+  accent,
   darkMediumGrey,
   lightGrey,
   silverSand,
@@ -53,6 +54,7 @@ const LoginForm = styled.section`
     flex-direction: row; */
   }
 `;
+const Title = styled.h1``;
 
 const Label = styled.span`
   margin-top: -1.4rem;
@@ -94,6 +96,16 @@ const Submit = styled.button`
     }
   }
 `;
-const Error = styled.div``;
 
-export { LoginForm, Label, Submit, Error };
+const Error = styled.div`
+  padding: 5px;
+  wmargin-bottom: 5px;
+  color: ${accent};
+  list-style: none;
+  text-align: center;
+  li {
+    padding: 5px 0;
+  }
+`;
+
+export { LoginForm, Title, Label, Submit, Error };

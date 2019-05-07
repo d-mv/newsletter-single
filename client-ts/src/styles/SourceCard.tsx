@@ -4,16 +4,13 @@ import {
   silverSand,
   lightGrey,
   arsenic,
-  dimGrey,
   darkMediumGrey,
   statusFont,
   baseFont
 } from "./_definitions";
+
 import {
   scaleUp,
-  slideInFromTop,
-  slideInFromLeft,
-  growLarge,
   slideDown
 } from "./_animations";
 

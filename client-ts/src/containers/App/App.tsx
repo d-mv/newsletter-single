@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import { AppState } from "../../store";
 
 import { SystemState, Post } from "../../store/post/types";
-import { SystemStateSource, Source } from "../../store/source/types";
+import { SystemStateSource } from "../../store/source/types";
 import { loadPosts, updatePost, selectPost } from "../../store/post/actions";
 import { loadSources } from "../../store/source/actions";
 import { checkUser } from "../../store/user/actions";
+
+import { AuthObj } from "../../types";
 
 import Home from "../../components/Home";
 import Header from "../../components/Header/Header";
@@ -25,7 +27,7 @@ interface IProps {
   updatePost: (arg0?: any) => any;
   selectPost: (arg0?: any) => any;
   loadSources: (arg0?: any) => any;
-  checkUser: (arg0?:any) => any
+  checkUser: (arg0?: any) => any;
 }
 
 interface App {
@@ -34,7 +36,9 @@ interface App {
 
 interface IState {
   auth: boolean;
-  authId: string;
+  userId: string;
+  userToken: string;
+  authNew: boolean;
   module: string;
   showRead: boolean;
   showFilter: boolean;
@@ -63,7 +67,9 @@ const emptyPost: Post = {
 class App extends React.Component<IProps> {
   state = {
     auth: false,
-    authId: "",
+    userId: "",
+    userToken: "",
+    authNew: false,
     module: "posts",
     showRead: false,
     showFilter: false,
@@ -123,19 +129,29 @@ class App extends React.Component<IProps> {
     this.setState({ showFilter: !this.state.showFilter });
   };
   // user management
-  checkUser = () => {
-    // const user = {name: 'Alex', password: 'alexpass', email:"alex@mail.mail"}
+
+  login = (props: AuthObj) => {
+    const action = props.new ? "create" : "login";
     const query = {
-      action: ["user","check"],
+      action: ["user", props.new ? "create" : action],
       id: "",
-      fields: {
-        name: "Alex",
-        password: "alexpass",
-        email: "alex@mail"
-      }
+      fields: props.fields
     };
-    this.props.checkUser(query).then((response:any) => console.log(response))
-  }
+    this.props.checkUser(query).then((res: any) => {
+      console.log(res);
+      const response = res.payload.data;
+      if (response.user === "new") {
+        this.setState({ authNew: true });
+      } else if (response.status) {
+        this.setState({
+          auth: true,
+          userId: response.id,
+          userToken: response.token
+        });
+      }
+    });
+  };
+
   // update sources & posts
   chooseFilter = (id: string) => {
     this.toggleShowFilter();
@@ -199,11 +215,11 @@ class App extends React.Component<IProps> {
         this.setState({ message: response.statusText });
       });
   };
-  login = (props: any) => {
-    console.log(props);
-  };
+
   render() {
-    console.log(this.state.module);
+    // console.log(this.state.module);
+    console.log(this.state.authNew);
+    console.log(this.state.auth);
     const smartMenu = (
       <SmartMenu
         read={this.state.showRead}
@@ -251,7 +267,11 @@ class App extends React.Component<IProps> {
     const profile = <Profile />;
     const home = (
       <Content data-test="app">
-        <Home login={this.login} check={this.checkUser}/>
+        <Home
+          login={this.login}
+          newUser={this.state.authNew}
+          // check={this.checkUser}
+        />
       </Content>
     );
     const authContent = (

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-// import { FaEdit, FaTrash } from "react-icons/fa";
 
 import { Source } from "../store/source/types";
 
-// import Button from "./PostElements/PostButton";
 import { Edit, Error, Submit } from "../styles/SourceCard";
 const SourceEdit = (props: {
   source?: Source;
@@ -23,7 +21,6 @@ const SourceEdit = (props: {
   const [name, setName] = useState(currentSource.name);
   const [url, setUrl] = useState(currentSource.url);
   const [home, setHome] = useState(currentSource.home);
-  const [error, setErrors] = useState(false);
   let errors = {
     name: "",
     url: "",
@@ -85,7 +82,6 @@ const SourceEdit = (props: {
       checkInput({ value: name, field: "name", type: "text" }) &&
       checkInput({ value: url, field: "url", type: "url" }) &&
       checkInput({ value: home, field: "home", type: "url" });
-    checkName ? setErrors(false) : setErrors(true);
     const newSource = {
       _id: currentSource._id ? currentSource._id : "",
       name,

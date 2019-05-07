@@ -13,20 +13,45 @@ const UserSchema = mongoose.Schema({
   email: {
     type: String
   },
-  password: { type: String }
+  password: { type: String },
+  authed: { type: String },
+  authedDate: { type: Date }
 });
 
 const User = (module.exports = mongoose.model("User", UserSchema));
 
 module.exports.check = (fields, callback) => {
-  console.log("model");
-  User.findOne({ email: fields.email }, (err, response) => {
-    console.log("findOne");
-    if (response) {
-      console.log("exist");
-    } else {
-      console.log("does not exist");
+  User.findOne(
+    { email: fields.email, password: fields.password },
+    (err, response) => {
+      if (err) {
+        callback(err);
+      } else {
+        if (response) {
+          callback({ user: "exist" });
+        } else {
+          callback({ user: "new" });
+        }
+      }
     }
-    err ? callback(err) : callback(response);
+  );
+};
+module.exports.create = (fields, callback) => {
+  const newSource = new User(fields);
+  newSource.save(callback);
+};
+
+module.exports.auth = (fields, callback) => {
+  const timestamp = new Date();
+  const token = "345abc";
+  User.updateOne(
+    { _id: fields._id },
+    { auth: token, authedDate: timestamp }
+  ).then(data => {
+    if (data.nModified === 1) {
+      callback(token, data);
+    } else {
+      callback("error", data);
+    }
   });
 };
