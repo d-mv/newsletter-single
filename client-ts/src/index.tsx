@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
 import WebFont from "webfontloader";
 import { Provider } from "react-redux";
 import { CookiesProvider } from "react-cookie";
@@ -26,11 +25,9 @@ const store = configureStore();
 
 ReactDOM.render(
   <CookiesProvider>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </CookiesProvider>,
   document.getElementById("root")
 );

@@ -1,5 +1,4 @@
 import React from "react";
-// import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { AppState } from "../../store";
 
@@ -30,7 +29,7 @@ interface props {
 
 const Home = (props: props) => {
   const [authNew, setAuthNew] = React.useState(false);
-  const [showLogin, setShowLogin] = React.useState(true);
+  const [showLogin, setShowLogin] = React.useState(false);
   const [loginMessage, setLoginMessage] = React.useState("");
   const { cookies } = props;
 
