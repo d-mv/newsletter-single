@@ -2,13 +2,13 @@
   "name": "newsletter-node",
   "description": "The Newsletter app",
   "author": "Dmitry Melnikov",
-  "version": "2.1.0",
+  "version": "2.5.0",
   "license": "MIT",
   "scripts": {
-    "client-install": "npm install --prefix client",
+    "client-install": "npm install --prefix client-ts",
     "start": "node ./bin/www",
-    "client": "npm start --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "client": "npm start --prefix client-ts",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client-ts && npm run build --prefix client-ts",
     "dev": "nodemon ./bin/www",
     "jtest": "jest --watchAll"
   },

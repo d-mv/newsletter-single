@@ -67,7 +67,7 @@ module.exports.deletePost = (id, callback) => {
 module.exports.deleteReadPosts = (id, callback) => {
   Post.deleteMany({ read: true }, callback);
 };
-module.exports.getAllPosts = (req, callback) => {
+module.exports.getAllPosts = (id, callback) => {
   Post.aggregate([
     {
       $project: {
@@ -86,10 +86,16 @@ module.exports.getAllPosts = (req, callback) => {
           $substrCP: ["$text", 0, 800]
         }
       }
+    },
+    {
+      $match: {
+        userId: id
+      }
     }
   ])
     .sort({ published: -1 })
-    .then(data => callback(data));
+    .then(data => callback(data))
+    .catch(err => callback(err));
 };
 module.exports.getPostsBySource = (id, callback) => {
   console.log(`Post.getPostsBySource: ${id}`);
@@ -112,7 +118,7 @@ module.exports.deletePostsBySource = (id, callback) => {
         callback(err, res);
       })
     )
-    .catch(e => console.log(e));
+    .catch(e => callback(e));
 };
 
 module.exports.getPostsByUrl = (url, callback) => {
@@ -157,6 +163,7 @@ const processPost = (source, post) => {
         readTime: post.readTime,
         pages: post.pages
       });
+      console.log(newPost)
       newPost.save(err => {
         if (err) {
           console.log(err);
@@ -301,7 +308,7 @@ const parseResponse = (source, response) => {
 };
 
 const processSource = source => {
-  console.log(`~ processing: ${source.name}`);
+  // console.log(`~ processing: ${source.name}`);
   const url = source.url;
   let result = "";
   axios
@@ -318,12 +325,12 @@ const processSource = source => {
 };
 
 module.exports.refreshPosts = (query, callback) => {
-  console.log(`~ Post.refreshPosts`);
+  // console.log(`~ Post.refreshPosts`);
   query.map(source => {
     processSource(source);
   });
   setInterval(() => {
-    console.log(`~ update posts...`);
+    // console.log(`~ update posts...`);
     query.map(source => {
       processSource(source);
     });

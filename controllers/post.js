@@ -2,17 +2,26 @@ const Post = require("../models/post");
 const Source = require("../models/source");
 
 /**
- * Controller for list of posts
+ * Controller for list of posts per user
  * @function list
- * @param {string} mode - Mode: 'all' ...
+ * @param {mode:string,sources:[]} mode - Mode: 'all' ..., sources - array of sources per user
  * @param {function} callback - Callback function to return response
  * @returns {object}
  */
-module.exports.list = (mode, callback) => {
-  if (mode === "all") {
-    Post.getAllPosts("", (err, response) => {
-      err ? callback(err) : callback(response);
+module.exports.list = (options, callback) => {
+  if (options.mode === "all") {
+    // create array of requests with source IDs
+    let sourceIds = [];
+    options.sources.map(source => {
+      sourceIds.push({ sourceId: source._id });
     });
+    // find all posts with defined sourceIds
+    Post.find({ $or: sourceIds })
+      .sort({ published: -1 })
+      .then(data => {
+        callback(data);
+      })
+      .catch(e => console.log(e));
   }
 };
 

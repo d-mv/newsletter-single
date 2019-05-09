@@ -1,0 +1,6 @@
+{
+  "builds": [
+    { "src": "*.html", "use": "@now/static" },
+    { "src": "./bin/www", "use": "@now/node" }
+  ]
+}
