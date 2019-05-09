@@ -4,9 +4,14 @@ export interface User {
   password: string;
   email: string;
 }
+export interface CurrentUser {
+  email: string;
+  token: string;
+}
 
 export interface UserSystemState {
   user: User;
+  currentUser: CurrentUser;
 }
 
 export interface UserQuery {
@@ -37,7 +42,6 @@ interface CheckUserAction {
 //   payload: PostId;
 // }
 
-export type SystemActionTypes =
-  | CheckUserAction
-  // | UpdatePostAction
-  // | SelectPostAction;
+export type SystemActionTypes = CheckUserAction;
+// | UpdatePostAction
+// | SelectPostAction;

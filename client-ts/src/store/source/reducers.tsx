@@ -1,32 +1,39 @@
-import {
-  SET_SOURCES,
-  // UPDATE_POST,
-  // SELECT_POST,
-  SystemStateSource,
-  // Query,
-  // PostId,
-  SystemActionTypes
-} from "./types";
+import { SET_SOURCES, SystemActionTypes } from "./types";
+import { NewQuery } from "../../types";
 
-const initialState: SystemStateSource = {
-  sources: []
+const emptyQuery: NewQuery = {
+  token: "",
+  action: ["", ""]
 };
-
 export function loadSources(
-         state = initialState,
-         action: SystemActionTypes
-       ): SystemStateSource {
-         switch (action.type) {
-           case SET_SOURCES: {
-             return {
-               // ...state,
-               ...action.payload
-             };
-           }
-           default:
-             return state;
-         }
-       }
+  state = emptyQuery,
+  action: SystemActionTypes
+): NewQuery {
+  switch (action.type) {
+    case SET_SOURCES: {
+      return {
+        ...action.payload
+      };
+    }
+    default:
+      return state;
+  }
+}
+
+// export function loadPosts(
+//   state = emptyQuery,
+//   action: SystemActionTypes
+// ): NewQuery {
+//   switch (action.type) {
+//     case SET_POSTS: {
+//       return {
+//         ...action.payload
+//       };
+//     }
+//     default:
+//       return state;
+//   }
+// }
 
 // const emptyState: Query = {
 //   action: ["", ""],

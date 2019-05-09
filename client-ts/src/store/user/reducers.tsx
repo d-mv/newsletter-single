@@ -1,12 +1,13 @@
 import {
   CHECK_USER,
   UserSystemState,
-  UserQuery,
+  // UserQuery,
   SystemActionTypes
 } from "./types";
 
 const initialState: UserSystemState = {
-  user: { name: "", password: "", email: "" }
+  user: { name: "", password: "", email: "" },
+  currentUser: { email: "", token: "" }
 };
 
 export function checkUser(

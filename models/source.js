@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const Post = require("../models/post");
 
-
 mongoose.connect(`${process.env.MONGO_URL}newsletter?retryWrites=true`);
 
 const db = mongoose.connection;
@@ -16,6 +15,9 @@ const SourceSchema = mongoose.Schema({
     type: String
   },
   home: {
+    type: String
+  },
+  userId: {
     type: String
   }
 });
@@ -43,24 +45,30 @@ module.exports.createSource = (fields, callback) => {
     }
   });
 };
-module.exports.getListOfSources = (req, callback) => {
-  Source.find({}, callback);
+module.exports.getListOfSources = (userId, callback) => {
+  console.log(userId)
+  Source.find({ userId: userId }, (err, docs) => {
+    console.log('found:')
+    console.log(docs)
+    callback(docs)});
 };
 
 module.exports.getSourceById = (id, callback) => {
   Source.findOne({ _id: id }, callback);
 };
 
-module.exports.updateSource = (options, callback) =>{
- Source.updateOne({
-   _id: options.id
- },
- {
-   name: options.fields.name,
-   url: options.fields.url,
-   home: options.fields.home,
- }).then(data => callback(data))
-}
+module.exports.updateSource = (options, callback) => {
+  Source.updateOne(
+    {
+      _id: options.id
+    },
+    {
+      name: options.fields.name,
+      url: options.fields.url,
+      home: options.fields.home
+    }
+  ).then(data => callback(data));
+};
 
 module.exports.deleteSource = (id, callback) => {
   Source.findOne(id, (err, source) => {

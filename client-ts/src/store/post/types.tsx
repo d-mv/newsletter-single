@@ -17,11 +17,19 @@ export interface Post {
 
 export interface SystemState {
   posts: Post[];
+  token: "";
+  action: [];
 }
 
 export interface Query {
   action: [string, string];
   id: string;
+  fields?: { [index: string]: string };
+}
+export interface NewQuery {
+  token: string;
+  action: [string, string];
+  id?: string;
   fields?: { [index: string]: string };
 }
 
@@ -35,7 +43,7 @@ export const SELECT_POST = "SELECT_POST";
 
 interface SetPostsAction {
   type: typeof SET_POSTS;
-  payload: SystemState;
+  payload: NewQuery;
 }
 interface UpdatePostAction {
   type: typeof UPDATE_POST;
@@ -43,9 +51,8 @@ interface UpdatePostAction {
 }
 
 interface SelectPostAction {
-    type: typeof SELECT_POST;
+  type: typeof SELECT_POST;
   payload: PostId;
-
 }
 
 export type SystemActionTypes =

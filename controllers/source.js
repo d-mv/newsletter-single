@@ -2,7 +2,16 @@ const Source = require("../models/source");
 
 module.exports.list = (mode, callback) => {
   if (mode === "all") {
-    Source.getListOfSources("", (err, response) => {
+    Source.getListOfSources("", response => {
+      callback(response);
+    });
+  }
+};
+module.exports.findByUserId = (options, callback) => {
+  if (options.mode === "all") {
+    console.log(options)
+    console.log('asking model')
+    Source.getListOfSources(options.id, (err, response) => {
       err ? callback(err) : callback(response);
     });
   }

@@ -1,16 +1,21 @@
 import React from "react";
-import { FaSyncAlt, FaEye, FaEyeSlash, FaFilter } from "react-icons/fa";
+import { FaSyncAlt, FaEye, FaEyeSlash, FaFilter, FaUser } from "react-icons/fa";
 
 import SmartButton from "./SmartButton";
 import Style from "../styles/SmartMenu";
 
 const buttonElement = (props: {
   element: any;
+  mode: string;
   accent: boolean;
   function: (arg0?: string) => void;
 }) => {
   return (
-    <SmartButton accent={props.accent} function={props.function}>
+    <SmartButton
+      accent={props.accent}
+      mode={props.mode}
+      function={props.function}
+    >
       {props.element}
     </SmartButton>
   );
@@ -28,18 +33,21 @@ const SmartMenu = (props: {
   // homeButton
   let homeButton = buttonElement({
     element: props.mode === "post" ? "BACK" : "HOME",
+    mode: "home",
     accent: false,
     function: props.moduleToggle
   });
   // sourcesButton
   let sourcesButton = buttonElement({
     element: "SOURCES",
+    mode: "sources",
     accent: false,
     function: props.moduleToggle
   });
   // showReadButton;
   let showReadButton = buttonElement({
     element: props.read ? <FaEye /> : <FaEyeSlash />,
+    mode: "showRead",
     accent: props.read,
     function: props.toggleRead
   });
@@ -47,6 +55,7 @@ const SmartMenu = (props: {
   // refreshButton;
   let refreshButton = buttonElement({
     element: <FaSyncAlt />,
+    mode: "refresh",
     accent: false,
     function: props.toggleRead
   });
@@ -54,12 +63,14 @@ const SmartMenu = (props: {
   // const filterAccent = props.showFilter ? false : true;
   let filterButton = buttonElement({
     element: <FaFilter />,
+    mode: "filter",
     accent: props.showFilter,
     function: props.toggleFilter
   });
 
   const profileButton = buttonElement({
-    element: "PROFILE",
+    element: <FaUser />,
+    mode: "profile",
     accent: false,
     function: props.moduleToggle
   });
@@ -68,10 +79,10 @@ const SmartMenu = (props: {
     <Style>
       {homeButton}
       {sourcesButton}
-      {profileButton}
       {showReadButton}
-      {refreshButton}
       {filterButton}
+      {refreshButton}
+      {profileButton}
     </Style>
   );
   // toggleModule = event => {

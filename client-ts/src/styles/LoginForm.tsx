@@ -13,11 +13,22 @@ import {
   boxShadowHover
 } from "./_definitions";
 
-const LoginForm = styled.section`
-  width: 50%;
-  height: auto;
+interface props {
+  height: string;
+}
+
+const LoginForm = styled.section<props>`
+  height: ${props => props.height};
+
+  @media (max-width: 499px) {
+    width: 80%;
+    margin-top: 25vh;
+  }
+  @media (min-width: 500px) {
+    width: 50%;
+    margin-top: 30vh;
+  }
   margin: 0 auto;
-  margin-top: 30vh;
   padding: 1rem;
   text-align: center;
 
@@ -45,13 +56,7 @@ const LoginForm = styled.section`
       margin: 0.5rem 0;
       border-radius: 2px;
       padding: 3px 2px;
-      /* grid-area: "input"; */
     }
-    /* grid-template-areas: "label" "input"; */
-
-    /* grid-area: "label"; */
-    /* display: flex;
-    flex-direction: row; */
   }
 `;
 const Title = styled.h1``;
@@ -99,7 +104,7 @@ const Submit = styled.button`
 
 const Error = styled.div`
   padding: 5px;
-  wmargin-bottom: 5px;
+  margin-bottom: 5px;
   color: ${accent};
   list-style: none;
   text-align: center;

@@ -1,4 +1,4 @@
-import { UserSystemState, CHECK_USER, UserQuery } from "./types";
+import { CHECK_USER, UserQuery } from "./types";
 import axios from "axios";
 
 export function checkUser(query: UserQuery) {

@@ -2,7 +2,12 @@ import React from "react";
 
 import { LoginForm, Title, Label, Submit, Error } from "../styles/LoginForm";
 
-const Login = (props: { login: (arg0: any) => any; newUser: boolean }) => {
+const Login = (props: {
+  message: string;
+  cookies: any;
+  login: (arg0: any) => any;
+  newUser: boolean;
+}) => {
   const [userName, setUserName] = React.useState("");
   const [userEmail, setUserEmail] = React.useState("");
   const [userPassword, setUserPassword] = React.useState("");
@@ -90,7 +95,7 @@ const Login = (props: { login: (arg0: any) => any; newUser: boolean }) => {
       />
     </label>
   ) : null;
-
+  const formHeight = props.newUser ? "350px" : "300px";
   const title = props.newUser ? "Register new user" : "Login details";
 
   const inputErrors = (
@@ -98,11 +103,12 @@ const Login = (props: { login: (arg0: any) => any; newUser: boolean }) => {
       {nameError ? <li>{nameError}</li> : null}
       {emailError ? <li>{emailError}</li> : null}
       {passwordError ? <li>{passwordError}</li> : null}
+      {props.message ? <li>{props.message}</li> : null}
     </Error>
   );
 
   return (
-    <LoginForm>
+    <LoginForm height={formHeight}>
       <Title>{title}</Title>
       <form onSubmit={handleSubmit}>
         {nameEnter}

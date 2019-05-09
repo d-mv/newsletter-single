@@ -67,7 +67,7 @@ module.exports.deletePost = (id, callback) => {
 module.exports.deleteReadPosts = (id, callback) => {
   Post.deleteMany({ read: true }, callback);
 };
-module.exports.getAllPosts = (req, callback) => {
+module.exports.getAllPosts = (id, callback) => {
   Post.aggregate([
     {
       $project: {
@@ -86,6 +86,11 @@ module.exports.getAllPosts = (req, callback) => {
           $substrCP: ["$text", 0, 800]
         }
       }
+    },
+    {
+      $match: {
+        userId: id
+      }
     }
   ])
     .sort({ published: -1 })
@@ -93,7 +98,7 @@ module.exports.getAllPosts = (req, callback) => {
     .catch(err => callback(err));
 };
 module.exports.getPostsBySource = (id, callback) => {
-  // console.log(`Post.getPostsBySource: ${id}`);
+  console.log(`Post.getPostsBySource: ${id}`);
   Post.find({ sourceId: id })
     .sort({ published: -1 })
     .then(data => callback(data));
@@ -158,6 +163,7 @@ const processPost = (source, post) => {
         readTime: post.readTime,
         pages: post.pages
       });
+      console.log(newPost)
       newPost.save(err => {
         if (err) {
           console.log(err);

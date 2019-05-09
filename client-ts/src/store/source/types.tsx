@@ -1,4 +1,6 @@
 // Describing the shape of the system's slice of state
+import { NewQuery } from "../../types";
+
 export interface Source {
   _id: string;
   name: string;
@@ -26,7 +28,7 @@ export const SET_SOURCES = "SET_SOURCES";
 
 interface SetSourcesAction {
   type: typeof SET_SOURCES;
-  payload: SystemStateSource;
+  payload: NewQuery;
 }
 
 // interface UpdatePostAction {

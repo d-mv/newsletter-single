@@ -21,7 +21,6 @@ const SourceCard = (props: {
 }) => {
 
   const editToggler = (toggleProps: any) => {
-    console.log(toggleProps);
     props.opened === toggleProps.id
       ? props.setOpen("")
       : props.setOpen(toggleProps.id);

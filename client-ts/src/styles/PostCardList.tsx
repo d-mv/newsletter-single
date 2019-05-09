@@ -4,7 +4,7 @@ const Display = styled.main`
   padding: 0 20px;
   margin: 0 auto;
   margin-top: 2.3rem;
-`
+`;
 
 const PostListStyle = styled(Display)`
   display: flex;
@@ -25,4 +25,6 @@ const PostListStyle = styled(Display)`
   }
 `;
 
-export {PostListStyle};
+const LoadingS = styled.div``;
+
+export { PostListStyle, LoadingS };

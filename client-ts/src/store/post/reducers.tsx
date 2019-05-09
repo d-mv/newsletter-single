@@ -2,24 +2,25 @@ import {
   SET_POSTS,
   UPDATE_POST,
   SELECT_POST,
-  SystemState,
+  // SystemState,
   Query,
+  NewQuery,
   PostId,
   SystemActionTypes
 } from "./types";
 
-const initialState: SystemState = {
-  posts: []
+const emptyQuery: NewQuery = {
+  token: "",
+  action: ["", ""]
 };
 
 export function loadPosts(
-  state = initialState,
+  state = emptyQuery,
   action: SystemActionTypes
-): SystemState {
+): NewQuery {
   switch (action.type) {
     case SET_POSTS: {
       return {
-        // ...state,
         ...action.payload
       };
     }

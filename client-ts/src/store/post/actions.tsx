@@ -1,20 +1,25 @@
 import {
-  SystemState,
+  // SystemState,
   SET_POSTS,
   Query,
   PostId,
   UPDATE_POST,
   SELECT_POST
 } from "./types";
+import { NewQuery } from "../../types";
+
 import axios from "axios";
 
 // const apiUrl = `${process.env.REACT_APP_SERVER}/api`;
 
-export function loadPosts(newSession: SystemState) {
+export function loadPosts(query: NewQuery) {
   const promise = axios
-    .get(`/posts`)
+    .post("/", {
+      query
+    })
     .then(response => response)
     .catch(error => error);
+
   return {
     type: SET_POSTS,
     payload: promise

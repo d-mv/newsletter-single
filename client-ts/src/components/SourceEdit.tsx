@@ -42,7 +42,6 @@ const SourceEdit = (props: {
           errors.name = "";
           return true;
         } else {
-          console.log("hi");
           errors.name = "Name is not provided";
           return false;
         }
@@ -59,7 +58,7 @@ const SourceEdit = (props: {
           errors.name = "URL is not provided";
           return false;
         }
-      case "home":
+      default:
         if (props.value !== "") {
           if (regex.test(props.value)) {
             errors.home = "";
@@ -106,8 +105,6 @@ const SourceEdit = (props: {
         break;
     }
   };
-
-  console.log(errors);
 
   return (
     <Edit>
