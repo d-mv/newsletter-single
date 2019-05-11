@@ -163,7 +163,7 @@ const processPost = (source, post) => {
         readTime: post.readTime,
         pages: post.pages
       });
-      console.log(newPost)
+      console.log(newPost);
       newPost.save(err => {
         if (err) {
           console.log(err);
@@ -325,7 +325,8 @@ const processSource = source => {
 };
 
 module.exports.refreshPosts = (query, callback) => {
-  // console.log(`~ Post.refreshPosts`);
+  console.log(`~ Post.refreshPosts`);
+  console.log(query);
   query.map(source => {
     processSource(source);
   });

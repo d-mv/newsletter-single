@@ -5,7 +5,7 @@ import { AppState } from "../store";
 import { checkUser } from "../store/user/actions";
 import { CurrentUser } from "../types";
 import Content from "../styles/Content";
-import Button from "../styles/Profile";
+import { Button } from "../styles/_uiElements";
 
 const Profile = (props: {
   checkUser: (arg0?: any) => any;
@@ -26,7 +26,7 @@ const Profile = (props: {
   };
   return (
     <Content>
-      <Button onClick={() => signOff()}>Profile</Button>
+      <Button onClick={() => signOff()}>Log off</Button>
     </Content>
   );
 };

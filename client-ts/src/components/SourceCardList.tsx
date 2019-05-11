@@ -4,13 +4,17 @@ import { Source } from "../store/source/types";
 
 import SourceCard from "./SourceCard";
 
-import { SourcesList } from "../styles/SourceCardList";
+import { SourcesList,AddSource } from "../styles/SourceCardList";
+import {Button}from '../styles/_uiElements'
 
 const SourceCardList = (props: { sources: Source[] }) => {
   const [openEditId, setOpenEditId] = React.useState('');
 
   return (
     <SourcesList>
+    <AddSource>
+      <Button>Add source</Button>
+    </AddSource>
       {props.sources.map((source: Source) => {
         return (
           <SourceCard

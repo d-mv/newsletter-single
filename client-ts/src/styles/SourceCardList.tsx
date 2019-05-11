@@ -7,11 +7,10 @@ const Display = styled.main`
 `;
 
 const SourcesList = styled(Display)`
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: 0.3s;
 
   @media (max-width: 599px) {
   }
@@ -26,4 +25,5 @@ const SourcesList = styled(Display)`
   }
 `;
 
-export { SourcesList };
+const AddSource = styled.section``;
+export { SourcesList, AddSource };

@@ -11,11 +11,16 @@ const Source = require("../models/source");
 module.exports.list = (options, callback) => {
   if (options.mode === "all") {
     // create array of requests with source IDs
+    console.log("- ctr-post-list");
+    console.log(options);
+    // if ()
     let sourceIds = [];
     options.sources.map(source => {
       sourceIds.push({ sourceId: source._id });
     });
     // find all posts with defined sourceIds
+    console.log("- cntr-post-list > proceed");
+
     Post.find({ $or: sourceIds })
       .sort({ published: -1 })
       .then(data => {
@@ -33,8 +38,11 @@ module.exports.list = (options, callback) => {
  * @returns {object}
  */
 module.exports.postById = (id, callback) => {
+  console.log("- object");
+  console.log(id);
   const query = {
-    _id: id.substr(6, id.length)
+    _id: id
+    // _id: id.substr(6, id.length)
   };
   Post.getPostById(query, (err, response) => {
     err ? callback(err) : callback(response);
@@ -48,13 +56,13 @@ module.exports.postById = (id, callback) => {
  * @param {function} callback - Callback function to return response
  * @returns {object}
  */
-module.exports.refresh = (query, callback) => {
-  Source.getListOfSources("", (errSource, resSource) => {
-    if (errSource) callback(errSource);
-    Post.refreshPosts(resSource, (errPost, resPost) => {
-      errPost ? callback(errPost) : callback(resPost);
-    });
+module.exports.refresh = (resSource, callback) => {
+  // Source.getListOfSources("", (errSource, resSource) => {
+  //   if (errSource) callback(errSource);
+  Post.refreshPosts(resSource, (errPost, resPost) => {
+    errPost ? callback(errPost) : callback(resPost);
   });
+  // });
 };
 /**
  * Controller for updating post

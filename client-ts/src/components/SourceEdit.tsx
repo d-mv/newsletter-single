@@ -2,10 +2,20 @@ import React, { useState } from "react";
 
 import { Source } from "../store/source/types";
 
-import { Edit, Error, Submit } from "../styles/SourceCard";
+import { Menu} from "../styles/Filter";
+
+import {
+  Edit,
+  Error,
+  Submit,
+  Add,
+  Cancel,
+  ButtonsWrapper
+} from "../styles/SourceCard";
 const SourceEdit = (props: {
   source?: Source;
   submit: (arg0: Source) => any;
+  close?: () => void;
 }) => {
   let currentSource = {
     _id: "",
@@ -25,6 +35,12 @@ const SourceEdit = (props: {
     name: "",
     url: "",
     home: ""
+  };
+
+  const closeForm = () => {
+    if (props.close) {
+      props.close();
+    }
   };
 
   const checkInput = (props: {
@@ -76,7 +92,7 @@ const SourceEdit = (props: {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-
+    console.log("form clicked");
     const checkName =
       checkInput({ value: name, field: "name", type: "text" }) &&
       checkInput({ value: url, field: "url", type: "url" }) &&
@@ -105,46 +121,57 @@ const SourceEdit = (props: {
         break;
     }
   };
-
-  return (
-    <Edit>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <span>Source</span>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          <span>URL</span>
-          <input
-            type="url"
-            name="url"
-            value={url}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          <span>Homepage</span>
-          <input
-            type="url"
-            name="home"
-            value={home}
-            onChange={handleInputChange}
-          />
-        </label>
-        {errors.name ? <Error>- {errors.name}</Error> : null}
-        {errors.url ? <Error>- {errors.url}</Error> : null}
-        {errors.home ? <Error>- {errors.home}</Error> : null}
+  const formElements = (
+    <form onSubmit={handleSubmit}>
+      <label>
+        <span>Source</span>
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleInputChange}
+        />
+      </label>
+      <label>
+        <span>URL</span>
+        <input
+          type="url"
+          name="url"
+          value={url}
+          onChange={handleInputChange}
+        />
+      </label>
+      <label>
+        <span>Homepage</span>
+        <input
+          type="url"
+          name="home"
+          value={home}
+          onChange={handleInputChange}
+        />
+      </label>
+      {errors.name ? <Error>- {errors.name}</Error> : null}
+      {errors.url ? <Error>- {errors.url}</Error> : null}
+      {errors.home ? <Error>- {errors.home}</Error> : null}
+      <ButtonsWrapper>
         <Submit>
-          <input type="button" value="Submit" id="submit_button" />
+          <input
+            type="button"
+            value={props.source ? "Submit" : "Add"}
+            id="submit_button"
+          />
         </Submit>
-      </form>
-    </Edit>
+        <Cancel onClick={() => closeForm()}>Cancel</Cancel>
+      </ButtonsWrapper>
+    </form>
   );
+
+  const editForm = props.source ? (
+    <Edit>{formElements}</Edit>
+  ) : (
+    <Add>{formElements}</Add>
+  );
+  return editForm;
 };
 
 export default SourceEdit;

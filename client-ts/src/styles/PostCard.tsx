@@ -18,7 +18,7 @@ const Card = styled.article`
 
   border-bottom: 1px solid ${darkMediumGrey};
   @media (max-width: 699px) {
-    width: 90%;
+    width: 100%;
   }
 
   @media (min-width: 700px) and (max-width: 949px) {
