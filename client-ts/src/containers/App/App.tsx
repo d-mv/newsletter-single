@@ -44,7 +44,6 @@ const App = (props?: any) => {
     // request redux action to query API
     props.checkUser(query).then((res: any) => {
       const response = res.payload.data;
-      console.log(response);
       if (response.authed) {
         setUserEmail(cProps.email);
         setUserToken(cProps.token);

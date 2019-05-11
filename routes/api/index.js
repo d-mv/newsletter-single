@@ -79,10 +79,24 @@ router.post("/", function(req, res, next) {
           }
           break;
         case "update":
-          if (id && fields) {
+          console.log("\x1b[32m", "§ Router - Update source");
+          console.log("");
+          console.log(fields);
+          console.log("");
+
+          if (fields) {
             // call for update method
-            const query = { id: id, fields: fields };
-            SourceControler.updateSource(query, response => res.send(response));
+            UserController.findByToken(userToken, user => {
+              if (user) {
+                SourceControler.updateSource(fields, response =>
+                  res.send(response)
+                );
+              } else {
+                res.send({ message: "Unauthorized" });
+              }
+            });
+          } else {
+            res.send({ message: "Required information is missing" });
           }
           break;
         case "delete":
@@ -100,11 +114,6 @@ router.post("/", function(req, res, next) {
           });
           break;
         case "show":
-          //         {
-          //   action: [ 'post', 'show' ],
-          //   id: '5cd2fd436ad0ed1f365176ba',
-          //   fields: { email: 'dm@dm.dm', token: '345abc' }
-          // }
           if (id) {
             console.log("\x1b[32m", "§ Router - Fetch post to show");
             UserController.showPost({ token: userToken, id: id }, response => {

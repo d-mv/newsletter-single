@@ -94,15 +94,6 @@ class Content extends React.Component<props> {
 
   loadPosts = (query: NewQuery) => {
     this.props.loadPosts(query).then((data: any) => {
-      // if (data.payload.data.message) {
-      //   this.setState({
-      //     posts: [],
-      //     message: data.payload.data.message,
-      //     loading: false
-      //   });
-      // } else {
-      console.log(data.payload.data);
-      console.log(this.state);
       this.setState({
         posts: data.payload.data,
         loading: false
@@ -112,13 +103,6 @@ class Content extends React.Component<props> {
   };
   loadSources = (query: NewQuery) => {
     this.props.loadSources(query).then((data: any) => {
-      // if (data.payload.data.message) {
-      //   this.setState({
-      //     sources: [],
-      //     message: data.payload.data.message,
-      //     loading: false
-      //   });
-      // } else {
       this.setState({
         sources: data.payload.data,
         loading: false
@@ -173,7 +157,7 @@ class Content extends React.Component<props> {
     };
     // request redux action to query API
     this.props.apiRequest(query).then((res: any) => {
-      const response = res.payload.data;
+      // const response = res.payload.data;
     });
   };
   selectPostToShow = (props: { id: string }) => {
@@ -233,22 +217,72 @@ class Content extends React.Component<props> {
         this.setState({ message: response.statusText });
       });
   };
-  createSource = (props: any) => {
-    console.log("- create source:");
+  updateSourceInState = (props: { [index: string]: string }) => {
+    const newSources = this.state.sources;
+    // let oldSourceElement;
+    newSources
+      .filter((source: any) => source._id === props._id)
+      .forEach((source: any) => {
+        source.name = props.name;
+        source.url = props.url;
+        source.homepage = props.homepage;
+      });
+    this.setState({ source: newSources });
+
+    // const newPosts = this.state.posts;
+    // let oldPostState;
+    // newPosts
+    //   .filter((post: Post) => post._id === props.id)
+    //   .forEach((post: Post) => {
+    //     if (props.field === "read") {
+    //       oldPostState = post.read;
+    //       post.read = !post.read;
+    //     } else {
+    //       oldPostState = post.star;
+    //       post.star = !post.star;
+    //     }
+    //   });
+  };
+
+  updateSourceAction = (props: { [index: string]: string }) => {
     console.log(props);
+    const query = {
+      token: this.props.currentUser.token,
+      action: ["source", "update"],
+      fields: props
+    };
+
+    this.props.apiRequest(query).then((response: any) => {
+      console.log(response);
+      const message = response.payload.data.message;
+      // if (response.payload){
+      console.log(message);
+      this.setState({ message: message });
+      this.updateSourceInState(props);
+    });
+  };
+
+  createSource = (cSprops: any) => {
+    console.log("- create source:");
+    console.log(cSprops);
     // set query object
     const query = {
       token: this.props.currentUser.token,
       action: ["source", "create"],
-      fields: props
+      fields: cSprops
     };
+    let newSource = cSprops;
+     newSource._id = "012345"
+    const newSourceToArray = [newSource];
+    const newState = [...this.state.sources, ...newSourceToArray];
     // request redux action to query API
     this.props.apiRequest(query).then((res: any) => {
       const response = res.payload.data;
       console.log(response);
       this.setState({
         message: response.message,
-        addSource: false
+        addSource: false,
+        sources: newState
       });
     });
   };
@@ -265,7 +299,6 @@ class Content extends React.Component<props> {
   };
   checkIfPostsSourcesEmpty = () => {
     let message;
-    console.log(this.checkIfSourcesEmpty());
     if (
       this.checkIfSourcesEmpty() &&
       (this.state.posts === [] || this.state.posts.length === 0)
@@ -277,33 +310,6 @@ class Content extends React.Component<props> {
     return message;
   };
   // ui elements
-  smartMenu = (
-    <SmartMenu
-      read={this.state.showRead}
-      toggleRead={this.toggleShowRead}
-      refresh={this.handleRefreshClick}
-      moduleToggle={this.showModule}
-      mode={this.state.module}
-      showFilter={this.state.filterId !== ""}
-      toggleFilter={this.toggleShowFilter}
-    />
-  );
-  filter =
-    this.state.showFilter && this.state.sources ? (
-      <Suspense fallback={<Loading />}>
-        <Filter
-          toggle={this.toggleShowFilter}
-          list={this.state.sources}
-          choose={this.chooseFilter}
-          id={this.state.filterId}
-        />
-      </Suspense>
-    ) : null;
-  postShow = (
-    <Suspense fallback={<Loading />}>
-      <PostShow post={this.state.showPost} update={this.updatePostAction} />
-    </Suspense>
-  );
   profile = (
     <Suspense fallback={<Loading />}>
       <Profile
@@ -318,13 +324,46 @@ class Content extends React.Component<props> {
     </Suspense>
   );
   render() {
+    // postToShow
+    const postShow = (
+      <Suspense fallback={<Loading />}>
+        <PostShow post={this.state.showPost} update={this.updatePostAction} />
+      </Suspense>
+    );
+    // smartmenu
+    const smartMenu = (
+      <SmartMenu
+        read={this.state.showRead}
+        toggleRead={this.toggleShowRead}
+        refresh={this.handleRefreshClick}
+        moduleToggle={this.showModule}
+        mode={this.state.module}
+        showFilter={this.state.filterId !== ""}
+        toggleFilter={this.toggleShowFilter}
+      />
+    );
+    // filter
+    const filter =
+      this.state.showFilter && this.state.sources ? (
+        <Suspense fallback={<Loading />}>
+          <Filter
+            toggle={this.toggleShowFilter}
+            list={this.state.sources}
+            choose={this.chooseFilter}
+            id={this.state.filterId}
+          />
+        </Suspense>
+      ) : null;
+
     // list of posts
     let postsList;
     const messageToShow = this.checkIfPostsSourcesEmpty();
-    console.log(messageToShow);
-    if (this.state.message) {
-      console.log("smth wrong with state message");
-    } else if (this.state.loading) {
+    // console.log(messageToShow);
+    // if (this.state.message) {
+    //   console.log("smth wrong with state message");
+    //   console.log(this.state.message)
+    // } else
+    if (this.state.loading) {
       postsList = <Loading />;
     } else if (messageToShow) {
       postsList = (
@@ -361,57 +400,21 @@ class Content extends React.Component<props> {
         <Suspense fallback={<Loading />}>
           <SourceCardList
             sources={this.state.sources}
+            submit={this.createSource}
             //  addSource={this.props.addSource}
             //  deleteSource={this.deleteSource}
-            //  updateSource={this.props.updateSource}
+            update={this.updateSourceAction}
           />
         </Suspense>
       );
     }
-    // const smartMenu = (
-    //   <SmartMenu
-    //     read={this.state.showRead}
-    //     toggleRead={this.toggleShowRead}
-    //     refresh={this.handleRefreshClick}
-    //     moduleToggle={this.showModule}
-    //     mode={this.state.module}
-    //     showFilter={this.state.filterId !== ""}
-    //     toggleFilter={this.toggleShowFilter}
-    //   />
-    // );
-
-    // const filter =
-    //   this.state.showFilter && this.state.sources ? (
-    //     <Suspense fallback={<Loading />}>
-    //       <Filter
-    //         toggle={this.toggleShowFilter}
-    //         list={this.state.sources}
-    //         choose={this.chooseFilter}
-    //         id={this.state.filterId}
-    //       />
-    //     </Suspense>
-    //   ) : null;
-
-    // const postShow = (
-    //   <Suspense fallback={<Loading />}>
-    //     <PostShow post={this.state.showPost} update={this.updatePostAction} />
-    //   </Suspense>
-    // );
-    // const profile = (
-    //   <Suspense fallback={<Loading />}>
-    //     <Profile
-    //       currentUser={this.props.currentUser}
-    //       signOff={this.props.signOff}
-    //     />
-    //   </Suspense>
-    // );
     return (
       <ContentS data-test="app">
         <Header />
-        {this.smartMenu}
-        {this.filter}
+        {smartMenu}
+        {filter}
         {this.state.module === "posts" ? postsList : null}
-        {this.state.module === "post" ? this.postShow : null}
+        {this.state.module === "post" ? postShow : null}
         {this.state.module === "sources" ? sourcesList : null}
         {this.state.addSource ? this.addSource : null}
         {this.state.module === "profile" ? this.profile : null}

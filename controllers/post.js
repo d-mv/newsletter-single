@@ -16,17 +16,44 @@ module.exports.list = (options, callback) => {
     // if ()
     let sourceIds = [];
     options.sources.map(source => {
-      sourceIds.push({ sourceId: source._id });
+      sourceIds.push(source._id.toString());
     });
     // find all posts with defined sourceIds
-    console.log("- cntr-post-list > proceed");
-
-    Post.find({ $or: sourceIds })
+    console.log("- cntr-post-list > aggregate");
+    Post.aggregate([
+      {
+        $project: {
+          source: 1,
+          sourceId: 1,
+          title: 1,
+          url: 1,
+          author: 1,
+          published: 1,
+          parsed: 1,
+          readTime: 1,
+          pages: 1,
+          star: 1,
+          read: 1,
+          text: {
+            $substrCP: ["$text", 0, 800]
+          }
+        }
+      },
+      {
+        $match: {
+          sourceId: {
+            $in: sourceIds
+          }
+        }
+      }
+    ])
       .sort({ published: -1 })
       .then(data => {
+        console.log("+++");
+        console.log(data);
         callback(data);
       })
-      .catch(e => console.log(e));
+      .catch(err => callback(err));
   }
 };
 

@@ -2,21 +2,20 @@ import styled from "styled-components";
 
 import {
   arsenic,
-  darkMediumGrey,
   lightGrey,
   baseFont,
   boxTransition,
   boxShadow,
-  boxShadowHover
+  boxShadowHover,
+  borderBottomArs,
+  borderBottomLG
 } from "./_definitions";
 
 const Button = styled.button`
-  /* position: absolute;
-  top: 44vh;
-  left: 10vw; */
   font-weight: 300;
   background: none;
   border: none;
+  border-bottom: ${borderBottomArs};
   background-color: ${arsenic};
   color: ${lightGrey};
   font-family: ${baseFont};
@@ -32,11 +31,12 @@ const Button = styled.button`
   cursor: pointer;
   &:hover {
     box-shadow: ${boxShadowHover};
-    background-color: ${darkMediumGrey};
+    border-bottom: ${borderBottomLG};
   }
   &:active {
-    transform: scale(0.9);
+    transform: scale(0.95);
     box-shadow: ${boxShadow};
+    border-bottom: ${borderBottomLG};
   }
 `;
 

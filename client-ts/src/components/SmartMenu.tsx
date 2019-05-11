@@ -1,6 +1,5 @@
 import React from "react";
 import { FaSyncAlt, FaEye, FaEyeSlash, FaFilter, FaUser } from "react-icons/fa";
-import { CurrentUser } from "../types";
 
 import SmartButton from "./SmartButton";
 import Style from "../styles/SmartMenu";
@@ -47,35 +46,35 @@ const SmartMenu = (props: {
   });
   // showReadButton;
   let showReadButton =
-    props.mode === "post"
-      ? null
-      : buttonElement({
+    props.mode === "posts"
+      ? buttonElement({
           element: props.read ? <FaEye /> : <FaEyeSlash />,
           mode: "showRead",
           accent: props.read,
           function: props.toggleRead
-        });
+        })
+      : null;
 
   // refreshButton;
   let refreshButton =
-    props.mode === "post"
-      ? null
-      : buttonElement({
+    props.mode === "posts"
+      ? buttonElement({
           element: <FaSyncAlt />,
           mode: "refresh",
           accent: false,
           function: props.refresh
-        });
+        })
+      : null;
   // filterButton;
   let filterButton =
-    props.mode === "post"
-      ? null
-      : buttonElement({
+    props.mode === "posts"
+      ? buttonElement({
           element: <FaFilter />,
           mode: "filter",
           accent: props.showFilter,
           function: props.toggleFilter
-        });
+        })
+      : null;
 
   const profileButton = buttonElement({
     element: <FaUser />,

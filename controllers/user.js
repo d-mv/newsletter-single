@@ -25,14 +25,11 @@ module.exports.fetch = (token, callback) => {
         // console.log(sources.length);
         if (sources.length > 0) {
           console.log("size matters");
-          PostControler.list(
-            { sources: sources, mode: "all" },
-            posts => {
-              console.log("-- posts:");
-              console.log(posts);
-              callback(posts);
-            }
-          );
+          PostControler.list({ sources: sources, mode: "all" }, posts => {
+            console.log("-- posts:");
+            console.log(posts);
+            callback(posts);
+          });
         } else {
           console.log("size doesn't matter");
           callback([]);
@@ -48,6 +45,7 @@ module.exports.showPost = (options, callback) => {
     console.log(id);
     if (id) {
       PostControler.postById(options.id, response => {
+        console.log(response);
         callback({ authed: true, post: response });
       });
     }
@@ -69,9 +67,10 @@ module.exports.createSource = (options, callback) => {
       Source.createSource(fields, response => {
         console.log("-- createSource responded:");
         console.log(response);
-        callback(response);
+        SourceControler.findByUserId({ id: id, mode: "all" }, sources => {
+          PostControler.refresh(sources, resp => callback(response));
+        });
       });
-      // );
     } else {
       console.log("...user not found");
       callback({

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 import { Source } from "../store/source/types";
 
-import { Menu} from "../styles/Filter";
-
 import {
   Edit,
   Error,
@@ -11,7 +9,8 @@ import {
   Add,
   Cancel,
   ButtonsWrapper
-} from "../styles/SourceCard";
+} from "../styles/SourceEditAdd";
+
 const SourceEdit = (props: {
   source?: Source;
   submit: (arg0: Source) => any;
@@ -103,8 +102,16 @@ const SourceEdit = (props: {
       url,
       home
     };
-    if (checkName && newSource !== currentSource) {
+    const oldSource = {
+      _id: props.source ? props.source._id : "",
+      name: props.source ? props.source.name : "",
+      url: props.source ? props.source.url : "",
+      home: props.source ? props.source.home : ""
+    };
+    const diff = JSON.stringify(newSource) === JSON.stringify(oldSource);
+    if (!diff && checkName && newSource !== currentSource) {
       props.submit(newSource);
+      closeForm();
     }
   };
 
@@ -121,6 +128,9 @@ const SourceEdit = (props: {
         break;
     }
   };
+  const cancelButton = props.source ? null : (
+    <Cancel onClick={() => closeForm()}>Cancel</Cancel>
+  );
   const formElements = (
     <form onSubmit={handleSubmit}>
       <label>
@@ -134,12 +144,7 @@ const SourceEdit = (props: {
       </label>
       <label>
         <span>URL</span>
-        <input
-          type="url"
-          name="url"
-          value={url}
-          onChange={handleInputChange}
-        />
+        <input type="url" name="url" value={url} onChange={handleInputChange} />
       </label>
       <label>
         <span>Homepage</span>
@@ -161,15 +166,14 @@ const SourceEdit = (props: {
             id="submit_button"
           />
         </Submit>
-        <Cancel onClick={() => closeForm()}>Cancel</Cancel>
+        {cancelButton}
       </ButtonsWrapper>
     </form>
   );
-
   const editForm = props.source ? (
-    <Edit>{formElements}</Edit>
+    <Edit data-test="component__source-edit">{formElements}</Edit>
   ) : (
-    <Add>{formElements}</Add>
+    <Add data-test="component__source-add">{formElements}</Add>
   );
   return editForm;
 };

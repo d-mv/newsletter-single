@@ -7,9 +7,10 @@ import Line from "./PostElements/PostLine";
 import Footer from "./PostElements/PostFooter";
 
 import { Show, Title, Text } from "../styles/PostShow";
-import style from "../styles/PostTextStyle.module.scss";
 
-const handleTitleClick = (props: { link: string }) => {};
+const handleTitleClick = (link: string) => {
+  window.open(link, "_blank");
+};
 
 const PostShow = (props: { post: Post; update: (arg0: any) => void }) => {
   const starButton = props.post.star ? (
@@ -18,11 +19,14 @@ const PostShow = (props: { post: Post; update: (arg0: any) => void }) => {
     <TiStarOutline />
   );
   const trashButton = <FaTrash />;
+  // clean text
+  const regex = new RegExp("style = '.*'", "gm");
+  const removedStyleText = props.post.text.replace(regex, "");
   return (
     <Show>
       <Title
         onClick={() => {
-          handleTitleClick({ link: props.post.url });
+          handleTitleClick(props.post.url);
         }}
       >
         {props.post.title}
@@ -38,13 +42,13 @@ const PostShow = (props: { post: Post; update: (arg0: any) => void }) => {
         id={props.post._id}
       />
       <Text
-        className={style.text}
         dangerouslySetInnerHTML={{
-          __html: props.post.text
+          __html: removedStyleText
         }}
       />
       <Footer
         timestamp={props.post.published}
+        parsed={props.post.parsed}
         readingTime={props.post.readTime}
       />
     </Show>

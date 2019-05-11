@@ -12,7 +12,8 @@ const SourcesList = styled(Display)`
   justify-content: center;
   transition: 0.3s;
 
-  @media (max-width: 599px) {
+  @media (max-width: 499px) {
+    padding: 0;
   }
 
   @media (min-width: 600px) and (max-width: 949px) {
@@ -25,5 +26,9 @@ const SourcesList = styled(Display)`
   }
 `;
 
-const AddSource = styled.section``;
+const AddSource = styled.section`
+  width: 100%;
+  margin: 1rem auto;
+  text-align: center;
+`;
 export { SourcesList, AddSource };
