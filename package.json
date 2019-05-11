@@ -8,6 +8,7 @@
     "client-install": "npm install --prefix client-ts",
     "start": "node ./bin/www",
     "client": "npm start --prefix client-ts",
+    "full": "npm run dev & npm run client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client-ts && npm run build --prefix client-ts",
     "dev": "nodemon ./bin/www",
     "jtest": "jest --watchAll"

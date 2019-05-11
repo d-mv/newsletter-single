@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { darkMediumGrey, statusFont } from "./_definitions";
 import { scaleUp } from "./_animations";
 
+interface props {
+  margin?: string;
+}
+
 const Card = styled.article`
   animation: 0.3s ease-out 0s 1 ${scaleUp};
 
@@ -18,7 +22,7 @@ const Card = styled.article`
 
   border-bottom: 1px solid ${darkMediumGrey};
   @media (max-width: 699px) {
-    width: 90%;
+    width: 100%;
   }
 
   @media (min-width: 700px) and (max-width: 949px) {
@@ -80,9 +84,20 @@ const Footer = styled.footer`
   font-weight: 300;
   padding: 0 0.3rem;
 `;
-const Wrapper = styled.div`
+
+const Wrapper = styled.div<props>`
   display: flex;
   justify-content: space-between;
+  margin-top: ${props => props.margin};
 `;
 
-export { Card, Title, Line, Wrapper, Text, Footer };
+const Sub = styled.span`
+  @media (max-width: 499px) {
+    display: none;
+  }
+  @media (min-width: 500px) {
+    /* span {} */
+  }
+`;
+
+export { Card, Title, Line, Wrapper, Text, Footer, Sub };

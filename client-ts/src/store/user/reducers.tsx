@@ -1,5 +1,6 @@
 import {
   CHECK_USER,
+  API_REQUEST,
   UserSystemState,
   // UserQuery,
   SystemActionTypes
@@ -16,6 +17,21 @@ export function checkUser(
 ): UserSystemState {
   switch (action.type) {
     case CHECK_USER: {
+      return {
+        // ...state,
+        ...action.payload
+      };
+    }
+    default:
+      return state;
+  }
+}
+export function apiRequest(
+  state = initialState,
+  action: SystemActionTypes
+): UserSystemState {
+  switch (action.type) {
+    case API_REQUEST: {
       return {
         // ...state,
         ...action.payload

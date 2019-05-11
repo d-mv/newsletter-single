@@ -11,17 +11,49 @@ const Source = require("../models/source");
 module.exports.list = (options, callback) => {
   if (options.mode === "all") {
     // create array of requests with source IDs
+    console.log("- ctr-post-list");
+    console.log(options);
+    // if ()
     let sourceIds = [];
     options.sources.map(source => {
-      sourceIds.push({ sourceId: source._id });
+      sourceIds.push(source._id.toString());
     });
     // find all posts with defined sourceIds
-    Post.find({ $or: sourceIds })
+    console.log("- cntr-post-list > aggregate");
+    Post.aggregate([
+      {
+        $project: {
+          source: 1,
+          sourceId: 1,
+          title: 1,
+          url: 1,
+          author: 1,
+          published: 1,
+          parsed: 1,
+          readTime: 1,
+          pages: 1,
+          star: 1,
+          read: 1,
+          text: {
+            $substrCP: ["$text", 0, 800]
+          }
+        }
+      },
+      {
+        $match: {
+          sourceId: {
+            $in: sourceIds
+          }
+        }
+      }
+    ])
       .sort({ published: -1 })
       .then(data => {
+        console.log("+++");
+        console.log(data);
         callback(data);
       })
-      .catch(e => console.log(e));
+      .catch(err => callback(err));
   }
 };
 
@@ -33,8 +65,11 @@ module.exports.list = (options, callback) => {
  * @returns {object}
  */
 module.exports.postById = (id, callback) => {
+  console.log("- object");
+  console.log(id);
   const query = {
-    _id: id.substr(6, id.length)
+    _id: id
+    // _id: id.substr(6, id.length)
   };
   Post.getPostById(query, (err, response) => {
     err ? callback(err) : callback(response);
@@ -48,13 +83,13 @@ module.exports.postById = (id, callback) => {
  * @param {function} callback - Callback function to return response
  * @returns {object}
  */
-module.exports.refresh = (query, callback) => {
-  Source.getListOfSources("", (errSource, resSource) => {
-    if (errSource) callback(errSource);
-    Post.refreshPosts(resSource, (errPost, resPost) => {
-      errPost ? callback(errPost) : callback(resPost);
-    });
+module.exports.refresh = (resSource, callback) => {
+  // Source.getListOfSources("", (errSource, resSource) => {
+  //   if (errSource) callback(errSource);
+  Post.refreshPosts(resSource, (errPost, resPost) => {
+    errPost ? callback(errPost) : callback(resPost);
   });
+  // });
 };
 /**
  * Controller for updating post

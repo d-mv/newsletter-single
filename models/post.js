@@ -67,41 +67,70 @@ module.exports.deletePost = (id, callback) => {
 module.exports.deleteReadPosts = (id, callback) => {
   Post.deleteMany({ read: true }, callback);
 };
-module.exports.getAllPosts = (id, callback) => {
-  Post.aggregate([
-    {
-      $project: {
-        source: 1,
-        sourceId: 1,
-        title: 1,
-        url: 1,
-        author: 1,
-        published: 1,
-        parsed: 1,
-        readTime: 1,
-        pages: 1,
-        star: 1,
-        read: 1,
-        text: {
-          $substrCP: ["$text", 0, 800]
-        }
-      }
-    },
-    {
-      $match: {
-        userId: id
-      }
-    }
-  ])
-    .sort({ published: -1 })
-    .then(data => callback(data))
-    .catch(err => callback(err));
-};
+// module.exports.getAllPosts = (id, callback) => {
+//   Post.aggregate([
+//     {
+//       $project: {
+//         source: 1,
+//         sourceId: 1,
+//         title: 1,
+//         url: 1,
+//         author: 1,
+//         published: 1,
+//         parsed: 1,
+//         readTime: 1,
+//         pages: 1,
+//         star: 1,
+//         read: 1,
+//         text: {
+//           $substrCP: ["$text", 0, 800]
+//         }
+//       }
+//     },
+//     {
+//       $match: {
+//         userId: id
+//       }
+//     }
+//   ])
+//     .sort({ published: -1 })
+//     .then(data => callback(data))
+//     .catch(err => callback(err));
+// };
+
 module.exports.getPostsBySource = (id, callback) => {
   console.log(`Post.getPostsBySource: ${id}`);
-  Post.find({ sourceId: id })
-    .sort({ published: -1 })
-    .then(data => callback(data));
+    Post.aggregate([
+      {
+        $project: {
+          source: 1,
+          sourceId: 1,
+          title: 1,
+          url: 1,
+          author: 1,
+          published: 1,
+          parsed: 1,
+          readTime: 1,
+          pages: 1,
+          star: 1,
+          read: 1,
+          text: {
+            $substrCP: ["$text", 0, 800]
+          }
+        }
+      },
+      {
+        $match: {
+          sourceId: id
+        }
+      }
+    ])
+      .sort({ published: -1 })
+      .then(data => callback(data))
+      .catch(err => callback(err));
+  // Post.find({ sourceId: id })
+  //   .sort({ published: -1 })
+  //   .then(data => callback(data));
 };
 
 module.exports.deletePostsBySource = (id, callback) => {
@@ -163,7 +192,7 @@ const processPost = (source, post) => {
         readTime: post.readTime,
         pages: post.pages
       });
-      console.log(newPost)
+      console.log(newPost);
       newPost.save(err => {
         if (err) {
           console.log(err);
@@ -287,7 +316,7 @@ const parseResponse = (source, response) => {
         .replace(/(<meta .*>)/gm, "")
         .replace(/(<link .*>)/gm, "");
     }
-
+    console.log('--- textlength: '+text.length)
     const textLength = test === 0 ? text.length : 0;
     const readTime =
       Math.round(textLength / 1500) === 0 ? 1 : Math.round(textLength / 1500);
@@ -325,7 +354,8 @@ const processSource = source => {
 };
 
 module.exports.refreshPosts = (query, callback) => {
-  // console.log(`~ Post.refreshPosts`);
+  console.log(`~ Post.refreshPosts`);
+  console.log(query);
   query.map(source => {
     processSource(source);
   });

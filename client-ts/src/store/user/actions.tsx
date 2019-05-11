@@ -14,3 +14,16 @@ export function checkUser(query: UserQuery) {
     payload: promise
   };
 }
+export function apiRequest(query: UserQuery) {
+  const promise = axios
+    .post("/", {
+      query
+    })
+    .then(response => response)
+    .catch(error => error);
+
+  return {
+    type: CHECK_USER,
+    payload: promise
+  };
+}

@@ -45,28 +45,36 @@ const SmartMenu = (props: {
     function: props.moduleToggle
   });
   // showReadButton;
-  let showReadButton = buttonElement({
-    element: props.read ? <FaEye /> : <FaEyeSlash />,
-    mode: "showRead",
-    accent: props.read,
-    function: props.toggleRead
-  });
+  let showReadButton =
+    props.mode === "posts"
+      ? buttonElement({
+          element: props.read ? <FaEye /> : <FaEyeSlash />,
+          mode: "showRead",
+          accent: props.read,
+          function: props.toggleRead
+        })
+      : null;
 
   // refreshButton;
-  let refreshButton = buttonElement({
-    element: <FaSyncAlt />,
-    mode: "refresh",
-    accent: false,
-    function: props.toggleRead
-  });
+  let refreshButton =
+    props.mode === "posts"
+      ? buttonElement({
+          element: <FaSyncAlt />,
+          mode: "refresh",
+          accent: false,
+          function: props.refresh
+        })
+      : null;
   // filterButton;
-  // const filterAccent = props.showFilter ? false : true;
-  let filterButton = buttonElement({
-    element: <FaFilter />,
-    mode: "filter",
-    accent: props.showFilter,
-    function: props.toggleFilter
-  });
+  let filterButton =
+    props.mode === "posts"
+      ? buttonElement({
+          element: <FaFilter />,
+          mode: "filter",
+          accent: props.showFilter,
+          function: props.toggleFilter
+        })
+      : null;
 
   const profileButton = buttonElement({
     element: <FaUser />,

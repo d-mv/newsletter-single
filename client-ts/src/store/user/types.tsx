@@ -25,11 +25,16 @@ export interface UserQuery {
 // }
 // Describing the different ACTION NAMES available
 export const CHECK_USER = "CHECK_USER";
+export const API_REQUEST = "API_REQUEST";
 // export const UPDATE_POST = "UPDATE_POST";
 // export const SELECT_POST = "SELECT_POST";
 
 interface CheckUserAction {
   type: typeof CHECK_USER;
+  payload: UserSystemState;
+}
+interface ApiRequestAction {
+  type: typeof API_REQUEST;
   payload: UserSystemState;
 }
 // interface UpdatePostAction {
@@ -42,6 +47,6 @@ interface CheckUserAction {
 //   payload: PostId;
 // }
 
-export type SystemActionTypes = CheckUserAction;
+export type SystemActionTypes = CheckUserAction | ApiRequestAction;
 // | UpdatePostAction
 // | SelectPostAction;

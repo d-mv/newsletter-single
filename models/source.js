@@ -30,27 +30,34 @@ module.exports.getSourceByName = (name, callback) => {
 };
 
 module.exports.createSource = (fields, callback) => {
+  console.log("\x1b[31m", ` - Model/Source/createSource: `);
+  console.log("");
+  console.log(fields);
+
   Source.getSourceByName(fields.name, (err, res) => {
+    console.log(err);
+    console.log(res);
     if (err) callback(err);
     if (res) {
-      // console.log("\x1b[34m", "~ source exists");
-      callback(res);
+      console.log("\x1b[34m", "-- source exists");
+      callback({
+        message: "Source exists."
+      });
     } else {
-      // console.log(
-      //   "\x1b[32m",
-      //   `~ Creating new source with name: ${fields.name}`
-      // );
+      console.log("\x1b[32m", `-- creating new source`);
       const newSource = new Source(fields);
-      newSource.save(callback);
+      newSource.save();
+      callback({ message: "Source created." });
     }
   });
 };
 module.exports.getListOfSources = (userId, callback) => {
-  console.log(userId)
+  console.log(userId);
   Source.find({ userId: userId }, (err, docs) => {
-    console.log('found:')
-    console.log(docs)
-    callback(docs)});
+    console.log("found:");
+    console.log(docs);
+    callback(docs);
+  });
 };
 
 module.exports.getSourceById = (id, callback) => {

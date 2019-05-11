@@ -21,7 +21,7 @@ const SmartMenu = styled.nav`
 
   @media (max-width: 435px) {
     top: 4.5rem;
-    width: 100vw;
+    width: 100%;
     left: 0;
   }
 `;

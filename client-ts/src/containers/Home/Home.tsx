@@ -7,13 +7,8 @@ import Login from "../../components/Login";
 
 import { AuthObj } from "../../types";
 
-import {
-  HomeScreen,
-  Title,
-  SubTitle,
-  Screenshot,
-  LogInButton
-} from "../../styles/Home";
+import { HomeScreen, Title, SubTitle, Screenshot } from "../../styles/Home";
+import { Button } from "../../styles/_uiElements";
 import { Menu } from "../../styles/Filter";
 
 // import Home from "../../components/Home";
@@ -33,28 +28,28 @@ const Home = (props: props) => {
   const [loginMessage, setLoginMessage] = React.useState("");
   const { cookies } = props;
 
-  const cookiesCheck = (cProps: { email: string; token: string }) => {
-    const query = {
-      action: ["user", "cookiesCheck"],
-      fields: cProps
-    };
-    props.checkUser(query).then((res: any) => {
-      const response = res.payload.data;
-      if (response.authed) {
-        props.setUserEmail(cProps.email);
-        props.setUserToken(cProps.token);
-        props.toggleAuth();
-      }
-    });
-  };
+  // const cookiesCheck = (cProps: { email: string; token: string }) => {
+  //   const query = {
+  //     action: ["user", "cookiesCheck"],
+  //     fields: cProps
+  //   };
+  //   props.checkUser(query).then((res: any) => {
+  //     const response = res.payload.data;
+  //     if (response.authed) {
+  //       props.setUserEmail(cProps.email);
+  //       props.setUserToken(cProps.token);
+  //       props.toggleAuth();
+  //     }
+  //   });
+  // };
 
-  const existingCookies = {
-    email: cookies.get("email"),
-    token: cookies.get("token")
-  };
-  if (cookies.get("email") && cookies.get("token")) {
-    cookiesCheck(existingCookies);
-  }
+  // const existingCookies = {
+  //   email: cookies.get("email"),
+  //   token: cookies.get("token")
+  // };
+  // if (cookies.get("email") && cookies.get("token")) {
+  //   cookiesCheck(existingCookies);
+  // }
 
   const login = (lProps: AuthObj) => {
     const action = lProps.new ? "create" : "login";
@@ -65,6 +60,7 @@ const Home = (props: props) => {
     };
     props.checkUser(query).then((res: any) => {
       const response = res.payload.data;
+      console.log(response);
       if (response.user === "new") {
         setAuthNew(true);
       } else if (response.status) {
@@ -88,9 +84,9 @@ const Home = (props: props) => {
       <Title>The Newsletter</Title>
       <SubTitle>Just information.</SubTitle>
       <Screenshot />
-      <LogInButton onClick={() => setShowLogin(!showLogin)}>
+      <Button onClick={() => setShowLogin(!showLogin)}>
         Login or register
-      </LogInButton>
+      </Button>
       {showLogin ? (
         <Menu>
           <Login
