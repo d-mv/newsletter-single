@@ -1,0 +1,36 @@
+@import "./definitions";
+
+.post {
+  cursor: pointer;
+  outline: none;
+  font-size: 1.2rem;
+  margin: 0;
+  transition: 0.3s;
+
+  @media (max-width: 599px) {
+    font-size: 1.2rem;
+  }
+}
+
+.status {
+  transition: 0.3s;
+
+}
+
+.onStatus {
+  @extend .status;
+  color: $arsenic;
+
+  &:hover {
+    color: $darkMediumGrey;
+  }
+}
+
+.offStatus {
+  @extend .status;
+  color: $darkMediumGrey;
+
+  &:hover {
+    color: $arsenic;
+  }
+}

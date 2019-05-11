@@ -1,15 +1,15 @@
 import React from "react";
 
 import Title from "./Title";
-import DateTime from '../DateTime'
-import Style from "../../styles/Header";
+import DateTime from '../Timestamp'
+import style from "../../styles/Header.module.scss";
 
 const Header = () => {
   return (
-    <Style>
+    <header className={style.header}>
       <Title />
       <DateTime date={new Date()} />
-    </Style>
+    </header>
   );
 };
 

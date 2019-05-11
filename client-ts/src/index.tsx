@@ -6,7 +6,8 @@ import { CookiesProvider } from "react-cookie";
 
 // load components
 import App from "./containers/App/App";
-import "./index.css";
+import "./index.scss";
+// import "./styles/_definitions.scss";
 import configureStore from "./store";
 import * as serviceWorker from "./serviceWorker";
 

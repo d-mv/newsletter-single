@@ -11,21 +11,25 @@ import { apiRequest } from "../../store/user/actions";
 import { NewQuery } from "../../types";
 
 import Header from "../../components/Header/Header";
-import SmartMenu from "../../components/SmartMenu";
+import SmartMenu from "../../components/Navigation/SmartMenu";
 import Loading from "../../components/Loading";
-import PostCardList from "../../components/PostCardList";
-import ContentS from "../../styles/Content";
-import { Button } from "../../styles/_uiElements";
+import PostCardList from "../../components/Post/PostCardList";
+// import ContentS from "../../styles/Content";
+// import { Button } from "../../styles/_uiElements";
+import "../../styles/_ui.scss";
+// import '../../styles/
 
 // lazy loading
 const Central = React.lazy(() => import("../../components/Central"));
 const Filter = React.lazy(() => import("../../components/Filter"));
-const PostShow = React.lazy(() => import("../../components/PostShow"));
+const PostShow = React.lazy(() => import("../../components/Post/PostShow"));
 const SourceCardList = React.lazy(() =>
-  import("../../components/SourceCardList")
+  import("../../components/Source/SourceCardList")
 );
 const Profile = React.lazy(() => import("../../components/Profile"));
-const SourceEdit = React.lazy(() => import("../../components/SourceEdit"));
+const SourceEdit = React.lazy(() =>
+  import("../../components/Source/SourceEdit")
+);
 
 interface props {
   loadPosts: (arg0?: any) => any;
@@ -40,18 +44,6 @@ interface props {
 interface Content {
   refresher: any;
 }
-
-// interface IState {
-//   module: string;
-//   showRead: boolean;
-//   showFilter: boolean;
-//   filterId: string;
-//   loading: boolean;
-//   sources: any[];
-//   posts: any[];
-//   message: string;
-//   showPost: Post;
-// }
 const emptyPost: Post = {
   _id: "",
   source: "",
@@ -228,20 +220,6 @@ class Content extends React.Component<props> {
         source.homepage = props.homepage;
       });
     this.setState({ source: newSources });
-
-    // const newPosts = this.state.posts;
-    // let oldPostState;
-    // newPosts
-    //   .filter((post: Post) => post._id === props.id)
-    //   .forEach((post: Post) => {
-    //     if (props.field === "read") {
-    //       oldPostState = post.read;
-    //       post.read = !post.read;
-    //     } else {
-    //       oldPostState = post.star;
-    //       post.star = !post.star;
-    //     }
-    //   });
   };
 
   updateSourceAction = (props: { [index: string]: string }) => {
@@ -272,7 +250,7 @@ class Content extends React.Component<props> {
       fields: cSprops
     };
     let newSource = cSprops;
-     newSource._id = "012345"
+    newSource._id = "012345";
     const newSourceToArray = [newSource];
     const newState = [...this.state.sources, ...newSourceToArray];
     // request redux action to query API
@@ -391,7 +369,7 @@ class Content extends React.Component<props> {
             message="The are no sources for now."
             function={this.toggleShowAddSource}
           >
-            <Button>Add source</Button>
+            <button className="button">Add source</button>
           </Central>
         </Suspense>
       );
@@ -409,7 +387,7 @@ class Content extends React.Component<props> {
       );
     }
     return (
-      <ContentS data-test="app">
+      <main data-test="app">
         <Header />
         {smartMenu}
         {filter}
@@ -418,7 +396,7 @@ class Content extends React.Component<props> {
         {this.state.module === "sources" ? sourcesList : null}
         {this.state.addSource ? this.addSource : null}
         {this.state.module === "profile" ? this.profile : null}
-      </ContentS>
+      </main>
     );
   }
 }

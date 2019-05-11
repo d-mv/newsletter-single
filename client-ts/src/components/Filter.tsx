@@ -1,11 +1,12 @@
 import React from "react";
 
-import {
-  Menu,
-  ButtonsWrapper,
-  ButtonClear,
-  ButtonSource
-} from "../styles/Filter";
+// import {
+//   Menu,
+//   ButtonsWrapper,
+//   ButtonClear,
+//   ButtonSource
+// } from "../styles/Filter";
+import style from "../styles/Filter.module.scss";
 
 // const handleClick = (props:{func:(arg0:string)=>void, id:string}) => {
 //   func(id)
@@ -19,29 +20,30 @@ const Filter = (props: {
 }) => {
   const buttonClear =
     props.id === "" ? null : (
-      <ButtonClear onClick={() => props.choose("clear")}>
+      <button className={style.clear} onClick={() => props.choose("clear")}>
         Clear Filter
-      </ButtonClear>
+      </button>
     );
   const buttons = props.list.map(source => {
+    const buttonStyle = source._id === props.id ? style.sourceAccented : style.source
     return (
-      <ButtonSource
+      <button
+        className={buttonStyle}
         key={source._id}
-        accent={source._id === props.id}
         onClick={() => props.choose(source._id)}
         data-test="component-filter-item"
       >
         {source.name}
-      </ButtonSource>
+      </button>
     );
   });
   return (
-    <Menu data-test="container-filter" onClick={() => props.toggle()}>
-      <ButtonsWrapper>
+    <div className={style.modal} data-test="container-filter" onClick={() => props.toggle()}>
+      <section className={style.buttonsWrapper}>
         {buttonClear}
         {buttons}
-      </ButtonsWrapper>
-    </Menu>
+      </section>
+    </div>
   );
 };
 

@@ -1,0 +1,82 @@
+@import './_definitions';
+@import './_typography';
+@import './animations';
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  background: $arsenicSemiTrans;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+
+.buttonTemplate {
+  animation: scaleUp 0.3s ease-out 0s 1;
+  font-family: $baseFont;
+  font-size: 1.1rem;
+  padding: 5px;
+  padding-top: 7px;
+  letter-spacing: 1px;
+  border-radius: 2px;
+  width: 250px;
+  max-width: 90%;
+  margin: 3px auto;
+  text-align: center;
+  box-shadow: $boxShadow;
+  transition: $boxTransition;
+
+  &:hover {
+    box-shadow: $boxShadowHover;
+  }
+}
+
+
+.source {
+  @extend .buttonTemplate;
+  background-color: $lightGrey;
+  color: $arsenic;
+  border-bottom: 3px solid $lightGrey;
+
+  &:hover {
+    border-bottom: 3px solid $dimGrey;
+  }
+}
+
+.sourceAccented {
+  @extend .buttonTemplate;
+  background-color: $dimGrey;
+  color: $lightGrey;
+  border-bottom: 3px solid $dimGrey;
+
+  &:hover {
+    border-bottom: 3px solid $lightGrey;
+  }
+
+}
+
+.clear {
+  @extend .buttonTemplate;
+  color: $lightGrey;
+  background-color: $arsenic;
+  border-bottom: 3px solid $arsenic;
+
+  &:hover {
+    color: $lightGrey;
+    border-bottom: 3px solid $lightGrey;
+  }
+}

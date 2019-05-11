@@ -1,6 +1,7 @@
 import React from "react";
 
-import { LoginForm, Title, Label, Submit, Error } from "../styles/LoginForm";
+// import { LoginForm, Title, Label, Submit, Error } from "../styles/LoginForm";
+import style from '../styles/LoginForm.module.scss'
 
 const Login = (props: {
   message: string;
@@ -86,7 +87,7 @@ const Login = (props: {
 
   const nameEnter = props.newUser ? (
     <label>
-      <Label>Name</Label>
+      <span className={style.label}>Name</span>
       <input
         type="text"
         name="uName"
@@ -95,25 +96,25 @@ const Login = (props: {
       />
     </label>
   ) : null;
-  const formHeight = props.newUser ? "350px" : "300px";
+  const formStyle = props.newUser ? style.loginTall : style.login;
   const title = props.newUser ? "Register new user" : "Login details";
 
   const inputErrors = (
-    <Error>
+    <div className={style.error}>
       {nameError ? <li>{nameError}</li> : null}
       {emailError ? <li>{emailError}</li> : null}
       {passwordError ? <li>{passwordError}</li> : null}
       {props.message ? <li>{props.message}</li> : null}
-    </Error>
+    </div>
   );
 
   return (
-    <LoginForm height={formHeight}>
-      <Title>{title}</Title>
+    <section className={formStyle}>
+      <h1>{title}</h1>
       <form onSubmit={handleSubmit}>
         {nameEnter}
         <label>
-          <Label>Email</Label>
+          <span className={style.label}>Email</span>
           <input
             type="email"
             name="uMail"
@@ -122,7 +123,7 @@ const Login = (props: {
           />
         </label>
         <label>
-          <Label>Password</Label>
+          <span className={style.label}>Password</span>
           <input
             type="password"
             name="uPass"
@@ -131,15 +132,15 @@ const Login = (props: {
           />
         </label>
         {inputErrors}
-        <Submit>
+        <button className={style.submit}>
           <input
             type="button"
             value={props.newUser ? "Register" : "Login"}
             id="submit_button"
           />
-        </Submit>
+        </button>
       </form>
-    </LoginForm>
+    </section>
   );
 };
 

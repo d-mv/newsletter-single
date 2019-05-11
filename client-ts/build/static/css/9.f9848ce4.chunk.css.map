@@ -1,0 +1,1 @@
+{"version":3,"sources":["/Users/dmitry/Desktop/Projects/newsletter/single/client-ts/src/styles/Profile.module.scss"],"names":[],"mappings":"AAAA,8BACE,iBAAiB,CACjB,SAAU,CACV,oBAAqB,CACrB,UAAW,CACX,iBAAkB","file":"9.f9848ce4.chunk.css","sourcesContent":[".buttonWrapper {\n  position:absolute;\n  top: 10rem;\n  align-content: center;\n  width: 100%;\n  text-align: center;\n}"]}

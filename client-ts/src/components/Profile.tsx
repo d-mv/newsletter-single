@@ -4,8 +4,10 @@ import { AppState } from "../store";
 
 import { checkUser } from "../store/user/actions";
 import { CurrentUser } from "../types";
-import Content from "../styles/Content";
-import { Button } from "../styles/_uiElements";
+// import Content from "../styles/Content";
+// import { Button } from "../styles/_uiElements";
+import "../styles/_ui.scss";
+import style from '../styles/Profile.module.scss'
 
 const Profile = (props: {
   checkUser: (arg0?: any) => any;
@@ -25,9 +27,13 @@ const Profile = (props: {
     });
   };
   return (
-    <Content>
-      <Button onClick={() => signOff()}>Log off</Button>
-    </Content>
+    <main>
+      <div className={style.buttonWrapper}>
+        <button className="button" onClick={() => signOff()}>
+          Log off
+        </button>
+      </div>
+    </main>
   );
 };
 

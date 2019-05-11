@@ -1,6 +1,7 @@
 import React from "react";
 
-import Center from "../styles/Center";
+// import Center from "../styles/Center";
+import '../styles/_ui.scss'
 
 const Central = (props: {
   message: string;
@@ -11,12 +12,12 @@ const Central = (props: {
   if (props.children) {
   }
   return (
-    <Center>
+    <section className="central">
       {props.message}
       {props.children ? (
         <h1 onClick={props.function}>{props.children}</h1>
       ) : null}
-    </Center>
+    </section>
   );
 };
 

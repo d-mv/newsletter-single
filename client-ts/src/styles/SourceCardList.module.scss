@@ -1,0 +1,23 @@
+.display {
+  padding: 0 20px;
+  margin: 0 auto;
+  margin-top: 2.3rem;
+}
+
+.list {
+  @extend .display;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: 0.3s;
+
+  @media (max-width: 499px) {
+    padding: 0;
+  }
+}
+
+.addSource {
+  width: 100%;
+  margin: 1rem auto;
+  text-align: center;
+}

@@ -5,9 +5,13 @@ import { connect } from "react-redux";
 import { AppState } from "../../store";
 
 import { checkUser } from "../../store/user/actions";
+// import '../../styles/_definitions.scss'
+import "../../styles/_ui.scss";
 
-import ContentS from "../../styles/Content";
+// import ContentS from "../../styles/Content";
 import Loading from "../../components/Loading";
+// import Content from "../Content/Content";
+
 // lazy loading
 const Home = React.lazy(() => import("../Home/Home"));
 const Content = React.lazy(() => import("../Content/Content"));
@@ -39,7 +43,7 @@ const App = (props?: any) => {
     const query = {
       token: cProps.token,
       action: ["user", "verifyCookies"],
-      fields: {email:cProps.email}
+      fields: { email: cProps.email }
     };
     // request redux action to query API
     props.checkUser(query).then((res: any) => {
@@ -85,7 +89,7 @@ const App = (props?: any) => {
 
   if (loading) {
     // on load
-    return <ContentS>Loading ---</ContentS>;
+    return <Loading />;
   } else if (authStatus) {
     // if authenticated
     return (

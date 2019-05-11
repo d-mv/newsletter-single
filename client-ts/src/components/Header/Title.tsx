@@ -1,9 +1,9 @@
 import React from "react";
 
-import Style from "../../styles/Title";
+import style from "../../styles/Title.module.scss";
 
 const Title = () => {
-  return <Style>The Newsletter</Style>;
+  return <h1 className={style.header}>The Newsletter</h1>;
 };
 
 export default Title;

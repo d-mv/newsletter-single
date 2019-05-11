@@ -1,13 +1,9 @@
 import React from "react";
 
-import { PostListStyle, LoadingS } from "../styles/PostCardList";
+import style from "../styles/Loading.module.scss";
 
 const Loading = () => {
-  return (
-    <PostListStyle>
-      <LoadingS>Loading...</LoadingS>
-    </PostListStyle>
-  );
+  return <div className={style.loading}>Loading...</div>;
 };
 
 export default Loading;

@@ -1,0 +1,79 @@
+@import './_definitions';
+@import './_typography';
+@import './_animations';
+
+.source {
+  animation: scaleUp 0.3s ease-out 0s 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  @media (max-width: 499px) {
+    width: 90%;
+  }
+
+  @media (min-width: 500px) {
+    width: 80%;
+    max-width: 800px;
+    border-radius: 2px;
+  }
+
+  z-index: 100;
+  border-radius: 1px;
+  display: flex;
+  margin: 0.3rem auto;
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  background-color: $silverSand;
+  border-bottom: $borderBottomSilL;
+  box-shadow: $boxShadow;
+  transition: $boxTransition;
+
+  &:hover {
+    box-shadow: $boxShadowHover;
+    border-bottom: $borderBottomArsL;
+  }
+}
+
+.nameWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.name {
+  @media (max-width: 599px) {
+    margin-top: 0.3rem;
+    font-size: 1rem;
+  }
+
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.07rem;
+}
+
+
+.url {
+  @media (max-width: 599px) {
+    display: none;
+  }
+
+  margin: 0;
+  letter-spacing: 0.05rem;
+  font-family: "Open Sans";
+  white-space: pre-wrap;
+  font-weight: 400;
+  font-size: 0.7rem;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.2rem;
+}

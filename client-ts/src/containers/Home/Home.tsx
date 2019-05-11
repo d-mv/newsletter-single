@@ -7,9 +7,18 @@ import Login from "../../components/Login";
 
 import { AuthObj } from "../../types";
 
-import { HomeScreen, Title, SubTitle, Screenshot } from "../../styles/Home";
-import { Button } from "../../styles/_uiElements";
-import { Menu } from "../../styles/Filter";
+import style from "../../styles/Home.module.scss";
+
+// import {
+//   HomeScreen,
+//   Title,
+//   SubTitle,
+//   Screenshot,
+//   ButtonWrapper
+// } from "../../styles/Home";
+import "../../styles/_ui.scss";
+// import { Button } from "../../styles/_uiElements";
+// import { Menu } from "../../styles/Filter";
 
 // import Home from "../../components/Home";
 // import Content from "../../styles/Content";
@@ -80,24 +89,26 @@ const Home = (props: props) => {
   };
 
   return (
-    <HomeScreen>
-      <Title>The Newsletter</Title>
-      <SubTitle>Just information.</SubTitle>
-      <Screenshot />
-      <Button onClick={() => setShowLogin(!showLogin)}>
-        Login or register
-      </Button>
+    <main className={style.home}>
+      <h1 className={style.title}>The Newsletter</h1>
+      <h2 className={style.subTitle}>Just information.</h2>
+      <div className={style.screenshot} />
+      <div className={style.buttonWrapper}>
+        <button className="button" onClick={() => setShowLogin(!showLogin)}>
+          Login or register
+        </button>
+      </div>
       {showLogin ? (
-        <Menu>
+        <div className="modal">
           <Login
             message={loginMessage}
             cookies={props.cookies}
             login={login}
             newUser={authNew}
           />
-        </Menu>
+        </div>
       ) : null}
-    </HomeScreen>
+    </main>
   );
 };
 const mapStateToProps = (state: AppState) => ({
