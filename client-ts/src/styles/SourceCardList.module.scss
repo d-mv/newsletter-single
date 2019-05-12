@@ -1,8 +1,4 @@
-.display {
-  padding: 0 20px;
-  margin: 0 auto;
-  margin-top: 2.3rem;
-}
+@import './_ui';
 
 .list {
   @extend .display;

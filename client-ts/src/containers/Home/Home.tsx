@@ -9,19 +9,7 @@ import { AuthObj } from "../../types";
 
 import style from "../../styles/Home.module.scss";
 
-// import {
-//   HomeScreen,
-//   Title,
-//   SubTitle,
-//   Screenshot,
-//   ButtonWrapper
-// } from "../../styles/Home";
 import "../../styles/_ui.scss";
-// import { Button } from "../../styles/_uiElements";
-// import { Menu } from "../../styles/Filter";
-
-// import Home from "../../components/Home";
-// import Content from "../../styles/Content";
 
 interface props {
   checkUser: (arg0?: any) => any;

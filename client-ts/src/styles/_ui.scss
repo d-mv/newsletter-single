@@ -80,3 +80,10 @@ main {
   top: 30%;
   font: $textMessage;
 }
+.display {
+  margin: 0 auto;
+  margin-top: 3rem;
+  @media (max-width:499px) {}
+  @media (min-width:500px) {  padding: 0 20px;
+}
+}
