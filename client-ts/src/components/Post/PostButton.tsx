@@ -17,6 +17,7 @@ const PostButton = (props: {
   return (
     <button
       className={style.post}
+      aria-label={props.mode}
       onClick={() => props.update({ field: props.mode, id: props.id })}
     >
       {status}

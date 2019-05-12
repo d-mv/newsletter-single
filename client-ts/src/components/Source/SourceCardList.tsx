@@ -39,7 +39,7 @@ const SourceCardList = (props: {
         );
       })}
       <section className={style.addSource}>
-        <button className="button" onClick={() => toggleShowAddSource()}>
+        <button className="button" aria-label='Add source' onClick={() => toggleShowAddSource()}>
           Add source
         </button>
       </section>

@@ -19,7 +19,7 @@ const PostLine = (props: {
       ? `${props.author} @ ${props.source}`
       : `@${props.source}`;
   return (
-    <section className={style.line}>
+    <section className={style.line} data-test="component__post-line">
       <div className={style.wrapper}>{wrapper}</div>
       <div className={style.wrapper}>
         <Button
@@ -27,6 +27,7 @@ const PostLine = (props: {
           id={props.id}
           mode="star"
           status={props.star}
+          data-test="component__post-line--button"
         >
           {props.buttons.star}
         </Button>
@@ -35,6 +36,7 @@ const PostLine = (props: {
           id={props.id}
           mode="read"
           status={props.read}
+          data-test="component__post-line--button"
         >
           {props.buttons.read}
         </Button>

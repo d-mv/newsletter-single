@@ -80,3 +80,27 @@ main {
   top: 30%;
   font: $textMessage;
 }
+
+.display {
+  margin: 0 auto;
+  margin-top: 3rem;
+
+  @media (max-width: 499px) {}
+
+  @media (min-width:500px) {
+    padding: 0 20px;
+  }
+}
+
+.message {
+  position: absolute;
+  top: 60px;
+  right: 27px;
+  padding: 5px 10px;
+  border-radius: 2px;
+  background-color: $dimGrey;
+  color: $lightGrey;
+  font: $textSourceEditMobile;
+  box-shadow: $boxShadow;
+  transition: 0.7s;
+}

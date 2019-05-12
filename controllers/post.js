@@ -101,7 +101,11 @@ module.exports.refresh = (resSource, callback) => {
  */
 module.exports.update = (id, fields, callback) => {
   Post.findOneAndUpdate(id, fields, (err, response) => {
-    err ? callback(err) : callback(response);
+    if ("_id" in response) {
+      callback({ message: "Post updated" });
+    } else {
+      callback({ message: "Post not updated" });
+    }
   });
 };
 /**

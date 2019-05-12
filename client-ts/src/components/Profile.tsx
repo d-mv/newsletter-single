@@ -29,7 +29,7 @@ const Profile = (props: {
   return (
     <main>
       <div className={style.buttonWrapper}>
-        <button className="button" onClick={() => signOff()}>
+        <button className="button" aria-label='Log off' onClick={() => signOff()}>
           Log off
         </button>
       </div>
