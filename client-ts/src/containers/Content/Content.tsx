@@ -3,8 +3,12 @@ import { connect } from "react-redux";
 import { AppState } from "../../store";
 
 import { Post } from "../../store/post/types";
-import { CurrentUser } from "../../store/user/types";
-import { loadPosts, updatePost, selectPost } from "../../store/post/actions";
+import {
+  loadPosts,
+  setPosts,
+  updatePost,
+  selectPost
+} from "../../store/post/actions";
 import { loadSources } from "../../store/source/actions";
 import { apiRequest } from "../../store/user/actions";
 
@@ -35,8 +39,10 @@ interface props {
   selectPost: (arg0?: any) => any;
   loadSources: (arg0?: any) => any;
   apiRequest: (arg0?: any) => any;
-  currentUser: CurrentUser;
-  signOff: () => void;
+  thisUser: any;
+  setPosts: (arg0: any) => any;
+  posts: any[];
+  // signOff: () => void;
 }
 
 interface Content {
@@ -84,8 +90,9 @@ class Content extends React.Component<props> {
 
   loadPosts = (query: NewQuery) => {
     this.props.loadPosts(query).then((data: any) => {
+      this.props.setPosts(data.payload.data);
       this.setState({
-        posts: data.payload.data,
+        // posts: data.payload.data,
         loading: false
       });
       // }
@@ -104,11 +111,11 @@ class Content extends React.Component<props> {
   fetchPostsSources = () => {
     // set queries
     const postQuery = {
-      token: this.props.currentUser.token,
+      token: this.props.thisUser.token,
       action: ["post", "fetch"]
     };
     const sourceQuery = {
-      token: this.props.currentUser.token,
+      token: this.props.thisUser.token,
       action: ["source", "fetch"]
     };
     // run requests
@@ -147,7 +154,7 @@ class Content extends React.Component<props> {
   handleRefreshClick = () => {
     // set query object
     const query = {
-      token: this.props.currentUser.token,
+      token: this.props.thisUser.token,
       action: ["post", "refresh"]
     };
     // request redux action to query API
@@ -159,7 +166,7 @@ class Content extends React.Component<props> {
   selectPostToShow = (props: { id: string }) => {
     // set query object
     const query = {
-      token: this.props.currentUser.token,
+      token: this.props.thisUser.token,
       action: ["post", "show"],
       id: props.id
     };
@@ -201,7 +208,7 @@ class Content extends React.Component<props> {
     fields[`${props.field}`] = !oldState;
 
     const query = {
-      token: this.props.currentUser.token,
+      token: this.props.thisUser.token,
       action: ["post", "update"],
       id: props.id,
       fields
@@ -228,7 +235,7 @@ class Content extends React.Component<props> {
   updateSourceAction = (props: { [index: string]: string }) => {
     console.log(props);
     const query = {
-      token: this.props.currentUser.token,
+      token: this.props.thisUser.token,
       action: ["source", "update"],
       fields: props
     };
@@ -236,7 +243,6 @@ class Content extends React.Component<props> {
     this.props.apiRequest(query).then((response: any) => {
       console.log(response);
       const message = response.payload.data.message;
-      // this.setState({ message: message });
       this.changeMessage(message);
       this.updateSourceInState(props);
     });
@@ -247,19 +253,19 @@ class Content extends React.Component<props> {
     // {
     // id: '', mode:''
     // }
-    const query = {
-      token: this.props.currentUser.token,
-      action: [props.mode, "delete"],
-      id: props.id
-    };
+    // const query = {
+    //   token: this.props.currentUser.token,
+    //   action: [props.mode, "delete"],
+    //   id: props.id
+    // };
 
-    this.props.apiRequest(query).then((response: any) => {
-      console.log(response);
-      const message = response.payload.data.message;
-      // this.setState({ message: message });
-      this.changeMessage(message);
-      this.updateSourceInState(props);
-    });
+    // this.props.apiRequest(query).then((response: any) => {
+    //   console.log(response);
+    //   const message = response.payload.data.message;
+    //   // this.setState({ message: message });
+    //   this.changeMessage(message);
+    //   this.updateSourceInState(props);
+    // });
   };
 
   createSource = (cSprops: any) => {
@@ -267,7 +273,7 @@ class Content extends React.Component<props> {
     console.log(cSprops);
     // set query object
     const query = {
-      token: this.props.currentUser.token,
+      token: this.props.thisUser.token,
       action: ["source", "create"],
       fields: cSprops
     };
@@ -302,10 +308,10 @@ class Content extends React.Component<props> {
     let message;
     if (
       this.checkIfSourcesEmpty() &&
-      (this.state.posts === [] || this.state.posts.length === 0)
+      (this.props.posts === [] || this.props.posts.length === 0)
     ) {
       message = "There are no sources configured.";
-    } else if (this.state.posts === [] || this.state.posts.length === 0) {
+    } else if (this.props.posts === [] || this.props.posts.length === 0) {
       message = "The are no posts for now.";
     }
     return message;
@@ -313,10 +319,7 @@ class Content extends React.Component<props> {
   // ui elements
   profile = (
     <Suspense fallback={<Loading />}>
-      <Profile
-        currentUser={this.props.currentUser}
-        signOff={this.props.signOff}
-      />
+      <Profile />
     </Suspense>
   );
   addSource = (
@@ -325,6 +328,7 @@ class Content extends React.Component<props> {
     </Suspense>
   );
   render() {
+    console.log(this.props);
     // postToShow
     const postShow = (
       <Suspense fallback={<Loading />}>
@@ -376,7 +380,7 @@ class Content extends React.Component<props> {
       postsList = (
         <PostCardList
           showRead={this.state.showRead}
-          posts={this.state.posts}
+          posts={this.props.posts}
           selectPost={this.selectPostToShow}
           update={this.updatePostAction}
           filter={this.state.filterId}
@@ -392,7 +396,9 @@ class Content extends React.Component<props> {
             message="The are no sources for now."
             function={this.toggleShowAddSource}
           >
-            <button className="button" aria-label='Add source' >Add source</button>
+            <button className="button" aria-label="Add source">
+              Add source
+            </button>
           </Central>
         </Suspense>
       );
@@ -426,12 +432,13 @@ class Content extends React.Component<props> {
   }
 }
 const mapStateToProps = (state: AppState) => ({
-  // posts: state.posts,
-  // sources: state.sources,
-  user: state.user
+  posts: state.posts,
+  sources: state.sources,
+  user: state.user,
+  thisUser: state.currentUser
 });
 
 export default connect(
   mapStateToProps,
-  { loadPosts, updatePost, selectPost, loadSources, apiRequest }
+  { loadPosts, setPosts, updatePost, selectPost, loadSources, apiRequest }
 )(Content);

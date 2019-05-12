@@ -37,13 +37,18 @@ export interface PostId {
   id: string;
 }
 // Describing the different ACTION NAMES available
+export const LOAD_POSTS = "LOAD_POSTS";
 export const SET_POSTS = "SET_POSTS";
 export const UPDATE_POST = "UPDATE_POST";
 export const SELECT_POST = "SELECT_POST";
 
+interface LoadPostsAction {
+  type: typeof LOAD_POSTS;
+  payload: NewQuery;
+}
 interface SetPostsAction {
   type: typeof SET_POSTS;
-  payload: NewQuery;
+  payload: any;
 }
 interface UpdatePostAction {
   type: typeof UPDATE_POST;
@@ -56,6 +61,7 @@ interface SelectPostAction {
 }
 
 export type SystemActionTypes =
+  | LoadPostsAction
   | SetPostsAction
   | UpdatePostAction
   | SelectPostAction;

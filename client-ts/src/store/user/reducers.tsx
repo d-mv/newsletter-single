@@ -2,6 +2,9 @@ import {
   CHECK_USER,
   API_REQUEST,
   UserSystemState,
+  CURRENT_USER,
+  SET_AUTH_STATUS,
+  CurrentUser,
   // UserQuery,
   SystemActionTypes
 } from "./types";
@@ -10,6 +13,33 @@ const initialState: UserSystemState = {
   user: { name: "", password: "", email: "" },
   currentUser: { email: "", token: "" }
 };
+export function setAuthStatus(
+  state = initialState,
+  action: SystemActionTypes
+): UserSystemState {
+  switch (action.type) {
+    case SET_AUTH_STATUS: {
+      return action.payload;
+    }
+    default:
+      return state;
+  }
+}
+export function currentUser(
+  state = initialState,
+  action: SystemActionTypes
+): UserSystemState {
+  switch (action.type) {
+    case CURRENT_USER: {
+      return {
+        ...state,
+        ...action.payload
+      };
+    }
+    default:
+      return state;
+  }
+}
 
 export function checkUser(
   state = initialState,
@@ -41,43 +71,3 @@ export function apiRequest(
       return state;
   }
 }
-
-// const emptyState: Query = {
-//   action: ["", ""],
-//   id: "",
-//   fields: { "": "" }
-// };
-
-// export function updatePost(
-//   state = emptyState,
-//   action: SystemActionTypes
-// ): Query {
-//   switch (action.type) {
-//     case UPDATE_POST: {
-//       return {
-//         ...action.payload
-//       };
-//     }
-//     default:
-//       return state;
-//   }
-// }
-
-// const emptyPost: PostId = {
-//   id: ""
-// };
-
-// export function selectPost(
-//   state = emptyPost,
-//   action: SystemActionTypes
-// ): PostId {
-//   switch (action.type) {
-//     case SELECT_POST: {
-//       return {
-//         ...action.payload
-//       };
-//     }
-//     default:
-//       return state;
-//   }
-// }

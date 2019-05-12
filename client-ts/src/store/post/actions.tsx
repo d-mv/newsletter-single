@@ -1,6 +1,6 @@
 import {
   // SystemState,
-  SET_POSTS,
+  SET_POSTS,LOAD_POSTS,
   Query,
   PostId,
   UPDATE_POST,
@@ -21,8 +21,15 @@ export function loadPosts(query: NewQuery) {
     .catch(error => error);
 
   return {
-    type: SET_POSTS,
+    type: LOAD_POSTS,
     payload: promise
+  };
+}
+
+export function setPosts(posts:any) {
+  return {
+    type: SET_POSTS,
+    payload: posts
   };
 }
 

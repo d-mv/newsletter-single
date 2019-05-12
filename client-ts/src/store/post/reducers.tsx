@@ -1,5 +1,6 @@
 import {
   SET_POSTS,
+  LOAD_POSTS,
   UPDATE_POST,
   SELECT_POST,
   // SystemState,
@@ -13,13 +14,12 @@ const emptyQuery: NewQuery = {
   token: "",
   action: ["", ""]
 };
-
 export function loadPosts(
   state = emptyQuery,
   action: SystemActionTypes
 ): NewQuery {
   switch (action.type) {
-    case SET_POSTS: {
+    case LOAD_POSTS: {
       return {
         ...action.payload
       };
@@ -28,7 +28,15 @@ export function loadPosts(
       return state;
   }
 }
-
+export function setPosts(state = [], action: SystemActionTypes) {
+  switch (action.type) {
+    case SET_POSTS: {
+      return action.payload;
+    }
+    default:
+      return state;
+  }
+}
 const emptyState: Query = {
   action: ["", ""],
   id: "",

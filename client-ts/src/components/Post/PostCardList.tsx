@@ -1,4 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+import { AppState } from "../../store";
+
+import {
+  loadPosts,
+  setPosts,
+  updatePost,
+  selectPost
+} from "../../store/post/actions";
 
 import PostCard from "./PostCard";
 import { Post } from "../../store/post/types";
@@ -69,3 +78,15 @@ const PostCardList = (props: {
 };
 
 export default PostCardList;
+
+// const mapStateToProps = (state: AppState) => ({
+//   // posts: state.posts
+//   // sources: state.sources,
+//   // user: state.user,
+//   // thisUser: state.currentUser
+// });
+
+// export default connect(
+//   mapStateToProps,
+//   { loadPosts, updatePost, selectPost }
+// )(PostCardList);

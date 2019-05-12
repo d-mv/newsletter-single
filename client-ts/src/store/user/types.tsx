@@ -19,15 +19,11 @@ export interface UserQuery {
   id: string;
   fields?: { [index: string]: string };
 }
-
-// export interface UserToken {
-//   id: string;
-// }
 // Describing the different ACTION NAMES available
 export const CHECK_USER = "CHECK_USER";
 export const API_REQUEST = "API_REQUEST";
-// export const UPDATE_POST = "UPDATE_POST";
-// export const SELECT_POST = "SELECT_POST";
+export const CURRENT_USER = "CURRENT_USER";
+export const SET_AUTH_STATUS = "SET_AUTH_STATUS";
 
 interface CheckUserAction {
   type: typeof CHECK_USER;
@@ -37,16 +33,17 @@ interface ApiRequestAction {
   type: typeof API_REQUEST;
   payload: UserSystemState;
 }
-// interface UpdatePostAction {
-//   type: typeof UPDATE_POST;
-//   payload: UserQuery;
-// }
+interface CurrentUserAction {
+  type: typeof CURRENT_USER;
+  payload: UserSystemState;
+}
+interface SetAuthStatusAction {
+  type: typeof SET_AUTH_STATUS;
+  payload: UserSystemState;
+}
 
-// interface SelectPostAction {
-//   type: typeof SELECT_POST;
-//   payload: PostId;
-// }
-
-export type SystemActionTypes = CheckUserAction | ApiRequestAction;
-// | UpdatePostAction
-// | SelectPostAction;
+export type SystemActionTypes =
+  | CheckUserAction
+  | ApiRequestAction
+  | CurrentUserAction
+  | SetAuthStatusAction;

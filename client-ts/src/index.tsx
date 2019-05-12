@@ -10,17 +10,6 @@ import "./index.scss";
 import configureStore from "./store";
 import * as serviceWorker from "./serviceWorker";
 
-// loading fonts
-// WebFont.load({
-//   google: {
-//     families: [
-//       "Alegreya:400,400i,500,500i,700,700i:cyrillic,cyrillic-ext,latin-ext",
-//       "Open+Sans:300,300i,400",
-//       "Roboto+Mono:300"
-//     ]
-//   }
-// });
-
 const store = configureStore();
 
 ReactDOM.render(
