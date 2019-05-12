@@ -20,7 +20,7 @@ const Filter = (props: {
 }) => {
   const buttonClear =
     props.id === "" ? null : (
-      <button className={style.clear} onClick={() => props.choose("clear")}>
+      <button className={style.clear} aria-label='Clear filter' onClick={() => props.choose("clear")}>
         Clear Filter
       </button>
     );
@@ -29,6 +29,7 @@ const Filter = (props: {
     return (
       <button
         className={buttonStyle}
+        aria-label={source.name}
         key={source._id}
         onClick={() => props.choose(source._id)}
         data-test="component-filter-item"

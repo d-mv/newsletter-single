@@ -132,7 +132,10 @@ const Login = (props: {
           />
         </label>
         {inputErrors}
-        <button className={style.submit}>
+        <button
+          className={style.submit}
+          aria-label={props.newUser ? "Register" : "Login"}
+        >
           <input
             type="button"
             value={props.newUser ? "Register" : "Login"}

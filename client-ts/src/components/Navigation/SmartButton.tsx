@@ -35,6 +35,7 @@ const Button = (props: {
   return (
     <button
       className={styleClass}
+      aria-label={props.mode}
       onClick={() =>
         handleClick({
           mode: props.mode,

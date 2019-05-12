@@ -84,7 +84,7 @@ module.exports.refresh = (token, callback) => {
   console.log(token);
   User.findByToken(token, id => {
     SourceControler.findByUserId({ id: id, mode: "all" }, sources => {
-      PostControler.refresh(sources, response => callback(response));
+      PostControler.refresh(sources, response => callback({message: 'Posts refreshed'}));
     });
   });
 };

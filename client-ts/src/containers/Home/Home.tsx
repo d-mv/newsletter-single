@@ -82,7 +82,7 @@ const Home = (props: props) => {
       <h2 className={style.subTitle}>Just information.</h2>
       <div className={style.screenshot} />
       <div className={style.buttonWrapper}>
-        <button className="button" onClick={() => setShowLogin(!showLogin)}>
+        <button className="button" aria-label='Login or register' onClick={() => setShowLogin(!showLogin)}>
           Login or register
         </button>
       </div>

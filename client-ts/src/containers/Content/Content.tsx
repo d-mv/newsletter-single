@@ -14,8 +14,6 @@ import Header from "../../components/Header/Header";
 import SmartMenu from "../../components/Navigation/SmartMenu";
 import Loading from "../../components/Loading";
 import PostCardList from "../../components/Post/PostCardList";
-// import ContentS from "../../styles/Content";
-// import { Button } from "../../styles/_uiElements";
 import "../../styles/_ui.scss";
 // import '../../styles/
 
@@ -124,11 +122,16 @@ class Content extends React.Component<props> {
   };
   toggleShowRead = () => {
     this.setState({ showRead: !this.state.showRead });
+    this.changeMessage(`Show read: ${!this.state.showRead}`);
   };
   toggleShowFilter = () => {
     this.setState({ showFilter: !this.state.showFilter });
   };
 
+  changeMessage = (message: string) => {
+    this.setState({ message: message });
+    setTimeout(() => this.setState({ message: "" }), 3000);
+  };
   // update sources & posts
   chooseFilter = (id: string) => {
     this.toggleShowFilter();
@@ -148,8 +151,9 @@ class Content extends React.Component<props> {
       action: ["post", "refresh"]
     };
     // request redux action to query API
-    this.props.apiRequest(query).then((res: any) => {
-      // const response = res.payload.data;
+    this.props.apiRequest(query).then((response: any) => {
+      const message = response.payload.data.message;
+      this.changeMessage(message);
     });
   };
   selectPostToShow = (props: { id: string }) => {
@@ -203,11 +207,10 @@ class Content extends React.Component<props> {
       fields
     };
 
-    this.props
-      .updatePost(query)
-      .then((response: { [index: string]: string }) => {
-        this.setState({ message: response.statusText });
-      });
+    this.props.updatePost(query).then((response: any) => {
+      const message = response.payload.data.message;
+      this.changeMessage(message);
+    });
   };
   updateSourceInState = (props: { [index: string]: string }) => {
     const newSources = this.state.sources;
@@ -233,9 +236,28 @@ class Content extends React.Component<props> {
     this.props.apiRequest(query).then((response: any) => {
       console.log(response);
       const message = response.payload.data.message;
-      // if (response.payload){
-      console.log(message);
-      this.setState({ message: message });
+      // this.setState({ message: message });
+      this.changeMessage(message);
+      this.updateSourceInState(props);
+    });
+  };
+  // delete source/post
+  deleteAction = (props: { [index: string]: string }) => {
+    console.log(props);
+    // {
+    // id: '', mode:''
+    // }
+    const query = {
+      token: this.props.currentUser.token,
+      action: [props.mode, "delete"],
+      id: props.id
+    };
+
+    this.props.apiRequest(query).then((response: any) => {
+      console.log(response);
+      const message = response.payload.data.message;
+      // this.setState({ message: message });
+      this.changeMessage(message);
       this.updateSourceInState(props);
     });
   };
@@ -257,8 +279,9 @@ class Content extends React.Component<props> {
     this.props.apiRequest(query).then((res: any) => {
       const response = res.payload.data;
       console.log(response);
+      this.changeMessage(response.message);
       this.setState({
-        message: response.message,
+        // message: response.message,
         addSource: false,
         sources: newState
       });
@@ -369,7 +392,7 @@ class Content extends React.Component<props> {
             message="The are no sources for now."
             function={this.toggleShowAddSource}
           >
-            <button className="button">Add source</button>
+            <button className="button" aria-label='Add source' >Add source</button>
           </Central>
         </Suspense>
       );
@@ -379,18 +402,20 @@ class Content extends React.Component<props> {
           <SourceCardList
             sources={this.state.sources}
             submit={this.createSource}
-            //  addSource={this.props.addSource}
-            //  deleteSource={this.deleteSource}
             update={this.updateSourceAction}
           />
         </Suspense>
       );
     }
+    const messageDisplay = this.state.message ? (
+      <section className="message">{this.state.message}</section>
+    ) : null;
     return (
       <main data-test="app">
         <Header />
         {smartMenu}
         {filter}
+        {messageDisplay}
         {this.state.module === "posts" ? postsList : null}
         {this.state.module === "post" ? postShow : null}
         {this.state.module === "sources" ? sourcesList : null}

@@ -9,6 +9,7 @@ const SourceEdit = (props: {
   submit: (arg0: Source) => any;
   close?: () => void;
 }) => {
+
   let currentSource = {
     _id: "",
     name: "",
@@ -122,7 +123,7 @@ const SourceEdit = (props: {
     }
   };
   const cancelButton = props.source ? null : (
-    <button className={style.cancel} onClick={() => closeForm()}>
+    <button className={style.cancel} aria-label='Cancel' onClick={() => closeForm()}>
       Cancel
     </button>
   );
@@ -139,7 +140,12 @@ const SourceEdit = (props: {
       </label>
       <label>
         <span>URL</span>
-        <input type="url" name="url" value={url} onChange={handleInputChange} />
+        <input
+          type="url"
+          name="url"
+          value={url}
+          onChange={handleInputChange}
+        />
       </label>
       <label>
         <span>Homepage</span>
@@ -150,11 +156,18 @@ const SourceEdit = (props: {
           onChange={handleInputChange}
         />
       </label>
-      {errors.name ? <div className={style.error}>- {errors.name}</div> : null}
+      {errors.name ? (
+        <div className={style.error}>- {errors.name}</div>
+      ) : null}
       {errors.url ? <div className={style.error}>- {errors.url}</div> : null}
-      {errors.home ? <div className={style.error}>- {errors.home}</div> : null}
+      {errors.home ? (
+        <div className={style.error}>- {errors.home}</div>
+      ) : null}
       <div className={style.buttonsWrapper}>
-        <button className={style.submit}>
+        <button
+          className={style.submit}
+          aria-label={props.source ? "Submit" : "Add"}
+        >
           <input
             type="button"
             value={props.source ? "Submit" : "Add"}

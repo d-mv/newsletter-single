@@ -3,7 +3,7 @@
 @import './animations';
 
 .card {
-  animation: scaleUp 0.3s ease-out 0s 1;
+  animation: scaleUp 0.1s ease-out 0s 1;
 
   @media (min-width: 499px) {
     .text {
