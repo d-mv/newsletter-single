@@ -1,6 +1,12 @@
+@import './animations';
+
 .loading {
   position: absolute;
   top: 10rem;
   width: 100%;
   text-align: center;
+
+  span {
+    animation: disappear 0.7s ease-out 0s 1;
+  }
 }

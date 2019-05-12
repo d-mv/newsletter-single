@@ -5,12 +5,9 @@ import { connect } from "react-redux";
 import { AppState } from "../../store";
 
 import { checkUser } from "../../store/user/actions";
-// import '../../styles/_definitions.scss'
 import "../../styles/_ui.scss";
 
-// import ContentS from "../../styles/Content";
 import Loading from "../../components/Loading";
-// import Content from "../Content/Content";
 
 // lazy loading
 const Home = React.lazy(() => import("../Home/Home"));
