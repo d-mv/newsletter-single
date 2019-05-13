@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import WebFont from "webfontloader";
 import { Provider } from "react-redux";
 import { CookiesProvider } from "react-cookie";
 

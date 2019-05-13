@@ -1,8 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+// import { composeWithDevTools } from "redux-devtools-extension";
 import axios from "axios";
 
-import { logger } from "redux-logger";
+// import { logger } from "redux-logger";
 import reduxPromise from "redux-promise";
 
 // reducers
@@ -32,7 +32,8 @@ const rootReducer = combineReducers({
 export type AppState = ReturnType<typeof rootReducer>;
 
 export default function configureStore() {
-  const middlewares = [reduxPromise, logger];
+  // const middlewares = [reduxPromise, logger];
+  const middlewares = [reduxPromise];
   const middleWareEnhancer = applyMiddleware(...middlewares);
 
   interface state { }
@@ -53,7 +54,8 @@ export default function configureStore() {
   const store = createStore(
     rootReducer,
     initialState,
-    composeWithDevTools(middleWareEnhancer)
+    middleWareEnhancer
+    // composeWithDevTools(middleWareEnhancer)
   );
 
   return store;
