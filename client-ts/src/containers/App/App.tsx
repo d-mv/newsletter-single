@@ -1,25 +1,24 @@
 import React, { Suspense } from "react";
-
 import { withCookies } from "react-cookie";
 import { connect } from "react-redux";
-import { AppState } from "../../store";
 
-import { checkUser } from "../../store/user/actions";
-import "../../styles/_ui.scss";
+import { AppState } from "../../store";
+import { checkUser, currentUser } from "../../store/user/actions";
 
 import Loading from "../../components/Loading";
 
+import "../../styles/_ui.scss";
+
 // lazy loading
-const Home = React.lazy(() => import("../Home/Home"));
+const Home = React.lazy(() => import("../../components/Home"));
 const Content = React.lazy(() => import("../Content/Content"));
 
 const App = (props?: any) => {
-  const [userEmail, setUserEmail] = React.useState("");
-  const [userToken, setUserToken] = React.useState("");
   const [authStatus, setAuthStatus] = React.useState(false);
   const [counter, setCounter] = React.useState(0);
   const [loading, setLoading] = React.useState(true);
   const { cookies } = props;
+
   /**
    * Function to toggle authentication status
    * @function toggleAuth
@@ -46,9 +45,14 @@ const App = (props?: any) => {
     props.checkUser(query).then((res: any) => {
       const response = res.payload.data;
       if (response.authed) {
-        setUserEmail(cProps.email);
-        setUserToken(cProps.token);
+        props.currentUser({
+          token: cProps.token,
+          email: cProps.email
+        });
         toggleAuth();
+      } else {
+        cookies.set("email", "", { path: "/" });
+        cookies.set("token", "", { path: "/" });
       }
       setLoading(false);
     });
@@ -58,6 +62,7 @@ const App = (props?: any) => {
     email: cookies.get("email"),
     token: cookies.get("token")
   };
+
   // if cookies exist > verify or show Home
   if (cookies.get("email") && cookies.get("token") && counter === 0) {
     verifyCookies(existingCookies);
@@ -72,54 +77,46 @@ const App = (props?: any) => {
    * @function logOff
    * @returns {void}
    */
-  const logOff = () => {
-    cookies.set("email", "", {
-      path: "/"
-    });
-    cookies.set("token", "", {
-      path: "/"
-    });
-    setUserEmail("");
-    setUserToken("");
-    setAuthStatus(false);
-  };
+  // const logOff = () => {
+  //   cookies.set("email", "", {
+  //     path: "/"
+  //   });
+  //   cookies.set("token", "", {
+  //     path: "/"
+  //   });
+  //   setAuthStatus(false);
+  // };
 
   if (loading) {
     // on load
     return <Loading />;
-  } else if (authStatus) {
-    // if authenticated
+  } else if (props.authStatus) {
     return (
       <Suspense fallback={<Loading />}>
-        <Content
-          currentUser={{
-            email: userEmail,
-            token: userToken
-          }}
-          signOff={logOff}
-        />
+        <Content />
       </Suspense>
     );
   } else {
     // if not authenticated
     return (
       <Suspense fallback={<Loading />}>
-        <Home
-          cookies={props.cookies}
-          toggleAuth={toggleAuth}
-          setUserEmail={setUserEmail}
-          setUserToken={setUserToken}
-        />
+        <Home />
       </Suspense>
     );
   }
 };
 
-const mapStateToProps = (state: AppState) => ({
-  user: state.user
-});
+const mapStateToProps = (state: AppState) => {
+  return {
+    posts: state.posts,
+    sources: state.sources,
+    user: state.user,
+    thisUser: state.currentUser,
+    authStatus: state.authStatus
+  };
+};
 
 export default connect(
   mapStateToProps,
-  { checkUser }
+  { checkUser, currentUser }
 )(withCookies(App));

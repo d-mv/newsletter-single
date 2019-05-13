@@ -18,12 +18,20 @@
   }
 
   font-family: $statusFont;
-  // font-family: $baseFont;
   font-size: 0.9rem;
   letter-spacing: 1px;
 
+
   &:hover {
     color: $accent;
+    text-shadow: $boxShadowHover;
+
+    svg {
+      transition: 0.5s;
+      color: $accent;
+      -webkit-filter: drop-shadow($svgShadowHover);
+      filter: drop-shadow($svgShadowHover);
+    }
   }
 
   &:active {
@@ -36,11 +44,23 @@
   color: $accent;
 }
 
-.smartRotate {
+.smartRefresh {
   @extend .smart;
+  transform: scale(1);
 
   &:active {
     transform: scale(1);
-    animation: rotate 2s ease-out 0s 2;
+  }
+}
+
+.smartRotate {
+  @extend .smartRefresh;
+  animation: rotate 2s ease-out 0s infinite;
+
+  &:hover {
+    svg {
+      -webkit-filter: none;
+      filter: none;
+    }
   }
 }

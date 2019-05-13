@@ -1,35 +1,37 @@
 import React from "react";
 import { connect } from "react-redux";
-import { AppState } from "../store";
 
-import { checkUser } from "../store/user/actions";
-import { CurrentUser } from "../types";
-// import Content from "../styles/Content";
-// import { Button } from "../styles/_uiElements";
+import { AppState } from "../store";
+import { checkUser, setAuthStatus } from "../store/user/actions";
+
 import "../styles/_ui.scss";
-import style from '../styles/Profile.module.scss'
+import style from "../styles/Profile.module.scss";
 
 const Profile = (props: {
   checkUser: (arg0?: any) => any;
-  currentUser: CurrentUser;
-  signOff: () => void;
+  setAuthStatus: (arg0: boolean) => any;
+  thisUser: any;
 }) => {
   const signOff = () => {
     const query = {
       action: ["user", "signOff"],
-      fields: props.currentUser
+      fields: props.thisUser
     };
     props.checkUser(query).then((res: any) => {
       const response = res.payload.data;
       if (response.status) {
-        props.signOff();
+        props.setAuthStatus(false);
       }
     });
   };
   return (
     <main>
       <div className={style.buttonWrapper}>
-        <button className="button" aria-label='Log off' onClick={() => signOff()}>
+        <button
+          className="button"
+          aria-label="Log off"
+          onClick={() => signOff()}
+        >
           Log off
         </button>
       </div>
@@ -37,9 +39,11 @@ const Profile = (props: {
   );
 };
 
-const mapStateToProps = (state: AppState) => ({});
+const mapStateToProps = (state: AppState) => ({
+  thisUser: state.currentUser
+});
 
 export default connect(
   mapStateToProps,
-  { checkUser }
+  { checkUser, setAuthStatus }
 )(Profile);

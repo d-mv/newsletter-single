@@ -85,7 +85,6 @@ const SourceEdit = (props: {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log("form clicked");
     const checkName =
       checkInput({ value: name, field: "name", type: "text" }) &&
       checkInput({ value: url, field: "url", type: "url" }) &&

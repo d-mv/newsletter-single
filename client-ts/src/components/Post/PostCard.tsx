@@ -1,4 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import { AppState } from "../../store";
+import { selectPost } from "../../store/post/actions";
+import { showModule } from "../../store/app/actions";
+
 import { FaCheck, FaCheckDouble } from "react-icons/fa";
 import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
 
@@ -6,12 +12,14 @@ import Line from "./PostLine";
 import Footer from "./PostFooter";
 import { Post } from "../../store/post/types";
 
-import style from '../../styles/PostCard.module.scss'
+import style from "../../styles/PostCard.module.scss";
 
 const PostCard = (props: {
   post: Post;
   update: (arg0: any) => void;
-  select: (arg0: any) => void;
+  thisUser: any;
+  showModule: (arg0: string) => void;
+  selectPost: (arg0: { token: string; id: string }) => void;
 }) => {
   const text = `${props.post.text.replace(/<(?:.|\n)*?>/gm, " ")}...`;
 
@@ -21,11 +29,18 @@ const PostCard = (props: {
     <TiStarOutline />
   );
   const readButton = props.post.read ? <FaCheckDouble /> : <FaCheck />;
+
+  const selectPost = () => {
+    props.selectPost({ token: props.thisUser.token, id: props.post._id });
+    props.showModule("post");
+  };
+
   return (
     <article className={style.card}>
-      <h3 className={style.title}
+      <h3
+        className={style.title}
         onClick={() => {
-          props.select({ id: props.post._id });
+          selectPost();
         }}
       >
         {props.post.title}
@@ -40,9 +55,10 @@ const PostCard = (props: {
         update={props.update}
         id={props.post._id}
       />
-      <main className={style.text}
+      <main
+        className={style.text}
         onClick={() => {
-          props.select({ id: props.post._id });
+          selectPost();
         }}
       >
         {text}
@@ -55,4 +71,16 @@ const PostCard = (props: {
   );
 };
 
-export default PostCard;
+// export default PostCard;
+
+const mapStateToProps = (state: AppState) => ({
+  thisUser: state.currentUser
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    selectPost,
+    showModule
+  }
+)(PostCard);

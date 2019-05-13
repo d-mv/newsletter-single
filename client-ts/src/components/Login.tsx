@@ -1,13 +1,22 @@
 import React from "react";
 
-// import { LoginForm, Title, Label, Submit, Error } from "../styles/LoginForm";
-import style from '../styles/LoginForm.module.scss'
+import { withCookies } from "react-cookie";
+import { connect } from "react-redux";
+import { AppState } from "../store";
+import { AuthObj } from "../types";
+import {
+  CurrentUser
+} from "../store/user/types";
+
+import { checkUser, currentUser, setAuthStatus } from "../store/user/actions";
+
+import style from "../styles/LoginForm.module.scss";
 
 const Login = (props: {
-  message: string;
+  checkUser: (arg0?: any) => any;
+  currentUser: (arg0: CurrentUser) => any;
+  setAuthStatus: (arg0:boolean)=>any;
   cookies: any;
-  login: (arg0: any) => any;
-  newUser: boolean;
 }) => {
   const [userName, setUserName] = React.useState("");
   const [userEmail, setUserEmail] = React.useState("");
@@ -15,6 +24,11 @@ const Login = (props: {
   const [nameError, setNameError] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
+
+  const [authNew, setAuthNew] = React.useState(false);
+  const [loginMessage, setLoginMessage] = React.useState("");
+
+  const { cookies } = props;
 
   const checkName = (name: string) => {
     const check = name.length > 3 ? true : false;
@@ -46,11 +60,37 @@ const Login = (props: {
     return check;
   };
 
+  const login = (lProps: AuthObj) => {
+    const action = lProps.new ? "create" : "login";
+    const query = {
+      action: ["user", lProps.new ? "create" : action],
+      id: "",
+      fields: lProps.fields
+    };
+    props.checkUser(query).then((res: any) => {
+      const response = res.payload.data;
+      if (response.user === "new") {
+        setAuthNew(true);
+      } else if (response.status) {
+        setLoginMessage("");
+        props.currentUser({
+          token: response.user.token,
+          email: response.user.email
+        });
+        props.setAuthStatus(true)
+        cookies.set("email", response.user.email, { path: "/" });
+        cookies.set("token", response.user.token, { path: "/" });
+      } else {
+        setLoginMessage(response.data.message);
+      }
+    });
+  };
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
     let check;
-    if (props.newUser) {
+    if (authNew) {
       check =
         checkName(userName) &&
         checkEmail(userEmail) &&
@@ -60,14 +100,14 @@ const Login = (props: {
     }
     if (check) {
       const authObj = {
-        new: props.newUser,
+        new: authNew,
         fields: {
           name: userName,
           email: userEmail,
           password: userPassword
         }
       };
-      props.login(authObj);
+      login(authObj);
     }
   };
 
@@ -85,7 +125,7 @@ const Login = (props: {
     }
   };
 
-  const nameEnter = props.newUser ? (
+  const nameEnter = authNew ? (
     <label>
       <span className={style.label}>Name</span>
       <input
@@ -96,15 +136,16 @@ const Login = (props: {
       />
     </label>
   ) : null;
-  const formStyle = props.newUser ? style.loginTall : style.login;
-  const title = props.newUser ? "Register new user" : "Login details";
+
+  const formStyle = authNew ? style.loginTall : style.login;
+  const title = authNew ? "Register new user" : "Login details";
 
   const inputErrors = (
     <div className={style.error}>
       {nameError ? <li>{nameError}</li> : null}
       {emailError ? <li>{emailError}</li> : null}
       {passwordError ? <li>{passwordError}</li> : null}
-      {props.message ? <li>{props.message}</li> : null}
+      {loginMessage ? <li>{loginMessage}</li> : null}
     </div>
   );
 
@@ -134,11 +175,11 @@ const Login = (props: {
         {inputErrors}
         <button
           className={style.submit}
-          aria-label={props.newUser ? "Register" : "Login"}
+          aria-label={authNew ? "Register" : "Login"}
         >
           <input
             type="button"
-            value={props.newUser ? "Register" : "Login"}
+            value={authNew ? "Register" : "Login"}
             id="submit_button"
           />
         </button>
@@ -147,4 +188,14 @@ const Login = (props: {
   );
 };
 
-export default Login;
+const mapStateToProps = (state: AppState) => {
+  return {
+    user: state.user,
+    authStatus: state.authStatus
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { checkUser, currentUser, setAuthStatus }
+)(withCookies(Login));
