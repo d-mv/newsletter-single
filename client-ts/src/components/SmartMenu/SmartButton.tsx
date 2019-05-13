@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { AppState } from "../../store";
 
 import { apiRequest } from "../../store/user/actions";
-import { showModule } from "../../store/app/actions";
+import { toggleShowRead } from "../../store/post/actions";
+import { showModule, setMessage } from "../../store/app/actions";
 
 import style from "../../styles/SmartButton.module.scss";
 
@@ -15,13 +16,16 @@ const Button = (props: {
   apiRequest: (arg0?: any) => any;
   thisUser: any;
   module: string;
+  showRead: boolean;
   showModule: (arg0: string) => any;
+  setMessage: (arg0: string) => any;
+  toggleShowRead: (current: boolean) => { type: string; payload: boolean; };
 }) => {
   const [refresh, toggleRefresh] = React.useState(false);
   console.log(props);
 
   const handleRefreshClick = () => {
-    console.log("refresh clicked");
+    // start icon rotation
     toggleRefresh(true);
     // set query object
     const query = {
@@ -30,45 +34,28 @@ const Button = (props: {
     };
     // request redux action to query API
     props.apiRequest(query).then((response: any) => {
+      // stop icon rotation
       toggleRefresh(false);
-      console.log(response);
-      const message = response.payload.data.message;
-      // this.changeMessage(message);
+      // save response message
+      props.setMessage(response.payload.data.message);
     });
   };
 
   const handleClick = (cProps: { mode: string; child: any; func: any }) => {
     if (cProps.child === "BACK" || cProps.child === "HOME") {
-      // handleShowModuleClick("posts");
       props.showModule("posts");
     } else if (cProps.child === "SOURCES") {
-      // handleShowModuleClick("sources");
       props.showModule("sources");
     } else if (props.mode === "profile") {
-      // handleShowModuleClick("profile");
       props.showModule("profile");
     } else if (props.mode === "refresh") {
-      handleRefreshClick();
+      handleRefreshClick();}
+      else if (props.mode === 'showRead') {
+        props.toggleShowRead(props.showRead);
+    } else {
+      cProps.func();
     }
   };
-  // selectPostToShow = (props: { id: string }) => {
-  //   // set query object
-  //   const query = {
-  //     token: props.thisUser.token,
-  //     action: ["post", "show"],
-  //     id: props.id
-  //   };
-  //   // request redux action to query API
-  //   props.apiRequest(query).then((res: any) => {
-  //     const response = res.payload.data;
-  //     if (response.authed) {
-  //       this.showModule("post");
-  //       this.setState({
-  //         showPost: response.post
-  //       });
-  //     }
-  //   });
-  // };
 
   let styleClass;
   if (props.mode === "refresh") {
@@ -96,14 +83,13 @@ const Button = (props: {
   );
 };
 
-// export default Button;
-
 const mapStateToProps = (state: AppState) => ({
   thisUser: state.currentUser,
-  module: state.module
+  module: state.module,
+  showRead: state.showRead
 });
 
 export default connect(
   mapStateToProps,
-  { apiRequest, showModule }
+  { apiRequest, showModule, setMessage, toggleShowRead }
 )(Button);

@@ -1,4 +1,4 @@
-import { SHOW_MODULE, SystemActionTypes } from "./types";
+import { SHOW_MODULE, SET_MESSAGE, SystemActionTypes } from "./types";
 
 
 export function showModule(
@@ -7,6 +7,18 @@ export function showModule(
 ) {
   switch (action.type) {
     case SHOW_MODULE: {
+      return action.payload;
+    }
+    default:
+      return state;
+  }
+}
+export function setMessage(
+  state = '',
+  action: SystemActionTypes
+) {
+  switch (action.type) {
+    case SET_MESSAGE: {
       return action.payload;
     }
     default:

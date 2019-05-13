@@ -77,16 +77,13 @@ const PostCardList = (props: {
   );
 };
 
-export default PostCardList;
+// export default PostCardList;
 
-// const mapStateToProps = (state: AppState) => ({
-//   // posts: state.posts
-//   // sources: state.sources,
-//   // user: state.user,
-//   // thisUser: state.currentUser
-// });
+const mapStateToProps = (state: AppState) => ({
+  showRead: state.showRead
+});
 
-// export default connect(
-//   mapStateToProps,
-//   { loadPosts, updatePost, selectPost }
-// )(PostCardList);
+export default connect(
+  mapStateToProps,
+  {}
+)(PostCardList);

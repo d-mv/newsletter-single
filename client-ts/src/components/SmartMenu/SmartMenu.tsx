@@ -29,6 +29,7 @@ const SmartMenu = (props: {
   refresh: () => void;
   // moduleToggle: (arg0?: string) => void;
   // mode: string;
+  showRead: boolean;
   showFilter: boolean;
   toggleFilter: () => void;
   module: string;
@@ -44,16 +45,16 @@ const SmartMenu = (props: {
   let sourcesButton = buttonElement({
     element: "SOURCES",
     mode: "sources",
-    accent: false,
+    accent: false
     // function: props.moduleToggle
   });
   // showReadButton;
   let showReadButton =
     props.module === "posts"
       ? buttonElement({
-          element: props.read ? <FaEye /> : <FaEyeSlash />,
+          element: props.showRead ? <FaEye /> : <FaEyeSlash />,
           mode: "showRead",
-          accent: props.read,
+          accent: props.showRead,
           function: props.toggleRead
         })
       : null;
@@ -82,7 +83,7 @@ const SmartMenu = (props: {
   const profileButton = buttonElement({
     element: <FaUser />,
     mode: "profile",
-    accent: false,
+    accent: false
     // function: props.moduleToggle
   });
 
@@ -163,7 +164,8 @@ const SmartMenu = (props: {
 // export default SmartMenu;
 const mapStateToProps = (state: AppState) => ({
   // thisUser: state.currentUser,
-  module: state.module
+  module: state.module,
+  showRead: state.showRead
 });
 
 export default connect(mapStateToProps)(SmartMenu);

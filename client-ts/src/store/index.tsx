@@ -6,8 +6,8 @@ import { logger } from "redux-logger";
 import reduxPromise from "redux-promise";
 
 // reducers
-import { showModule } from "./app/reducers";
-import { loadPosts, setPosts } from "./post/reducers";
+import { showModule, setMessage } from "./app/reducers";
+import { loadPosts, setPosts, toggleShowRead } from "./post/reducers";
 import { loadSources } from "./source/reducers";
 import { checkUser, currentUser, setAuthStatus } from "./user/reducers";
 // setup axios
@@ -21,7 +21,9 @@ const rootReducer = combineReducers({
   user: checkUser,
   currentUser: currentUser,
   authStatus: setAuthStatus,
-  module: showModule
+  module: showModule,
+  message: setMessage,
+  showRead: toggleShowRead,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -37,9 +39,9 @@ export default function configureStore() {
     sources: [],
     currentUser: {},
     authStatus: false,
-    // showRead: false,
+    showRead: false,
     module: 'posts',
-    // message:'',
+    message:'',
     // filterSourceId:'',
   };
 

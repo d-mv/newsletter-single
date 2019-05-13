@@ -3,7 +3,7 @@ import {
   SET_POSTS,LOAD_POSTS,
   Query,
   PostId,
-  UPDATE_POST,
+  UPDATE_POST,TOGGLE_SHOW_READ,
   SELECT_POST
 } from "./types";
 import { NewQuery } from "../../types";
@@ -32,6 +32,12 @@ export function setPosts(posts:any) {
     payload: posts
   };
 }
+export function toggleShowRead(current:boolean) {
+         return {
+           type: TOGGLE_SHOW_READ,
+           payload: !current
+         };
+       }
 
 export function updatePost(query: Query) {
   const promise = axios

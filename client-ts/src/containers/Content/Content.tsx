@@ -11,7 +11,7 @@ import {
 } from "../../store/post/actions";
 import { loadSources } from "../../store/source/actions";
 import { apiRequest } from "../../store/user/actions";
-import { showModule } from "../../store/app/actions";
+import { showModule, setMessage } from "../../store/app/actions";
 
 import { NewQuery } from "../../types";
 
@@ -44,8 +44,9 @@ interface props {
   setPosts: (arg0: any) => any;
   posts: any[];
   module: string;
+  message: string;
   showModule: (arg0: string) => any;
-
+  setMessage: (arg0: string) => any;
   // signOff: () => void;
 }
 
@@ -135,8 +136,8 @@ class Content extends React.Component<props> {
   };
 
   changeMessage = (message: string) => {
-    this.setState({ message: message });
-    setTimeout(() => this.setState({ message: "" }), 3000);
+    this.props.setMessage(message);
+    setTimeout(() => this.props.setMessage(""), 3000);
   };
   // update sources & posts
   chooseFilter = (id: string) => {
@@ -327,7 +328,7 @@ class Content extends React.Component<props> {
     </Suspense>
   );
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     // postToShow
     const postShow = (
       <Suspense fallback={<Loading />}>
@@ -377,7 +378,7 @@ class Content extends React.Component<props> {
     } else {
       postsList = (
         <PostCardList
-          showRead={this.state.showRead}
+          // showRead={this.state.showRead}
           posts={this.props.posts}
           selectPost={this.selectPostToShow}
           update={this.updatePostAction}
@@ -411,8 +412,9 @@ class Content extends React.Component<props> {
         </Suspense>
       );
     }
-    const messageDisplay = this.state.message ? (
-      <section className="message">{this.state.message}</section>
+
+    const messageDisplay = this.props.message ? (
+      <section className="message">{this.props.message}</section>
     ) : null;
     return (
       <main data-test="app">
@@ -434,7 +436,8 @@ const mapStateToProps = (state: AppState) => ({
   sources: state.sources,
   user: state.user,
   thisUser: state.currentUser,
-  module: state.module
+  module: state.module,
+  message: state.message
 });
 
 export default connect(
@@ -446,6 +449,7 @@ export default connect(
     selectPost,
     loadSources,
     apiRequest,
-    showModule
+    showModule,
+    setMessage
   }
 )(Content);

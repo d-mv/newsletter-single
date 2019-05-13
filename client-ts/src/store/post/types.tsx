@@ -41,6 +41,7 @@ export const LOAD_POSTS = "LOAD_POSTS";
 export const SET_POSTS = "SET_POSTS";
 export const UPDATE_POST = "UPDATE_POST";
 export const SELECT_POST = "SELECT_POST";
+export const TOGGLE_SHOW_READ = "TOGGLE_SHOW_READ";
 
 interface LoadPostsAction {
   type: typeof LOAD_POSTS;
@@ -59,9 +60,14 @@ interface SelectPostAction {
   type: typeof SELECT_POST;
   payload: PostId;
 }
+interface ToggleShowReadAction {
+  type: typeof TOGGLE_SHOW_READ;
+  payload: boolean;
+}
 
 export type SystemActionTypes =
   | LoadPostsAction
   | SetPostsAction
   | UpdatePostAction
-  | SelectPostAction;
+  | SelectPostAction
+  | ToggleShowReadAction;

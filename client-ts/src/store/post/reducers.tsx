@@ -2,7 +2,7 @@ import {
   SET_POSTS,
   LOAD_POSTS,
   UPDATE_POST,
-  SELECT_POST,
+  SELECT_POST,TOGGLE_SHOW_READ,
   // SystemState,
   Query,
   NewQuery,
@@ -37,6 +37,16 @@ export function setPosts(state = [], action: SystemActionTypes) {
       return state;
   }
 }
+export function toggleShowRead(state = false, action: SystemActionTypes) {
+  switch (action.type) {
+    case TOGGLE_SHOW_READ: {
+      return action.payload;
+    }
+    default:
+      return state;
+  }
+}
+
 const emptyState: Query = {
   action: ["", ""],
   id: "",
