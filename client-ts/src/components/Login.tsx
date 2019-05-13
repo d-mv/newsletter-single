@@ -5,9 +5,6 @@ import { connect } from "react-redux";
 import { AppState } from "../store";
 import { AuthObj } from "../types";
 import {
-  CHECK_USER,
-  UserQuery,
-  CURRENT_USER,
   CurrentUser
 } from "../store/user/types";
 
@@ -18,11 +15,8 @@ import style from "../styles/LoginForm.module.scss";
 const Login = (props: {
   checkUser: (arg0?: any) => any;
   currentUser: (arg0: CurrentUser) => any;
-  // message: string;
   setAuthStatus: (arg0:boolean)=>any;
   cookies: any;
-  // login: (arg0: any) => any;
-  // newUser: boolean;
 }) => {
   const [userName, setUserName] = React.useState("");
   const [userEmail, setUserEmail] = React.useState("");
@@ -119,12 +113,6 @@ const Login = (props: {
     }
   };
 
-  // const test = () => {
-  //   props.currentUser({ token: "1234", email: "222@222.222" });
-  // };
-
-  // test();
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch (event.target.name) {
       case "uName":
@@ -150,6 +138,7 @@ const Login = (props: {
       />
     </label>
   ) : null;
+  
   const formStyle = authNew ? style.loginTall : style.login;
   const title = authNew ? "Register new user" : "Login details";
 

@@ -2,12 +2,12 @@ import {
   SET_POSTS,
   LOAD_POSTS,
   UPDATE_POST,
-  SELECT_POST,TOGGLE_SHOW_READ,
+  SELECT_POST, TOGGLE_SHOW_READ,
   // SystemState,
   Query,
   NewQuery,
   PostId,
-  SystemActionTypes
+  SystemActionTypes, Post
 } from "./types";
 
 const emptyQuery: NewQuery = {
@@ -68,14 +68,10 @@ export function updatePost(
   }
 }
 
-const emptyPost: PostId = {
-  id: ""
-};
-
 export function selectPost(
-  state = emptyPost,
+  state = {},
   action: SystemActionTypes
-): PostId {
+) {
   switch (action.type) {
     case SELECT_POST: {
       return {

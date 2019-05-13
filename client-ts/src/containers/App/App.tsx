@@ -1,22 +1,19 @@
 import React, { Suspense } from "react";
-
 import { withCookies } from "react-cookie";
 import { connect } from "react-redux";
-import { AppState } from "../../store";
 
+import { AppState } from "../../store";
 import { checkUser, currentUser } from "../../store/user/actions";
-import "../../styles/_ui.scss";
 
 import Loading from "../../components/Loading";
-import { showModule } from "../../store/app/actions";
+
+import "../../styles/_ui.scss";
 
 // lazy loading
 const Home = React.lazy(() => import("../../components/Home"));
 const Content = React.lazy(() => import("../Content/Content"));
 
 const App = (props?: any) => {
-  // console.log(props);
-
   const [authStatus, setAuthStatus] = React.useState(false);
   const [counter, setCounter] = React.useState(0);
   const [loading, setLoading] = React.useState(true);
@@ -110,7 +107,6 @@ const App = (props?: any) => {
 };
 
 const mapStateToProps = (state: AppState) => {
-  // console.log(state);
   return {
     posts: state.posts,
     sources: state.sources,

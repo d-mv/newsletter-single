@@ -3,8 +3,12 @@ import { connect } from "react-redux";
 import { AppState } from "../../store";
 
 import { apiRequest } from "../../store/user/actions";
-import { toggleShowRead } from "../../store/post/actions";
-import { showModule, setMessage } from "../../store/app/actions";
+import { toggleShowRead, selectPost } from "../../store/post/actions";
+import {
+  showModule,
+  setMessage,
+  toggleShowFilter
+} from "../../store/app/actions";
 
 import style from "../../styles/SmartButton.module.scss";
 
@@ -19,10 +23,14 @@ const Button = (props: {
   showRead: boolean;
   showModule: (arg0: string) => any;
   setMessage: (arg0: string) => any;
-  toggleShowRead: (current: boolean) => { type: string; payload: boolean; };
+  selectPost: (arg0: { token: string; id: string }) => any;
+
+  showFilter: boolean;
+  toggleShowFilter: (arg0: boolean) => void;
+
+  toggleShowRead: (current: boolean) => { type: string; payload: boolean };
 }) => {
   const [refresh, toggleRefresh] = React.useState(false);
-  console.log(props);
 
   const handleRefreshClick = () => {
     // start icon rotation
@@ -43,15 +51,23 @@ const Button = (props: {
 
   const handleClick = (cProps: { mode: string; child: any; func: any }) => {
     if (cProps.child === "BACK" || cProps.child === "HOME") {
+      // if back -clear post from state
+      switch (cProps.child) {
+        case "BACK":
+          props.selectPost({ token: "", id: "" });
+          break;
+      }
       props.showModule("posts");
     } else if (cProps.child === "SOURCES") {
       props.showModule("sources");
     } else if (props.mode === "profile") {
       props.showModule("profile");
     } else if (props.mode === "refresh") {
-      handleRefreshClick();}
-      else if (props.mode === 'showRead') {
-        props.toggleShowRead(props.showRead);
+      handleRefreshClick();
+    } else if (props.mode === "showRead") {
+      props.toggleShowRead(props.showRead);
+    } else if (props.mode === "filter") {
+      props.toggleShowFilter(props.showFilter);
     } else {
       cProps.func();
     }
@@ -86,10 +102,18 @@ const Button = (props: {
 const mapStateToProps = (state: AppState) => ({
   thisUser: state.currentUser,
   module: state.module,
-  showRead: state.showRead
+  showRead: state.showRead,
+  showFilter: state.showFilter
 });
 
 export default connect(
   mapStateToProps,
-  { apiRequest, showModule, setMessage, toggleShowRead }
+  {
+    apiRequest,
+    showModule,
+    setMessage,
+    toggleShowRead,
+    selectPost,
+    toggleShowFilter
+  }
 )(Button);

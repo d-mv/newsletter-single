@@ -6,9 +6,9 @@ import { logger } from "redux-logger";
 import reduxPromise from "redux-promise";
 
 // reducers
-import { showModule, setMessage } from "./app/reducers";
-import { loadPosts, setPosts, toggleShowRead } from "./post/reducers";
-import { loadSources } from "./source/reducers";
+import { showModule, setMessage, toggleShowFilter } from "./app/reducers";
+import { loadPosts, setPosts, toggleShowRead, selectPost } from "./post/reducers";
+import { loadSources, setFilter } from "./source/reducers";
 import { checkUser, currentUser, setAuthStatus } from "./user/reducers";
 // setup axios
 axios.defaults.baseURL = `${process.env.REACT_APP_SERVER}/api`;
@@ -24,6 +24,9 @@ const rootReducer = combineReducers({
   module: showModule,
   message: setMessage,
   showRead: toggleShowRead,
+  showPost: selectPost,
+  showFilter: toggleShowFilter,
+  filterSourceId: setFilter
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -32,7 +35,7 @@ export default function configureStore() {
   const middlewares = [reduxPromise, logger];
   const middleWareEnhancer = applyMiddleware(...middlewares);
 
-  interface state {}
+  interface state { }
 
   const initialState: state = {
     posts: [],
@@ -41,8 +44,10 @@ export default function configureStore() {
     authStatus: false,
     showRead: false,
     module: 'posts',
-    message:'',
-    // filterSourceId:'',
+    message: '',
+    showPost: {},
+    showFilter: false,
+    filterSourceId: '',
   };
 
   const store = createStore(

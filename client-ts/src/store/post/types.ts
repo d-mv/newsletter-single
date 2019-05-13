@@ -15,6 +15,23 @@ export interface Post {
   star: boolean;
 }
 
+export const emptyPost: Post = {
+  _id: "",
+  source: "",
+  sourceId: "",
+  title: "",
+  url: "",
+  author: "",
+  published: new Date(),
+  parsed: new Date(),
+  text: "",
+  readTime: 0,
+  pages: 0,
+  read: false,
+  star: false
+};
+
+
 export interface SystemState {
   posts: Post[];
   token: "";
@@ -41,6 +58,7 @@ export const LOAD_POSTS = "LOAD_POSTS";
 export const SET_POSTS = "SET_POSTS";
 export const UPDATE_POST = "UPDATE_POST";
 export const SELECT_POST = "SELECT_POST";
+
 export const TOGGLE_SHOW_READ = "TOGGLE_SHOW_READ";
 
 interface LoadPostsAction {
@@ -60,6 +78,7 @@ interface SelectPostAction {
   type: typeof SELECT_POST;
   payload: PostId;
 }
+
 interface ToggleShowReadAction {
   type: typeof TOGGLE_SHOW_READ;
   payload: boolean;

@@ -12,6 +12,12 @@ export interface NewQuery {
   id?: string;
   fields?: { [index: string]: string };
 }
+// export interface NewQuery {
+//   token: string;
+//   action: [string, string];
+//   id?: string;
+//   fields?: { [index: string]: string };
+// }
 export interface CurrentUser {
   email: string;
   token: string;

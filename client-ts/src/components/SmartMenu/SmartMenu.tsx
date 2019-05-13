@@ -1,9 +1,11 @@
 import React from "react";
-import { FaSyncAlt, FaEye, FaEyeSlash, FaFilter, FaUser } from "react-icons/fa";
 import { connect } from "react-redux";
+import { FaSyncAlt, FaEye, FaEyeSlash, FaFilter, FaUser } from "react-icons/fa";
+
 import { AppState } from "../../store";
 
 import SmartButton from "./SmartButton";
+
 import style from "../../styles/SmartMenu.module.scss";
 
 const buttonElement = (props: {
@@ -24,14 +26,9 @@ const buttonElement = (props: {
 };
 
 const SmartMenu = (props: {
-  read: boolean;
-  toggleRead: () => void;
-  refresh: () => void;
-  // moduleToggle: (arg0?: string) => void;
-  // mode: string;
   showRead: boolean;
-  showFilter: boolean;
-  toggleFilter: () => void;
+  filterSourceId: string;
+  // toggleFilter: () => void;
   module: string;
 }) => {
   // homeButton
@@ -39,14 +36,12 @@ const SmartMenu = (props: {
     element: props.module === "post" ? "BACK" : "HOME",
     mode: "home",
     accent: false
-    // function: props.moduleToggle
   });
   // sourcesButton
   let sourcesButton = buttonElement({
     element: "SOURCES",
     mode: "sources",
     accent: false
-    // function: props.moduleToggle
   });
   // showReadButton;
   let showReadButton =
@@ -54,8 +49,7 @@ const SmartMenu = (props: {
       ? buttonElement({
           element: props.showRead ? <FaEye /> : <FaEyeSlash />,
           mode: "showRead",
-          accent: props.showRead,
-          function: props.toggleRead
+          accent: props.showRead
         })
       : null;
 
@@ -65,8 +59,7 @@ const SmartMenu = (props: {
       ? buttonElement({
           element: <FaSyncAlt />,
           mode: "refresh",
-          accent: false,
-          function: props.refresh
+          accent: false
         })
       : null;
   // filterButton;
@@ -75,8 +68,7 @@ const SmartMenu = (props: {
       ? buttonElement({
           element: <FaFilter />,
           mode: "filter",
-          accent: props.showFilter,
-          function: props.toggleFilter
+          accent: props.filterSourceId !== ''
         })
       : null;
 
@@ -84,7 +76,6 @@ const SmartMenu = (props: {
     element: <FaUser />,
     mode: "profile",
     accent: false
-    // function: props.moduleToggle
   });
 
   return (
@@ -97,75 +88,11 @@ const SmartMenu = (props: {
       {profileButton}
     </nav>
   );
-  // toggleModule = event => {
-  //   this.props.moduleToggle(event.target.innerText);
-  // };
-  // toggleFilter = () => {
-  //   this.props.toggleFilter();
-  // };
-  // render = () => {
-
-  // let homeBack = "HOME";
-
-  // let filter = this.props.showFilter ? (
-  //   <Filter
-  //     list={this.props.sources}
-  //     filterClick={this.props.filterClick}
-  //     toggleFilter={() => this.toggleFilter()}
-  //   />
-  // ) : null;
-  // let filterStyle = this.props.filter ? style.on : style.off;
-  // let filterButton = (
-  //   <button>
-  //     <FaFilter className={filterStyle} onClick={() => this.toggleFilter()} />
-  //   </button>
-  // );
-  // let showHide = (
-  //   <button>
-  //     {this.props.read ? (
-  //       <FaEye onClick={this.props.readToggle} />
-  //     ) : (
-  //       <FaEyeSlash onClick={this.props.readToggle} />
-  //     )}
-  //   </button>
-  // );
-
-  // if (this.props.mode === "show") {
-  //   filterButton = null;
-  //   showHide = null;
-  //   homeBack = "BACK";
-  // } else if (this.props.mode === "SOURCES") {
-  //   showHide = null;
-  //   filterButton = null;
-  // }
-
-  // const homeBackButton = (
-  //   <button className={style.text} onClick={this.toggleModule}>
-  //     {homeBack}
-  //   </button>
-  // );
-  // return (
-  //   <section className={style.smartMenu}>
-  //     {homeBackButton}
-  //     <button className={style.text} onClick={this.toggleModule}>
-  //       SOURCES
-  //     </button>
-  //     <button className={style.text}>PROFILE</button>
-  //     <button>
-  //       <FaSyncAlt onClick={this.props.refresh} className={style.refresh} />
-  //     </button>
-  //     {showHide}
-  //     {filterButton}
-  //     {filter}
-  //   </section>
-  // );
-  // };
 };
-// export default SmartMenu;
 const mapStateToProps = (state: AppState) => ({
-  // thisUser: state.currentUser,
   module: state.module,
-  showRead: state.showRead
+  showRead: state.showRead,
+  filterSourceId: state.filterSourceId
 });
 
 export default connect(mapStateToProps)(SmartMenu);

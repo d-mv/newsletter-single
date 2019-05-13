@@ -12,35 +12,25 @@ export interface SystemStateSource {
   sources: Source[];
 }
 
-// export interface Query {
-//   action: [string, string];
-//   id: string;
-//   fields?: { [index: string]: string };
-// }
-
-// export interface PostId {
-//   id: string;
-// }
 // Describing the different ACTION NAMES available
+export const LOAD_SOURCES = "LOAD_SOURCES";
 export const SET_SOURCES = "SET_SOURCES";
-// export const UPDATE_POST = "UPDATE_POST";
-// export const SELECT_POST = "SELECT_POST";
+export const SET_FILTER = "SET_FILTER";
 
-interface SetSourcesAction {
-  type: typeof SET_SOURCES;
+interface LoadSourcesAction {
+  type: typeof LOAD_SOURCES;
   payload: NewQuery;
 }
+interface SetSourcesAction {
+  type: typeof SET_SOURCES;
+  payload: any;
+}
 
-// interface UpdatePostAction {
-//   type: typeof UPDATE_POST;
-//   payload: Query;
-// }
+interface SetFilterAction {
+  type: typeof SET_FILTER;
+  payload: string;
+}
 
-// interface SelectPostAction {
-//   type: typeof SELECT_POST;
-//   payload: PostId;
-// }
-
-export type SystemActionTypes = SetSourcesAction;
-// | UpdatePostAction
-// | SelectPostAction;
+export type SystemActionTypes =
+  | LoadSourcesAction|SetSourcesAction
+  | SetFilterAction;

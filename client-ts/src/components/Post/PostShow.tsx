@@ -12,7 +12,7 @@ const handleTitleClick = (link: string) => {
   window.open(link, "_blank");
 };
 
-const PostShow = (props: { post: Post; update: (arg0: any) => void }) => {
+const PostShow = (props: { post: any; update: (arg0: any) => void }) => {
   const starButton = props.post.star ? (
     <TiStarFullOutline />
   ) : (
