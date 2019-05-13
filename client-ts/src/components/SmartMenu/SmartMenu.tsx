@@ -1,5 +1,7 @@
 import React from "react";
 import { FaSyncAlt, FaEye, FaEyeSlash, FaFilter, FaUser } from "react-icons/fa";
+import { connect } from "react-redux";
+import { AppState } from "../../store";
 
 import SmartButton from "./SmartButton";
 import style from "../../styles/SmartMenu.module.scss";
@@ -8,7 +10,7 @@ const buttonElement = (props: {
   element: any;
   mode: string;
   accent: boolean;
-  function: (arg0?: string) => void;
+  function?: (arg0?: string) => void;
 }) => {
   return (
     <SmartButton
@@ -25,28 +27,29 @@ const SmartMenu = (props: {
   read: boolean;
   toggleRead: () => void;
   refresh: () => void;
-  moduleToggle: (arg0?: string) => void;
-  mode: string;
+  // moduleToggle: (arg0?: string) => void;
+  // mode: string;
   showFilter: boolean;
   toggleFilter: () => void;
+  module: string;
 }) => {
   // homeButton
   let homeButton = buttonElement({
-    element: props.mode === "post" ? "BACK" : "HOME",
+    element: props.module === "post" ? "BACK" : "HOME",
     mode: "home",
-    accent: false,
-    function: props.moduleToggle
+    accent: false
+    // function: props.moduleToggle
   });
   // sourcesButton
   let sourcesButton = buttonElement({
     element: "SOURCES",
     mode: "sources",
     accent: false,
-    function: props.moduleToggle
+    // function: props.moduleToggle
   });
   // showReadButton;
   let showReadButton =
-    props.mode === "posts"
+    props.module === "posts"
       ? buttonElement({
           element: props.read ? <FaEye /> : <FaEyeSlash />,
           mode: "showRead",
@@ -57,7 +60,7 @@ const SmartMenu = (props: {
 
   // refreshButton;
   let refreshButton =
-    props.mode === "posts"
+    props.module === "posts"
       ? buttonElement({
           element: <FaSyncAlt />,
           mode: "refresh",
@@ -67,7 +70,7 @@ const SmartMenu = (props: {
       : null;
   // filterButton;
   let filterButton =
-    props.mode === "posts"
+    props.module === "posts"
       ? buttonElement({
           element: <FaFilter />,
           mode: "filter",
@@ -80,7 +83,7 @@ const SmartMenu = (props: {
     element: <FaUser />,
     mode: "profile",
     accent: false,
-    function: props.moduleToggle
+    // function: props.moduleToggle
   });
 
   return (
@@ -157,4 +160,10 @@ const SmartMenu = (props: {
   // );
   // };
 };
-export default SmartMenu;
+// export default SmartMenu;
+const mapStateToProps = (state: AppState) => ({
+  // thisUser: state.currentUser,
+  module: state.module
+});
+
+export default connect(mapStateToProps)(SmartMenu);

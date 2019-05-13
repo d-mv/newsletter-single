@@ -11,6 +11,7 @@ import {
 } from "../../store/post/actions";
 import { loadSources } from "../../store/source/actions";
 import { apiRequest } from "../../store/user/actions";
+import { showModule } from "../../store/app/actions";
 
 import { NewQuery } from "../../types";
 
@@ -42,6 +43,9 @@ interface props {
   thisUser: any;
   setPosts: (arg0: any) => any;
   posts: any[];
+  module: string;
+  showModule: (arg0: string) => any;
+
   // signOff: () => void;
 }
 
@@ -67,7 +71,6 @@ const emptyPost: Post = {
 class Content extends React.Component<props> {
   state = {
     loading: true,
-    module: "posts",
     showRead: false,
     showFilter: false,
     filterId: "",
@@ -123,10 +126,6 @@ class Content extends React.Component<props> {
     this.loadSources(sourceQuery);
   };
 
-  showModule = (module: string = "posts") => {
-    // console.log("show module - " + module);
-    this.setState({ module: module });
-  };
   toggleShowRead = () => {
     this.setState({ showRead: !this.state.showRead });
     this.changeMessage(`Show read: ${!this.state.showRead}`);
@@ -163,6 +162,7 @@ class Content extends React.Component<props> {
       this.changeMessage(message);
     });
   };
+
   selectPostToShow = (props: { id: string }) => {
     // set query object
     const query = {
@@ -174,7 +174,7 @@ class Content extends React.Component<props> {
     this.props.apiRequest(query).then((res: any) => {
       const response = res.payload.data;
       if (response.authed) {
-        this.showModule("post");
+        this.props.showModule("post");
         this.setState({
           showPost: response.post
         });
@@ -340,8 +340,7 @@ class Content extends React.Component<props> {
         read={this.state.showRead}
         toggleRead={this.toggleShowRead}
         refresh={this.handleRefreshClick}
-        moduleToggle={this.showModule}
-        mode={this.state.module}
+        // mode={this.props.module}
         showFilter={this.state.filterId !== ""}
         toggleFilter={this.toggleShowFilter}
       />
@@ -421,11 +420,11 @@ class Content extends React.Component<props> {
         {smartMenu}
         {filter}
         {messageDisplay}
-        {this.state.module === "posts" ? postsList : null}
-        {this.state.module === "post" ? postShow : null}
-        {this.state.module === "sources" ? sourcesList : null}
+        {this.props.module === "posts" ? postsList : null}
+        {this.props.module === "post" ? postShow : null}
+        {this.props.module === "sources" ? sourcesList : null}
         {this.state.addSource ? this.addSource : null}
-        {this.state.module === "profile" ? this.profile : null}
+        {this.props.module === "profile" ? this.profile : null}
       </main>
     );
   }
@@ -434,10 +433,19 @@ const mapStateToProps = (state: AppState) => ({
   posts: state.posts,
   sources: state.sources,
   user: state.user,
-  thisUser: state.currentUser
+  thisUser: state.currentUser,
+  module: state.module
 });
 
 export default connect(
   mapStateToProps,
-  { loadPosts, setPosts, updatePost, selectPost, loadSources, apiRequest }
+  {
+    loadPosts,
+    setPosts,
+    updatePost,
+    selectPost,
+    loadSources,
+    apiRequest,
+    showModule
+  }
 )(Content);

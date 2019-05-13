@@ -1,14 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { AppState } from "../../store";
-import { AuthObj } from "../../types";
-import {
-  CHECK_USER,
-  UserQuery,
-  CURRENT_USER,
-  CurrentUser
-} from "../../store/user/types";
+
 import { apiRequest } from "../../store/user/actions";
+import { showModule } from "../../store/app/actions";
 
 import style from "../../styles/SmartButton.module.scss";
 
@@ -16,15 +11,18 @@ const Button = (props: {
   children: any;
   mode: string;
   accent: boolean;
-  function: () => void;
+  function?: () => void;
   apiRequest: (arg0?: any) => any;
   thisUser: any;
+  module: string;
+  showModule: (arg0: string) => any;
 }) => {
   const [refresh, toggleRefresh] = React.useState(false);
+  console.log(props);
 
   const handleRefreshClick = () => {
     console.log("refresh clicked");
-    toggleRefresh(true)
+    toggleRefresh(true);
     // set query object
     const query = {
       token: props.thisUser.token,
@@ -32,24 +30,23 @@ const Button = (props: {
     };
     // request redux action to query API
     props.apiRequest(query).then((response: any) => {
-          toggleRefresh(false);
+      toggleRefresh(false);
       console.log(response);
       const message = response.payload.data.message;
       // this.changeMessage(message);
     });
   };
 
-  const handleClick = (cProps: {
-    mode: string;
-    child: any;
-    func: (arg?: string) => void;
-  }) => {
+  const handleClick = (cProps: { mode: string; child: any; func: any }) => {
     if (cProps.child === "BACK" || cProps.child === "HOME") {
-      cProps.func("posts");
+      // handleShowModuleClick("posts");
+      props.showModule("posts");
     } else if (cProps.child === "SOURCES") {
-      cProps.func("sources");
+      // handleShowModuleClick("sources");
+      props.showModule("sources");
     } else if (props.mode === "profile") {
-      cProps.func("profile");
+      // handleShowModuleClick("profile");
+      props.showModule("profile");
     } else if (props.mode === "refresh") {
       handleRefreshClick();
     }
@@ -81,7 +78,7 @@ const Button = (props: {
   } else {
     styleClass = style.smart;
   }
-
+  const func = props.function ? props.function : null;
   return (
     <button
       className={styleClass}
@@ -90,7 +87,7 @@ const Button = (props: {
         handleClick({
           mode: props.mode,
           child: props.children,
-          func: props.function
+          func: func
         })
       }
     >
@@ -102,13 +99,11 @@ const Button = (props: {
 // export default Button;
 
 const mapStateToProps = (state: AppState) => ({
-  // posts: state.posts,
-  // sources: state.sources,
-  // user: state.user,
-  thisUser: state.currentUser
+  thisUser: state.currentUser,
+  module: state.module
 });
 
 export default connect(
   mapStateToProps,
-  { apiRequest }
+  { apiRequest, showModule }
 )(Button);

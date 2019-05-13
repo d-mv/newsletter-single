@@ -8,6 +8,7 @@ import { checkUser, currentUser } from "../../store/user/actions";
 import "../../styles/_ui.scss";
 
 import Loading from "../../components/Loading";
+import { showModule } from "../../store/app/actions";
 
 // lazy loading
 const Home = React.lazy(() => import("../../components/Home"));

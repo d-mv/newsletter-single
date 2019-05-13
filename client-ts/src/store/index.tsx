@@ -6,6 +6,7 @@ import { logger } from "redux-logger";
 import reduxPromise from "redux-promise";
 
 // reducers
+import { showModule } from "./app/reducers";
 import { loadPosts, setPosts } from "./post/reducers";
 import { loadSources } from "./source/reducers";
 import { checkUser, currentUser, setAuthStatus } from "./user/reducers";
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   sources: loadSources,
   user: checkUser,
   currentUser: currentUser,
-  authStatus: setAuthStatus
+  authStatus: setAuthStatus,
+  module: showModule
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -34,9 +36,9 @@ export default function configureStore() {
     posts: [],
     sources: [],
     currentUser: {},
-    authStatus: false
+    authStatus: false,
     // showRead: false,
-    // module: 'posts',
+    module: 'posts',
     // message:'',
     // filterSourceId:'',
   };
