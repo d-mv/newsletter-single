@@ -14,7 +14,7 @@ const Home = React.lazy(() => import("../../components/Home"));
 const Content = React.lazy(() => import("../Content/Content"));
 
 const App = (props?: any) => {
-  console.log(props);
+  // console.log(props);
 
   const [authStatus, setAuthStatus] = React.useState(false);
   const [counter, setCounter] = React.useState(0);
@@ -109,7 +109,7 @@ const App = (props?: any) => {
 };
 
 const mapStateToProps = (state: AppState) => {
-  console.log(state);
+  // console.log(state);
   return {
     posts: state.posts,
     sources: state.sources,

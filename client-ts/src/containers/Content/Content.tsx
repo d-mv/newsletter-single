@@ -15,7 +15,7 @@ import { apiRequest } from "../../store/user/actions";
 import { NewQuery } from "../../types";
 
 import Header from "../../components/Header/Header";
-import SmartMenu from "../../components/Navigation/SmartMenu";
+import SmartMenu from "../../components/SmartMenu/SmartMenu";
 import Loading from "../../components/Loading";
 import PostCardList from "../../components/Post/PostCardList";
 import "../../styles/_ui.scss";
@@ -124,7 +124,7 @@ class Content extends React.Component<props> {
   };
 
   showModule = (module: string = "posts") => {
-    console.log("show module - " + module);
+    // console.log("show module - " + module);
     this.setState({ module: module });
   };
   toggleShowRead = () => {
@@ -233,7 +233,7 @@ class Content extends React.Component<props> {
   };
 
   updateSourceAction = (props: { [index: string]: string }) => {
-    console.log(props);
+    // console.log(props);
     const query = {
       token: this.props.thisUser.token,
       action: ["source", "update"],
@@ -249,7 +249,7 @@ class Content extends React.Component<props> {
   };
   // delete source/post
   deleteAction = (props: { [index: string]: string }) => {
-    console.log(props);
+    // console.log(props);
     // {
     // id: '', mode:''
     // }
@@ -258,7 +258,6 @@ class Content extends React.Component<props> {
     //   action: [props.mode, "delete"],
     //   id: props.id
     // };
-
     // this.props.apiRequest(query).then((response: any) => {
     //   console.log(response);
     //   const message = response.payload.data.message;
@@ -269,8 +268,8 @@ class Content extends React.Component<props> {
   };
 
   createSource = (cSprops: any) => {
-    console.log("- create source:");
-    console.log(cSprops);
+    // console.log("- create source:");
+    // console.log(cSprops);
     // set query object
     const query = {
       token: this.props.thisUser.token,
@@ -284,7 +283,7 @@ class Content extends React.Component<props> {
     // request redux action to query API
     this.props.apiRequest(query).then((res: any) => {
       const response = res.payload.data;
-      console.log(response);
+      // console.log(response);
       this.changeMessage(response.message);
       this.setState({
         // message: response.message,
@@ -328,7 +327,7 @@ class Content extends React.Component<props> {
     </Suspense>
   );
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     // postToShow
     const postShow = (
       <Suspense fallback={<Loading />}>
