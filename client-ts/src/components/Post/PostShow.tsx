@@ -2,7 +2,6 @@ import React from "react";
 import { FaTrash } from "react-icons/fa";
 import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
 
-import { Post } from "../../store/post/types";
 import Line from "./PostLine";
 import Footer from "./PostFooter";
 

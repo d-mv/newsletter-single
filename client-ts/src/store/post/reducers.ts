@@ -3,11 +3,9 @@ import {
   LOAD_POSTS,
   UPDATE_POST,
   SELECT_POST, TOGGLE_SHOW_READ,
-  // SystemState,
   Query,
   NewQuery,
-  PostId,
-  SystemActionTypes, Post
+  SystemActionTypes
 } from "./types";
 
 const emptyQuery: NewQuery = {

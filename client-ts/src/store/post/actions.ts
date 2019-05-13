@@ -1,8 +1,5 @@
 import {
-  // SystemState,
   SET_POSTS, LOAD_POSTS,
-  Query,
-  PostId,
   UPDATE_POST, TOGGLE_SHOW_READ,
   SELECT_POST
 } from "./types";

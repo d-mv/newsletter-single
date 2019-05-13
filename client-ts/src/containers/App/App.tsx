@@ -77,15 +77,15 @@ const App = (props?: any) => {
    * @function logOff
    * @returns {void}
    */
-  const logOff = () => {
-    cookies.set("email", "", {
-      path: "/"
-    });
-    cookies.set("token", "", {
-      path: "/"
-    });
-    setAuthStatus(false);
-  };
+  // const logOff = () => {
+  //   cookies.set("email", "", {
+  //     path: "/"
+  //   });
+  //   cookies.set("token", "", {
+  //     path: "/"
+  //   });
+  //   setAuthStatus(false);
+  // };
 
   if (loading) {
     // on load

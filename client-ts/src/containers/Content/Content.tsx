@@ -142,7 +142,6 @@ class Content extends React.Component<props> {
   };
 
   updateSourceAction = (props: { [index: string]: string }) => {
-    // console.log(props);
     const query = {
       token: this.props.thisUser.token,
       action: ["source", "update"],
@@ -150,7 +149,6 @@ class Content extends React.Component<props> {
     };
 
     this.props.apiRequest(query).then((response: any) => {
-      console.log(response);
       const message = response.payload.data.message;
       this.props.setMessage(message);
       this.updateSourceInState(props);

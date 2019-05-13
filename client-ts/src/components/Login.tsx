@@ -26,7 +26,6 @@ const Login = (props: {
   const [passwordError, setPasswordError] = React.useState("");
 
   const [authNew, setAuthNew] = React.useState(false);
-  const [showLogin, setShowLogin] = React.useState(false);
   const [loginMessage, setLoginMessage] = React.useState("");
 
   const { cookies } = props;
@@ -70,7 +69,6 @@ const Login = (props: {
     };
     props.checkUser(query).then((res: any) => {
       const response = res.payload.data;
-      console.log(response);
       if (response.user === "new") {
         setAuthNew(true);
       } else if (response.status) {
@@ -138,7 +136,7 @@ const Login = (props: {
       />
     </label>
   ) : null;
-  
+
   const formStyle = authNew ? style.loginTall : style.login;
   const title = authNew ? "Register new user" : "Login details";
 

@@ -12,7 +12,6 @@ const Profile = (props: {
   setAuthStatus: (arg0: boolean) => any;
   thisUser: any;
 }) => {
-  console.log(props);
   const signOff = () => {
     const query = {
       action: ["user", "signOff"],

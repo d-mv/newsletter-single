@@ -2,13 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { AppState } from "../../store";
-import {
-  loadPosts,
-  setPosts,
-  updatePost,
-  selectPost
-} from "../../store/post/actions";
-import { showModule, setMessage } from "../../store/app/actions";
+import { selectPost } from "../../store/post/actions";
+import { showModule } from "../../store/app/actions";
 
 import { FaCheck, FaCheckDouble } from "react-icons/fa";
 import { TiStarFullOutline, TiStarOutline } from "react-icons/ti";
@@ -34,7 +29,7 @@ const PostCard = (props: {
     <TiStarOutline />
   );
   const readButton = props.post.read ? <FaCheckDouble /> : <FaCheck />;
-  
+
   const selectPost = () => {
     props.selectPost({ token: props.thisUser.token, id: props.post._id });
     props.showModule("post");
