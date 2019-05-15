@@ -67,6 +67,7 @@ module.exports.deletePost = (id, callback) => {
 module.exports.deleteReadPosts = (id, callback) => {
   Post.deleteMany({ read: true }, callback);
 };
+// module.exports.show
 // module.exports.getAllPosts = (id, callback) => {
 //   Post.aggregate([
 //     {
