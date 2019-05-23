@@ -5,7 +5,8 @@ import Login from "./Login";
 import "../styles/_ui.scss";
 import style from "../styles/Home.module.scss";
 
-const Home = () => {
+const Home = (props:{toggle:()=>void}) => {
+
   const [showLogin, setShowLogin] = React.useState(false);
 
   return (
@@ -24,7 +25,7 @@ const Home = () => {
       </div>
       {showLogin ? (
         <div className="modal">
-          <Login />
+          <Login toggle={props.toggle}/>
         </div>
       ) : null}
     </main>

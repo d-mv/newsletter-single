@@ -11,6 +11,10 @@ import style from "../../styles/PostCardList.module.scss";
 
 const Filter = React.lazy(() => import("../../components/Filter"));
 
+
+// ! https://github.com/Merri/react-lazy
+
+
 const PostCardList = (props: {
   showRead: boolean;
   posts: any;
@@ -26,6 +30,7 @@ const PostCardList = (props: {
       </Suspense>
     ) : null;
 
+    console.log(props.posts)
   return (
     <div className={style.list}>
       {/* show filter */}

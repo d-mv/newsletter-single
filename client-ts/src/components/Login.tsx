@@ -17,7 +17,9 @@ const Login = (props: {
   currentUser: (arg0: CurrentUser) => any;
   setAuthStatus: (arg0:boolean)=>any;
   cookies: any;
+  toggle:()=>void
 }) => {
+  console.log(props)
   const [userName, setUserName] = React.useState("");
   const [userEmail, setUserEmail] = React.useState("");
   const [userPassword, setUserPassword] = React.useState("");
@@ -80,6 +82,7 @@ const Login = (props: {
         props.setAuthStatus(true)
         cookies.set("email", response.user.email, { path: "/" });
         cookies.set("token", response.user.token, { path: "/" });
+        props.toggle()
       } else {
         setLoginMessage(response.data.message);
       }

@@ -37,11 +37,24 @@ interface props {
   setMessage: (arg0: string) => any;
   showPost: {};
   sources: any;
+  toggle:()=>void
 }
 
 interface Content {
   refresher: any;
 }
+
+const messageComponent = (props:any) => (
+    <Suspense fallback={<Loading />}>
+      <Central {...props} />
+    </Suspense>
+  );
+
+  const profile = (toggle:()=>void)=>(
+    <Suspense fallback={<Loading />}>
+      <Profile toggle={toggle}/>
+    </Suspense>
+  );
 
 class Content extends React.Component<props> {
   state = {
@@ -51,7 +64,23 @@ class Content extends React.Component<props> {
     addSource: false
   };
 
+  // myStorage = window.localStorage;
+  // @ts-ignore
+  // localStorage.setItem('posts'.[])
+  //   localStorage.setItem('myCat', 'Tom');
+  // The syntax for reading the localStorage item is as follows:
+
+  // var cat = localStorage.getItem('myCat');
+  // The syntax for removing the localStorage item is as follows:
+
+  // localStorage.removeItem('myCat');
+
   // * get posts & sources from API
+  componentWillMount() {
+    const data: any = localStorage.getItem("posts");
+    const posts: any = JSON.parse(data) ?JSON.parse(data):[];
+    this.setState({posts})
+  }
   componentDidMount() {
     this.fetchPostsSources();
     this.refresher = setInterval(this.fetchPostsSources, 10000);
@@ -68,6 +97,7 @@ class Content extends React.Component<props> {
         posts: data.payload.data,
         loading: false
       });
+      localStorage.setItem("posts", JSON.stringify(data.payload.data));
     });
     this.props.loadSources(this.props.thisUser.token).then((data: any) => {
       this.setState({
@@ -80,6 +110,8 @@ class Content extends React.Component<props> {
 
   // ! refactor
   updateStatePosts = (UProps: { id: string; field: string }) => {
+    // const data:any =localStorage.getItem("posts")
+    // const newPosts = JSON.parse(data)
     const newPosts = this.state.posts;
     let oldPostState;
     newPosts
@@ -104,7 +136,10 @@ class Content extends React.Component<props> {
       }
       return newPost;
     });
-    this.setState({ posts: update });
+    this.setState({
+      posts: update
+    });
+    localStorage.setItem("posts", JSON.stringify(update));
     return oldPostState;
   };
   updatePostAction = (AProps: { field: string; id: string }) => {
@@ -184,11 +219,7 @@ class Content extends React.Component<props> {
   };
 
   // ui elements
-  profile = (
-    <Suspense fallback={<Loading />}>
-      <Profile />
-    </Suspense>
-  );
+
   addSource = (
     <Suspense fallback={<Loading />}>
       <SourceEdit submit={this.createSource} close={this.toggleShowAddSource} />
@@ -207,6 +238,7 @@ class Content extends React.Component<props> {
         : false;
     return check;
   };
+
   checkIfPostsSourcesEmpty = () => {
     let message;
     if (
@@ -216,32 +248,22 @@ class Content extends React.Component<props> {
       message = "There are no sources configured.";
     } else if (this.state.posts === [] || this.state.posts.length === 0) {
       message = "The are no posts for now.";
+    } else if (this.getLocalPosts().length >0) {
+message=''
     }
     return message;
   };
 
-  messageComponent = (message: string) => (
-    <Suspense fallback={<Loading />}>
-      <Central message={message} />
-    </Suspense>
-  );
-
-  postCardListComponent = () => (
-    <PostCardList posts={this.state.posts} update={this.updatePostAction} />
-  );
-
-  noSourcesListComponent = () => (
-    <Suspense fallback={<Loading />}>
-      <Central
-        message="The are no sources for now."
-        function={this.toggleShowAddSource}
-      >
-        <button className="button" aria-label="Add source">
-          Add source
-        </button>
-      </Central>
-    </Suspense>
-  );
+  getLocalPosts = () => {
+    const data: any = localStorage.getItem("posts");
+    let posts: any = JSON.parse(data) ?JSON.parse(data):[];
+    if (posts.length === 0){
+      posts = "The are no posts for now."
+    } else if (posts.length > 0 && this.state.loading) {
+      this.setState({loading:false})
+    }
+    return posts ;
+  };
 
   sourcesListComponent = () => (
     <Suspense fallback={<Loading />}>
@@ -254,7 +276,7 @@ class Content extends React.Component<props> {
   );
 
   popUpMessageComponent = () => (
-    <section className="message">{this.props.message}</section>
+    <section className='message'>{this.props.message}</section>
   );
 
   render() {
@@ -262,28 +284,23 @@ class Content extends React.Component<props> {
       setTimeout(() => this.props.setMessage(""), 3000);
     }
     // list of posts
-    let postsList;
-    const messageToShow = this.checkIfPostsSourcesEmpty();
-
-    if (this.state.loading) {
-      postsList = <Loading />;
-    } else if (messageToShow) {
-      postsList = this.messageComponent(messageToShow);
-    } else {
-      postsList = this.postCardListComponent();
-    }
+    let postsList = this.state.loading ? null : (<PostCardList
+      posts={this.state.posts}
+      update={this.updatePostAction}
+    />)
     //  list of sources
     let sourcesList;
     if (this.checkIfSourcesEmpty()) {
-      sourcesList = this.noSourcesListComponent();
+      sourcesList = messageComponent({message:'The are no sources for now.',function:this.toggleShowAddSource,children:(<button className='button' aria-label='Add source'>Add source</button>)})
     } else {
       sourcesList = this.sourcesListComponent();
     }
 
     return (
-      <main data-test="app">
+      <main data-test='app'>
         <Header />
         {<SmartMenu />}
+        {this.state.loading ? <Loading /> : null}
         {this.props.message ? this.popUpMessageComponent() : null}
         {this.props.module === "posts" ? postsList : null}
         {"_id" in this.props.showPost
@@ -291,7 +308,7 @@ class Content extends React.Component<props> {
           : null}
         {this.props.module === "sources" ? sourcesList : null}
         {this.state.addSource ? this.addSource : null}
-        {this.props.module === "profile" ? this.profile : null}
+        {this.props.module === "profile" ? profile(this.props.toggle) : null}
       </main>
     );
   }

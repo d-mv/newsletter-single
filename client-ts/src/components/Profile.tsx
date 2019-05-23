@@ -11,6 +11,7 @@ const Profile = (props: {
   checkUser: (arg0?: any) => any;
   setAuthStatus: (arg0: boolean) => any;
   thisUser: any;
+  toggle:()=>void
 }) => {
   const signOff = () => {
     const query = {
@@ -21,6 +22,7 @@ const Profile = (props: {
       const response = res.payload.data;
       if (response.status) {
         props.setAuthStatus(false);
+        props.toggle()
       }
     });
   };

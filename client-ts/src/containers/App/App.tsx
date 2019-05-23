@@ -41,8 +41,10 @@ const App = (props?: any) => {
       action: ["user", "verifyCookies"],
       fields: { email: cProps.email }
     };
+    console.log(query)
     // request redux action to query API
     props.checkUser(query).then((res: any) => {
+      console.log(res)
       const response = res.payload.data;
       if (response.authed) {
         props.currentUser({
@@ -86,21 +88,22 @@ const App = (props?: any) => {
   //   });
   //   setAuthStatus(false);
   // };
-
-  if (loading) {
-    // on load
-    return <Loading />;
-  } else if (props.authStatus) {
+if (authStatus) {
     return (
       <Suspense fallback={<Loading />}>
-        <Content />
+        <Content toggle={toggleAuth}/>
       </Suspense>
     );
-  } else {
+  }
+  //  else if (loading) {
+  //   // on load
+  //   return <Loading />;
+  // }
+  else {
     // if not authenticated
     return (
       <Suspense fallback={<Loading />}>
-        <Home />
+        <Home toggle={toggleAuth}/>
       </Suspense>
     );
   }
