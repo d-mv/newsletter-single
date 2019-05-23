@@ -22,17 +22,17 @@
   letter-spacing: 1px;
 
 
-  &:hover {
-    color: $accent;
-    text-shadow: $boxShadowHover;
+  // &:hover {
+  //   color: $accent;
+  //   text-shadow: $boxShadowHover;
 
-    svg {
-      transition: 0.5s;
-      color: $accent;
-      -webkit-filter: drop-shadow($svgShadowHover);
-      filter: drop-shadow($svgShadowHover);
-    }
-  }
+  //   svg {
+  //     transition: 0.5s;
+  //     color: $accent;
+  //     -webkit-filter: drop-shadow($svgShadowHover);
+  //     filter: drop-shadow($svgShadowHover);
+  //   }
+  // }
 
   &:active {
     transform: scale(0.9);
